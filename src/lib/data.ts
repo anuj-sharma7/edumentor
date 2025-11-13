@@ -460,13 +460,15 @@ export const conceptMaps = [
     {
         subject: 'Physics',
         maps: [
-            { name: 'Relationship between Force, Mass, and Acceleration', imageUrl: 'https://picsum.photos/600/400', 'data-ai-hint': 'physics flowchart' },
+            { name: 'Kinematics', imageUrl: 'https://picsum.photos/seed/kinematics/600/400', 'data-ai-hint': 'kinematics mindmap' },
+            { name: 'Laws of Motion', imageUrl: 'https://picsum.photos/seed/newton-laws/600/400', 'data-ai-hint': 'force motion diagram' },
+            { name: 'Relationship between Force, Mass, and Acceleration', imageUrl: 'https://picsum.photos/seed/force-mass-acceleration/600/400', 'data-ai-hint': 'physics flowchart' },
         ]
     },
     {
         subject: 'Chemistry',
         maps: [
-            { name: 'Types of Chemical Bonds', imageUrl: 'https://picsum.photos/600/400', 'data-ai-hint': 'chemistry mindmap' },
+            { name: 'Types of Chemical Bonds', imageUrl: 'https://picsum.photos/seed/chem-bonds/600/400', 'data-ai-hint': 'chemistry mindmap' },
         ]
     }
 ]

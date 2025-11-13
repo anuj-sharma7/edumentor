@@ -5,7 +5,7 @@ import { useState, useMemo } from 'react';
 import type { Subject, Question } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Flame, Atom, FlaskConical, Calculator, BookOpen, BarChart3, ChevronRight, Filter, SortAsc, FileQuestion, X, Telescope } from 'lucide-react';
+import { Check, Flame, Telescope, X, Filter, SortAsc, FileQuestion } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
@@ -46,12 +46,6 @@ type Concept = {
   questions: Question[];
   chapterName: string;
   subjectName: string;
-};
-
-const subjectIcons: { [key: string]: React.ElementType } = {
-  Physics: Atom,
-  Chemistry: FlaskConical,
-  Mathematics: Calculator,
 };
 
 const difficultyColors = {
@@ -132,9 +126,9 @@ export default function TopicExplorerView({ subjects }: { subjects: Subject[] })
   const allConcepts: Concept[] = useMemo(() => {
     const conceptsMap = new Map<string, Concept>();
     subjects.forEach(subject => {
-        subject.chapters.forEach(chapter => {
-            chapter.questions.forEach(question => {
-                question.concepts.forEach(conceptName => {
+        (subject.chapters || []).forEach(chapter => {
+            (chapter.questions || []).forEach(question => {
+                (question.concepts || []).forEach(conceptName => {
                     const normalizedConcept = conceptName.toLowerCase().trim();
                     if (!conceptsMap.has(normalizedConcept)) {
                         conceptsMap.set(normalizedConcept, {
@@ -152,7 +146,9 @@ export default function TopicExplorerView({ subjects }: { subjects: Subject[] })
                     if (question.isPastPaper) {
                         concept.pastPaperCount++;
                     }
-                    concept.difficulty[question.difficulty]++;
+                    if(question.difficulty) {
+                      concept.difficulty[question.difficulty]++;
+                    }
                     concept.questions.push(question);
                 });
             });
@@ -305,7 +301,7 @@ export default function TopicExplorerView({ subjects }: { subjects: Subject[] })
                                     </CardContent>
                                     <div className="p-4 pt-0">
                                         <Button className="w-full">
-                                            View Questions <ChevronRight className="w-4 h-4 ml-2" />
+                                            View Questions
                                         </Button>
                                     </div>
                                 </Card>

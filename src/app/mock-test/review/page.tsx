@@ -112,6 +112,7 @@ function ReviewPageComponent() {
     }));
     
     setPracticeItems(initialPracticeItems);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   useEffect(() => {
@@ -292,4 +293,3 @@ export default function ReviewPage() {
       </Suspense>
     )
   }
-

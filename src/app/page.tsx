@@ -132,6 +132,7 @@ export default function HomePage() {
                       fill
                       className="object-cover"
                       data-ai-hint="IIT campus"
+                      priority
                     />
                      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent p-8 md:p-12 flex flex-col justify-center items-start text-white">
                         <Badge className="mb-2 bg-blue-600 text-white border-0">JEE Main 2025</Badge>

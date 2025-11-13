@@ -1,5 +1,6 @@
 
 
+
 'use client';
 
 import { useState, useEffect, useCallback, Suspense, useRef } from 'react';
@@ -116,11 +117,23 @@ function TaggingFormComponent() {
   
   const handleTopicClick = useCallback(async (topic: string) => {
     form.setValue('questionText', topic);
-    await handleFormSubmit({ questionText: topic });
-  }, [form]);
+    // Find if a search for this topic already exists
+    const existingSearchId = Object.keys(history).find(id => history[id].questionText === topic);
+    if (existingSearchId) {
+      setActiveSearchId(existingSearchId);
+    } else {
+      // Create a new search
+      const newSearchId = Date.now().toString();
+      setActiveSearchId(newSearchId);
+      await handleFormSubmit({ questionText: topic }, newSearchId);
+    }
+  }, [form, history]);
 
   const handleFormSubmit = useCallback(async (values: z.infer<typeof formSchema>, searchIdToUpdate?: string) => {
     setIsLoading(true);
+    // Add a delay before making the API call to avoid rate-limiting issues
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     let currentSearchId = searchIdToUpdate || Date.now().toString();
 
     // Create a new history entry or update the existing one
@@ -466,7 +479,7 @@ function TaggingFormComponent() {
                                           {concept.formulas.map((formula, fIndex) => (
                                             <div key={`formula-${index}-${fIndex}`} className="p-3 bg-background/50 rounded-md text-sm">
                                               <p className="font-semibold">{formula.name}</p>
-                                              <code className="block my-1 p-2 rounded bg-muted font-code text-primary">{formula.formula}</code>
+                                              <code className="block my-1 p-2 rounded bg-muted font-mono text-primary">{formula.formula}</code>
                                             </div>
                                           ))}
                                         </div>

@@ -19,6 +19,7 @@ import { User, Settings, LogOut, ChevronDown, Trophy } from 'lucide-react';
 import { useProfile } from '@/context/profile-context';
 import Link from 'next/link';
 import { Skeleton } from '../ui/skeleton';
+import { useTheme } from 'next-themes';
 
 const HeaderSkeleton = () => (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-8">
@@ -35,6 +36,7 @@ const HeaderSkeleton = () => (
 
 export default function Header() {
   const { profile, isLoading } = useProfile();
+  const { theme, setTheme } = useTheme();
   
   if (isLoading || !profile) {
     return <HeaderSkeleton />;

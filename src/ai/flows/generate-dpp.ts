@@ -30,13 +30,14 @@ export type DppInput = z.infer<typeof DppInputSchema>;
 const QuestionOutputSchema = z.object({
     id: z.number(),
     text: z.string(),
-    options: z.array(z.string()),
+    options: z.array(z.string()).optional(),
     answer: z.string(),
     difficulty: z.enum(['Easy', 'Medium', 'Hard']),
     pageReference: z.number(),
     concepts: z.array(z.string()),
     isPastPaper: z.boolean(),
     explanation: z.string().optional(),
+    questionType: z.enum(['mcq', 'numerical']).optional(),
 });
 
 
@@ -59,12 +60,12 @@ async function getQuestionsFromBank({ chapters, difficulty, count, subjectsToInc
     subjectsToInclude?: string[];
 }): Promise<Question[]> {
     let allQuestions: Question[] = [];
-    const chapterMap = new Map<number, Chapter>();
-
+    
     const relevantSubjects = subjectsToInclude 
         ? subjects.filter(s => subjectsToInclude.includes(s.name))
         : subjects;
 
+    const chapterMap = new Map<number, Chapter>();
     relevantSubjects.forEach(subject => {
         subject.chapters.forEach(chapter => {
             chapterMap.set(chapter.id, chapter);
@@ -117,24 +118,34 @@ const generateDppFlow = ai.defineFlow(
   async (input) => {
     
     if (input.dppType === 'full-syllabus') {
-        const easyQuestions = await getQuestionsFromBank({ count: 30, difficulty: 'Easy' });
-        const mediumQuestions = await getQuestionsFromBank({ count: 30, difficulty: 'Medium' });
-        const hardQuestions = await getQuestionsFromBank({ count: 30, difficulty: 'Hard' });
+        const jeeSections = [
+            { name: 'Physics', subjectsToInclude: ['Physics'] },
+            { name: 'Chemistry', subjectsToInclude: ['Chemistry'] },
+            { name: 'Mathematics', subjectsToInclude: ['Mathematics'] },
+        ];
+        
+        let allQuestions: Question[] = [];
+        const sections = [];
 
-        const allQuestions = [...easyQuestions, ...mediumQuestions, ...hardQuestions];
-        const shuffledAll = allQuestions.sort(() => 0.5 - Math.random());
-        const shuffledEasy = easyQuestions.sort(() => 0.5 - Math.random());
-        const shuffledMedium = mediumQuestions.sort(() => 0.5 - Math.random());
-        const shuffledHard = hardQuestions.sort(() => 0.5 - Math.random());
+        for (const section of jeeSections) {
+            const easyQs = await getQuestionsFromBank({ count: 10, difficulty: 'Easy', subjectsToInclude: section.subjectsToInclude });
+            const mediumQs = await getQuestionsFromBank({ count: 15, difficulty: 'Medium', subjectsToInclude: section.subjectsToInclude });
+            const hardQs = await getQuestionsFromBank({ count: 5, difficulty: 'Hard', subjectsToInclude: section.subjectsToInclude });
+            
+            const sectionQuestions = [...easyQs, ...mediumQs, ...hardQs].sort(() => 0.5 - Math.random());
+            allQuestions.push(...sectionQuestions);
+            
+            sections.push({
+                name: section.name,
+                duration: 60 * 60, // 60 minutes
+                questions: sectionQuestions
+            });
+        }
         
         return {
-            name: 'Full Syllabus Mock Test',
-            questions: shuffledAll, // For results page flat list
-            sections: [
-                { name: 'Easy', duration: 20 * 60, questions: shuffledEasy },
-                { name: 'Medium', duration: 30 * 60, questions: shuffledMedium },
-                { name: 'Hard', duration: 35 * 60, questions: shuffledHard },
-            ],
+            name: 'JEE Full Syllabus Mock Test',
+            questions: allQuestions.sort(() => 0.5 - Math.random()), // For results page flat list
+            sections: sections,
         };
     }
 
@@ -155,7 +166,8 @@ const generateDppFlow = ai.defineFlow(
             pageReference: q.pageReference,
             concepts: q.concepts,
             isPastPaper: q.isPastPaper,
-            explanation: q.explanation
+            explanation: q.explanation,
+            questionType: q.questionType,
         })),
     };
   }

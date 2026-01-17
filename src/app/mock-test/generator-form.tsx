@@ -15,12 +15,13 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, History, Repeat, Trash2, ArrowLeft, CheckCircle, Calculator } from 'lucide-react';
+import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, History, Repeat, Trash2, ArrowLeft, CheckCircle, Calculator, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { cn } from '@/lib/utils';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { generateDpp, DppInput } from '@/ai/flows/generate-dpp';
 
 
 interface GeneratorFormProps {
@@ -157,47 +158,71 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
   };
 
 
-  const generateTest = () => {
-    
-    let chaptersToUse: number[] | 'all' | {id: number, count: number}[] = [];
+  const generateTest = async () => {
+    setIsLoading(true);
+    toast({
+        title: "Generating your mock test...",
+        description: "The AI is preparing your questions. Please wait.",
+    });
+
+    let dppInput: DppInput;
     let testName = '';
-    let questionCount = 0;
 
     if (generatorType === 'subjectwise') {
         if (!selectedSubject) {
             toast({ title: 'Subject Required', description: 'Please select a subject first.', variant: 'destructive' });
+            setIsLoading(false);
             return;
         }
-        chaptersToUse = testType === 'chapters' ? selectedChapters : 'all';
         if (testType === 'chapters' && selectedChapters.length === 0) {
             toast({ title: 'Chapters Required', description: 'Please select at least one chapter.', variant: 'destructive' });
+            setIsLoading(false);
             return;
         }
-        testName = `${selectedSubject.name} ${testType === 'chapters' ? 'Chapter-wise' : 'Full Syllabus'} Test`;
-        questionCount = testType === 'chapters' ? Math.min(selectedChapters.length * 5, 20) : 30;
+
+        const chaptersToGenerate = testType === 'chapters' 
+            ? selectedChapters.map(id => ({ id, questionCount: 10 })) // Defaulting to 10 Qs per chapter
+            : selectedSubject.chapters.map(c => ({ id: c.id, questionCount: Math.floor(30/selectedSubject.chapters.length) || 1 }));
+
+        testName = `${selectedSubject.name} ${testType === 'chapters' ? `(${selectedChapters.length} Chapters)` : 'Full Syllabus'} Test`;
+        
+        dppInput = {
+            dppType: 'subjectwise',
+            chapters: chaptersToGenerate,
+            dppName: testName,
+            examType: exam,
+        }
 
     } else { // Custom
         if (customChapters.length === 0) {
             toast({ title: 'Chapters Required', description: 'Please select at least one chapter for your custom test.', variant: 'destructive' });
+            setIsLoading(false);
             return;
         }
-        chaptersToUse = customChapters.map(c => ({ id: c.id, count: c.questionCount }));
         testName = 'Custom Multi-Chapter Test';
-        questionCount = customChapters.reduce((sum, chapter) => sum + chapter.questionCount, 0);
+        dppInput = {
+            dppType: 'custom',
+            chapters: customChapters.map(c => ({ id: c.id, questionCount: c.questionCount })),
+            dppName: testName,
+            examType: exam,
+        }
     }
     
-    const testConfig = {
-      exam,
-      subject: generatorType === 'subjectwise' ? selectedSubject?.name : 'Custom',
-      type: generatorType === 'subjectwise' ? testType : 'custom',
-      chapters: chaptersToUse,
-      duration,
-      questionCount,
-      name: testName,
-    };
-    
-    sessionStorage.setItem('mockTestConfig', JSON.stringify(testConfig));
-    router.push('/mock-test/start');
+    try {
+        const result = await generateDpp(dppInput);
+        const testConfig = { ...result, duration, name: testName };
+        sessionStorage.setItem('mockTestConfig', JSON.stringify(testConfig));
+        router.push('/mock-test/start');
+    } catch (error) {
+        console.error("Failed to generate test", error);
+        toast({
+            title: 'Test Generation Failed',
+            description: 'Something went wrong. Please try again.',
+            variant: 'destructive',
+        });
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   const renderSubjectwiseGenerator = () => (
@@ -282,7 +307,6 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
                             <Accordion type="multiple" value={openUnits} onValueChange={setOpenUnits} className="w-full space-y-2">
                                 {selectedSubject.units.map(unit => {
                                     const allChaptersInUnitSelected = unit.chapters.every(c => selectedChapters.includes(c.id));
-                                    const someChaptersInUnitSelected = unit.chapters.some(c => selectedChapters.includes(c.id));
                                     return (
                                         <AccordionItem value={unit.name} key={unit.id} className="border rounded-lg bg-secondary/30 px-4">
                                             <div className="flex items-center">
@@ -333,8 +357,9 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <Button onClick={generateTest} size="lg" className={cn("w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300")}>
-                            <Lightbulb className="mr-2 h-5 w-5" /> Generate & Start Test
+                        <Button onClick={generateTest} disabled={isLoading} size="lg" className={cn("w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300")}>
+                            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Lightbulb className="mr-2 h-5 w-5" />}
+                            {isLoading ? 'Generating...' : 'Generate & Start Test'}
                         </Button>
                     </div>
                 </CardContent>
@@ -463,8 +488,9 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
                             </SelectContent>
                         </Select>
                     </div>
-                    <Button onClick={generateTest} size="lg" className={cn("w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300")}>
-                        <Lightbulb className="mr-2 h-5 w-5" /> Generate & Start Custom Test
+                    <Button onClick={generateTest} disabled={isLoading} size="lg" className={cn("w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300")}>
+                        {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Lightbulb className="mr-2 h-5 w-5" />}
+                        {isLoading ? 'Generating...' : 'Generate & Start Custom Test'}
                     </Button>
                 </div>
             </CardContent>

@@ -1,7 +1,13 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
+  experimental: {
+    allowedDevOrigins: [
+        "https://6000-firebase-edumentor-ai2-1759244011807.cluster-ulqnojp5endvgve6krhe7klaws.cloudworkstations.dev"
+    ]
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

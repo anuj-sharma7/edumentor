@@ -90,10 +90,9 @@ function ReviewPageComponent() {
     setPracticeItems(initialPracticeItems);
 
     const generateAllQuestions = async () => {
-      let items = [...initialPracticeItems];
-      for (let i = 0; i < items.length; i++) {
+      for (let i = 0; i < incorrectOrUnattempted.length; i++) {
         try {
-          const q = items[i].originalQuestion;
+          const q = incorrectOrUnattempted[i];
           const altQ = await generatePracticeQuestion({
             originalQuestion: q.text,
             originalAnswer: q.answer,
@@ -104,7 +103,10 @@ function ReviewPageComponent() {
           
           setPracticeItems(prevItems => {
             const newItems = [...prevItems];
-            newItems[i] = { ...newItems[i], alternativeQuestion: altQ, isLoading: false };
+            const itemIndex = newItems.findIndex(item => item.originalQuestion.id === q.id);
+            if (itemIndex !== -1) {
+              newItems[itemIndex] = { ...newItems[itemIndex], alternativeQuestion: altQ, isLoading: false };
+            }
             return newItems;
           });
 
@@ -112,10 +114,14 @@ function ReviewPageComponent() {
             console.error("Could not generate practice question for item", i, error);
             setPracticeItems(prevItems => {
               const newItems = [...prevItems];
-              newItems[i] = { ...newItems[i], isLoading: false, error: true };
+               const itemIndex = newItems.findIndex(item => item.originalQuestion.id === incorrectOrUnattempted[i].id);
+              if (itemIndex !== -1) {
+                newItems[itemIndex] = { ...newItems[itemIndex], isLoading: false, error: true };
+              }
               return newItems;
             });
         }
+        // Add a delay to prevent rate-limiting
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     };
@@ -310,5 +316,7 @@ export default function ReviewPage() {
       </Suspense>
     )
   }
+
+    
 
     

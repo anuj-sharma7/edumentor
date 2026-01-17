@@ -70,6 +70,8 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [openUnits, setOpenUnits] = useState<string[]>([]);
+  const [difficulty, setDifficulty] = useState<'Easy' | 'Medium' | 'Hard' | 'Mixed'>('Mixed');
+
 
   const router = useRouter();
   const { toast } = useToast();
@@ -191,6 +193,7 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
             chapters: chaptersToGenerate,
             dppName: testName,
             examType: exam,
+            difficulty: difficulty,
         }
 
     } else { // Custom
@@ -205,6 +208,7 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
             chapters: customChapters.map(c => ({ id: c.id, questionCount: c.questionCount })),
             dppName: testName,
             examType: exam,
+            difficulty: difficulty,
         }
     }
     
@@ -281,6 +285,18 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
                     <CardDescription>Select syllabus type and chapters for your test.</CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-6'>
+                    <div className='space-y-2'>
+                        <Label htmlFor='difficulty-subjectwise'>Difficulty</Label>
+                        <Select value={difficulty} onValueChange={(val: 'Easy' | 'Medium' | 'Hard' | 'Mixed') => setDifficulty(val)}>
+                            <SelectTrigger id='difficulty-subjectwise'><SelectValue /></SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Easy">Easy</SelectItem>
+                                <SelectItem value="Medium">Medium</SelectItem>
+                                <SelectItem value="Hard">Hard</SelectItem>
+                                <SelectItem value="Mixed">Mixed</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
                     <RadioGroup value={testType} onValueChange={(val: 'chapters' | 'full') => setTestType(val)} className='grid grid-cols-2 gap-4'>
                         <div>
                             <RadioGroupItem value="chapters" id="chapters" className="peer sr-only" />
@@ -430,6 +446,30 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
                 <CardDescription>Mix and match chapters from any subject to build your own test.</CardDescription>
             </CardHeader>
             <CardContent className='space-y-6'>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <div className='space-y-2'>
+                        <Label htmlFor='exam-type-custom'>Exam Type</Label>
+                        <Select value={exam} onValueChange={(val: 'jee' | 'neet') => setExam(val)}>
+                            <SelectTrigger id='exam-type-custom'><SelectValue /></SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="jee">JEE</SelectItem>
+                                <SelectItem value="neet">NEET</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className='space-y-2'>
+                        <Label htmlFor='difficulty-custom'>Difficulty</Label>
+                        <Select value={difficulty} onValueChange={(val: 'Easy' | 'Medium' | 'Hard' | 'Mixed') => setDifficulty(val)}>
+                            <SelectTrigger id='difficulty-custom'><SelectValue /></SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Easy">Easy</SelectItem>
+                                <SelectItem value="Medium">Medium</SelectItem>
+                                <SelectItem value="Hard">Hard</SelectItem>
+                                <SelectItem value="Mixed">Mixed</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
                 <Accordion type="multiple" className="w-full space-y-2">
                     {subjects.map(subject => (
                         <AccordionItem value={subject.name} key={subject.name} className="border rounded-md px-4">

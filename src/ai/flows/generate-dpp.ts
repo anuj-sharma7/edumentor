@@ -103,6 +103,19 @@ async function getQuestionsFromBank({ chapters, difficulty, count, subjectsToInc
     return allQuestions;
 }
 
+const mapQuestionToOutput = (q: Question): z.infer<typeof QuestionOutputSchema> => ({
+    id: q.id,
+    text: q.text,
+    options: q.options,
+    answer: q.answer,
+    difficulty: q.difficulty,
+    pageReference: q.pageReference,
+    concepts: q.concepts,
+    isPastPaper: q.isPastPaper,
+    explanation: q.explanation,
+    questionType: q.questionType,
+});
+
 
 export async function generateDpp(input: DppInput): Promise<DppOutput> {
   return generateDppFlow(input);
@@ -138,37 +151,57 @@ const generateDppFlow = ai.defineFlow(
             sections.push({
                 name: section.name,
                 duration: 60 * 60, // 60 minutes
-                questions: sectionQuestions
+                questions: sectionQuestions.map(mapQuestionToOutput)
             });
         }
         
         return {
-            name: 'JEE Full Syllabus Mock Test',
-            questions: allQuestions.sort(() => 0.5 - Math.random()), // For results page flat list
+            name: input.dppName || 'JEE Full Syllabus Mock Test',
+            questions: allQuestions.sort(() => 0.5 - Math.random()).map(mapQuestionToOutput),
             sections: sections,
         };
     }
 
-
-    const questions = await getQuestionsFromBank({
-        chapters: input.chapters!,
-        difficulty: input.difficulty
-    });
+    // Handle Subjectwise and Custom DPPs by creating sections
+    const chapterDetails = input.chapters || [];
     
+    const subjectToChaptersMap: { [subjectName: string]: { id: number; questionCount: number }[] } = {};
+
+    subjects.forEach(subject => {
+        subject.chapters.forEach(chapter => {
+            const detail = chapterDetails.find(d => d.id === chapter.id);
+            if (detail) {
+                if (!subjectToChaptersMap[subject.name]) {
+                    subjectToChaptersMap[subject.name] = [];
+                }
+                subjectToChaptersMap[subject.name].push(detail);
+            }
+        });
+    });
+
+    let allQuestionsFromBank: Question[] = [];
+    const sections = [];
+
+    for (const subjectName in subjectToChaptersMap) {
+        const subjectChapters = subjectToChaptersMap[subjectName];
+        const sectionQuestionsFromBank = await getQuestionsFromBank({
+            chapters: subjectChapters,
+            difficulty: input.difficulty,
+        });
+
+        allQuestionsFromBank.push(...sectionQuestionsFromBank);
+        
+        sections.push({
+            name: subjectName,
+            duration: 60 * 60, // Default 60 mins per section
+            questions: sectionQuestionsFromBank.map(mapQuestionToOutput),
+        });
+    }
+
     return {
-        name: input.dppName || 'Your Daily Practice Problems',
-        questions: questions.map(q => ({
-            id: q.id,
-            text: q.text,
-            options: q.options,
-            answer: q.answer,
-            difficulty: q.difficulty,
-            pageReference: q.pageReference,
-            concepts: q.concepts,
-            isPastPaper: q.isPastPaper,
-            explanation: q.explanation,
-            questionType: q.questionType,
-        })),
+        name: input.dppName || 'Custom Mock Test',
+        questions: allQuestionsFromBank.map(mapQuestionToOutput),
+        sections: sections,
     };
   }
 );

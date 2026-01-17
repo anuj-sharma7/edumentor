@@ -26,21 +26,33 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import Link from 'next/link';
+import { Input } from '@/components/ui/input';
 
 const QuestionCard = ({ question, index }: { question: Question; index: number }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [numericalAnswer, setNumericalAnswer] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const isMcq = question.questionType === 'mcq' || !question.questionType;
 
   const handleSubmit = () => {
     setIsSubmitted(true);
   };
 
-  const getOptionClass = (option: string) => {
+  const getMcqOptionClass = (option: string) => {
     if (!isSubmitted) return 'hover:bg-accent/50';
     if (option === question.answer) return 'bg-green-100 dark:bg-green-900/30 border-green-500';
     if (option === selectedOption) return 'bg-red-100 dark:bg-red-900/30 border-red-500';
     return '';
   };
+  
+  const getNumericalResultClass = () => {
+    if (!isSubmitted) return '';
+    // Use a tolerance for numerical answers if needed, e.g., parseFloat
+    const isCorrect = numericalAnswer.trim() === question.answer;
+    return isCorrect ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+  }
+
 
   return (
     <div className="p-4 rounded-lg bg-secondary/50 transition-colors border">
@@ -58,24 +70,37 @@ const QuestionCard = ({ question, index }: { question: Question; index: number }
               )}
             </div>
        </div>
-      <RadioGroup
-        value={selectedOption || undefined}
-        onValueChange={setSelectedOption}
-        className="space-y-2 my-4"
-        disabled={isSubmitted}
-      >
-        {question.options.map((option, i) => (
-          <div key={i} className="flex items-center space-x-2">
-            <RadioGroupItem value={option} id={`${question.id}-option-${i}`} />
-            <Label htmlFor={`${question.id}-option-${i}`} className={cn("cursor-pointer flex-1 p-3 rounded-md border transition-all", getOptionClass(option))}>
-              {option}
-            </Label>
-          </div>
-        ))}
-      </RadioGroup>
+      {isMcq ? (
+          <RadioGroup
+            value={selectedOption || undefined}
+            onValueChange={setSelectedOption}
+            className="space-y-2 my-4"
+            disabled={isSubmitted}
+          >
+            {question.options?.map((option, i) => (
+              <div key={i} className="flex items-center space-x-2">
+                <RadioGroupItem value={option} id={`${question.id}-option-${i}`} />
+                <Label htmlFor={`${question.id}-option-${i}`} className={cn("cursor-pointer flex-1 p-3 rounded-md border transition-all", getMcqOptionClass(option))}>
+                  {option}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+      ) : (
+        <div className='my-4'>
+            <Input 
+                type="text" 
+                value={numericalAnswer}
+                onChange={(e) => setNumericalAnswer(e.target.value)}
+                placeholder="Enter your answer"
+                className="max-w-xs"
+                disabled={isSubmitted}
+            />
+        </div>
+      )}
       
       {!isSubmitted && (
-          <Button onClick={handleSubmit} size="sm" variant="outline" disabled={!selectedOption}>
+          <Button onClick={handleSubmit} size="sm" variant="outline" disabled={isMcq ? !selectedOption : !numericalAnswer}>
             Check Answer
           </Button>
       )}
@@ -83,9 +108,15 @@ const QuestionCard = ({ question, index }: { question: Question; index: number }
       {isSubmitted && (
         <div className={cn(
             "mt-4 p-3 rounded-md text-sm",
-            selectedOption === question.answer ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300" : "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300"
+            isMcq ? 
+                (selectedOption === question.answer ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300" : "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300")
+                : getNumericalResultClass()
         )}>
-           {selectedOption === question.answer ? "Correct!" : "Incorrect."} The correct answer is: <strong>{question.answer}</strong>
+           {isMcq ? (
+                selectedOption === question.answer ? "Correct!" : "Incorrect."
+           ) : (
+                numericalAnswer.trim() === question.answer ? "Correct!" : "Incorrect."
+           )} The correct answer is: <strong>{question.answer}</strong>
         </div>
       )}
     </div>
@@ -96,6 +127,7 @@ const QuestionCard = ({ question, index }: { question: Question; index: number }
 export default function QuestionBankView({ subject }: { subject: Subject }) {
   const [selectedChapters, setSelectedChapters] = useState<number[]>([]);
   const [difficultyFilter, setDifficultyFilter] = useState<'All' | 'Easy' | 'Medium' | 'Hard'>('All');
+  const [questionTypeFilter, setQuestionTypeFilter] = useState<'all' | 'mcq' | 'numerical'>('all');
   const [isStarted, setIsStarted] = useState(false);
   const [openUnits, setOpenUnits] = useState<string[]>([]);
 
@@ -135,9 +167,17 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
     if (difficultyFilter !== 'All') {
       questions = questions.filter(q => q.difficulty === difficultyFilter);
     }
+    
+    if (questionTypeFilter !== 'all') {
+      if (questionTypeFilter === 'mcq') {
+        questions = questions.filter(q => q.questionType === 'mcq' || !q.questionType);
+      } else {
+        questions = questions.filter(q => q.questionType === questionTypeFilter);
+      }
+    }
 
     return questions;
-  }, [selectedChapters, difficultyFilter, subject]);
+  }, [selectedChapters, difficultyFilter, questionTypeFilter, subject]);
 
   if (!subject) {
     return <p>Subject not found.</p>;
@@ -218,7 +258,21 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
                </h2>
                <p className="text-muted-foreground">{filteredQuestions.length} questions found</p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-2">
+                    <Filter className="w-5 h-5" />
+                    <Label htmlFor="type-filter" className="font-semibold shrink-0">Type:</Label>
+                    <Select value={questionTypeFilter} onValueChange={(val: 'all' | 'mcq' | 'numerical') => setQuestionTypeFilter(val)}>
+                        <SelectTrigger id="type-filter" className="w-[120px]">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                            <SelectItem value="mcq">MCQ</SelectItem>
+                            <SelectItem value="numerical">Numerical</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
                 <div className="flex items-center gap-2">
                     <Filter className="w-5 h-5" />
                     <Label htmlFor="difficulty-filter" className="font-semibold shrink-0">Difficulty:</Label>
@@ -251,4 +305,3 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
   
   return isStarted ? renderQuestionList() : renderSelectionScreen();
 }
-

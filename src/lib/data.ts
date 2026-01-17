@@ -38,7 +38,8 @@ import { sBlockElementsQuestions } from './data/s-block-elements';
 export type Question = {
   id: number;
   text: string;
-  options: string[];
+  questionType?: 'mcq' | 'numerical';
+  options?: string[];
   answer: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   pageReference: number;

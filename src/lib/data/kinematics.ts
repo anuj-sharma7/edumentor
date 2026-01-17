@@ -75,7 +75,7 @@ export const kinematicsQuestions: Chapter = {
         { id: 101067, text: 'The horizontal range and the maximum height of a projectile are equal. The angle of projection of the projectile is:', options: ['θ = tan⁻¹(1/4)', 'θ = tan⁻¹(4)', 'θ = tan⁻¹(2)', 'θ = 45°'], answer: 'θ = tan⁻¹(4)', difficulty: 'Medium', pageReference: 37, concepts: ['projectile motion'], isPastPaper: true },
         { id: 101068, text: 'A particle has an initial velocity of (2i + 3j) and an acceleration of (0.3i + 0.2j). The magnitude of velocity after 10 s will be:', options: ['9√2 units', '5√2 units', '5 units', '9 units'], answer: '5√2 units', difficulty: 'Medium', pageReference: 32, concepts: ['vectors', 'kinematics in 2d'], isPastPaper: true },
         { id: 101069, text: 'A stone tied to the end of a string of 1 m long is whirled in a horizontal circle with a constant speed. If the stone makes 22 revolutions in 44 seconds, what is the magnitude and direction of acceleration of the stone?', options: ['π² m/s² and direction along the tangent', 'π² m/s² and direction along the radius towards the center', 'π²/4 m/s² and direction along the radius towards the center', 'π² m/s² and direction along the radius away from the center'], answer: 'π² m/s² and direction along the radius towards the center', difficulty: 'Medium', pageReference: 31, concepts: ['uniform circular motion', 'centripetal acceleration'], isPastPaper: true },
-        { id: 101070, text: 'A body projected at an angle with the horizontal has a range of 300 m. If the time of flight is 6 s, then the horizontal component of velocity is:', options: ['30 m/s', '50 m/s', '40 m/s', '45 m/s'], answer: '50 m/s', difficulty: 'Medium', pageReference: 34, concepts: ['projectile motion'], isPastPaper: false },
+        { id: 101070, text: 'A body projected at an angle with the horizontal has a range of 400 m. If the time of flight is 8 s, then the horizontal component of velocity is:', options: ['40 m/s', '50 m/s', '60 m/s', '80 m/s'], answer: '50 m/s', difficulty: 'Medium', pageReference: 34, concepts: ['projectile motion'], isPastPaper: false },
         { id: 101071, text: 'The displacement of a particle starting from rest (at t=0) is given by s = 6t^2 - t^3. The time in seconds at which the particle will attain zero velocity again, is:', options: ['2', '4', '6', '8'], answer: '4', difficulty: 'Medium', pageReference: 18, concepts: ['velocity', 'calculus'], isPastPaper: false },
         { id: 101072, text: 'A person aiming to reach exactly opposite point on the bank of a stream is swimming with a speed of 0.5 m/s at an angle of 120° with the direction of flow of water. The speed of water in the stream is:', options: ['0.25 m/s', '0.5 m/s', '1.0 m/s', '0.433 m/s'], answer: '0.25 m/s', difficulty: 'Hard', pageReference: 42, concepts: ['relative velocity'], isPastPaper: true },
         { id: 101073, text: 'A particle has initial velocity (3i + 4j) and has acceleration (0.4i + 0.3j). Its speed after 10 s is:', options: ['7 units', '7√2 units', '8.5 units', '10 units'], answer: '7√2 units', difficulty: 'Medium', pageReference: 32, concepts: ['vectors', 'kinematics in 2d'], isPastPaper: true },
@@ -107,6 +107,30 @@ export const kinematicsQuestions: Chapter = {
         { id: 101099, text: 'The displacement x of a particle varies with time t as x = ae^(-αt) + be^(βt), where a, b, α and β are positive constants. The velocity of the particle will:', options: ['be independent of β', 'drop to zero when α = β', 'go on decreasing with time', 'go on increasing with time'], answer: 'go on increasing with time', difficulty: 'Hard', pageReference: 18, concepts: ['velocity', 'calculus'], isPastPaper: true, explanation: 'v = dx/dt = -aαe^(-αt) + bβe^(βt). The first term decreases with time and approaches zero, while the second term increases exponentially with time. Therefore, the velocity will go on increasing with time.' },
         { id: 101100, text: 'A body falling from a height of 10 m rebounds from a hard floor. If it loses 20% of its energy in the impact, the height to which it will rise is:', options: ['10 m', '8 m', '5 m', '2 m'], answer: '8 m', difficulty: 'Medium', pageReference: 28, concepts: ['conservation of energy', 'inelastic collision'], isPastPaper: false, explanation: 'Initial energy is mgh. After impact, energy is 0.8 * mgh. The new height h\' will be such that mgh\' = 0.8 * mgh. So, h\' = 0.8h = 0.8 * 10 = 8 m.' },
         // ... (adding up to 300 questions)
-        { id: 101300, text: 'A particle moves with constant acceleration along a straight line. If v1, v2, v3 are the average velocities in three successive intervals t1, t2, t3, which of the following relations is correct?', options: ['(v1-v2)/(v2-v3) = (t1-t2)/(t2-t3)', '(v1-v2)/(v2-v3) = (t1+t2)/(t2+t3)', '(v1-v2)/(v2-v3) = (t1-t2)/(t2+t3)', '(v1-v2)/(v2-v3) = (t1+t2)/(t2-t3)'], answer: '(v1-v2)/(v2-v3) = (t1+t2)/(t2+t3)', difficulty: 'Hard', pageReference: 25, concepts: ['average velocity', 'kinematics'], isPastPaper: true, explanation: 'This is a standard result derived from the equations of motion for constant acceleration. The change in average velocity is proportional to the sum of the time intervals.' }
+        { id: 101300, text: 'A particle moves with constant acceleration along a straight line. If v1, v2, v3 are the average velocities in three successive intervals t1, t2, t3, which of the following relations is correct?', options: ['(v1-v2)/(v2-v3) = (t1-t2)/(t2-t3)', '(v1-v2)/(v2-v3) = (t1+t2)/(t2+t3)', '(v1-v2)/(v2-v3) = (t1-t2)/(t2+t3)', '(v1-v2)/(v2-v3) = (t1+t2)/(t2-t3)'], answer: '(v1-v2)/(v2-v3) = (t1+t2)/(t2+t3)', difficulty: 'Hard', pageReference: 25, concepts: ['average velocity', 'kinematics'], isPastPaper: true, explanation: 'This is a standard result derived from the equations of motion for constant acceleration. The change in average velocity is proportional to the sum of the time intervals.' },
+        {
+            id: 101301,
+            text: 'A car accelerates uniformly from 10 m/s to 20 m/s in 5 seconds. What is the acceleration of the car in m/s²?',
+            questionType: 'numerical',
+            options: [],
+            answer: '2',
+            difficulty: 'Easy',
+            pageReference: 23,
+            concepts: ['equations of motion', 'acceleration'],
+            isPastPaper: false,
+            explanation: 'Using the first equation of motion, v = u + at. Acceleration a = (v - u) / t = (20 - 10) / 5 = 10 / 5 = 2 m/s².'
+        },
+        {
+            id: 101302,
+            text: 'A ball is thrown vertically upwards with an initial speed of 29.4 m/s. What is the maximum height reached by the ball? (Take g = 9.8 m/s²)',
+            questionType: 'numerical',
+            options: [],
+            answer: '44.1',
+            difficulty: 'Medium',
+            pageReference: 28,
+            concepts: ['motion under gravity', 'maximum height'],
+            isPastPaper: false,
+            explanation: 'Using the third equation of motion, v² = u² + 2as. At maximum height, final velocity v = 0. 0 = (29.4)² + 2(-9.8)s. s = (29.4)² / (2 * 9.8) = 864.36 / 19.6 = 44.1 meters.'
+        }
     ]
 };

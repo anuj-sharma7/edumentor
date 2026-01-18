@@ -31,7 +31,6 @@ interface TestConfig {
     questions: TestQuestion[]; // Flat list for backward compatibility and results page
     sections?: TestSection[];
     duration?: number;
-    questionCount?: number;
 }
 
 export default function TestPage() {
@@ -45,53 +44,76 @@ export default function TestPage() {
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const activeSection = testConfig?.sections ? testConfig.sections[currentSectionIndex] : null;
-  // This state will hold the questions for the *current* section being attempted
-  const [currentSectionQuestions, setCurrentSectionQuestions] = useState<TestQuestion[]>([]);
+  const currentQuestion = activeSection?.questions[currentQuestionIndex];
 
-  const currentQuestion = currentSectionQuestions[currentQuestionIndex];
-
-  // This function is for the final submission of the entire test
-  const submitTest = useCallback(() => {
-    if (!testConfig) return;
+  const updateQuestionTime = useCallback((index: number) => {
+    if (!testConfig || !activeSection) return;
+    const timeSpent = (Date.now() - questionStartTime.current) / 1000;
     
+    const newQuestions = [...activeSection.questions];
+    if(newQuestions[index]) {
+      newQuestions[index].timeTaken = (newQuestions[index].timeTaken || 0) + timeSpent;
+    }
+    const newSections = [...testConfig.sections!];
+    newSections[currentSectionIndex].questions = newQuestions;
+    
+    setTestConfig(prev => prev ? { ...prev, sections: newSections } : null);
+    questionStartTime.current = Date.now();
+  }, [testConfig, activeSection, currentSectionIndex]);
+
+  const finalTestSubmission = useCallback(() => {
+    if (!testConfig) return;
     if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
     }
-    
-    const allQuestions = testConfig.sections ? testConfig.sections.flatMap(s => s.questions) : testConfig.questions;
-    const totalTimeTaken = allQuestions.reduce((acc, q) => acc + (q?.timeTaken || 0), 0);
+    // Update time for the very last question
+    updateQuestionTime(currentQuestionIndex);
 
-    sessionStorage.setItem('testResults', JSON.stringify(allQuestions));
-    sessionStorage.setItem('totalTimeTaken', JSON.stringify(totalTimeTaken));
-    router.replace('/mock-test/results');
-  }, [testConfig, router]);
+    // After the final update, use a slight delay to ensure state is set before navigating
+    setTimeout(() => {
+        setTestConfig(currentConfig => {
+            if (!currentConfig) return null;
+            const allQuestions = currentConfig.sections ? currentConfig.sections.flatMap(s => s.questions) : currentConfig.questions;
+            const totalTimeTaken = allQuestions.reduce((acc, q) => acc + (q?.timeTaken || 0), 0);
 
+            sessionStorage.setItem('testResults', JSON.stringify(allQuestions));
+            sessionStorage.setItem('totalTimeTaken', JSON.stringify(totalTimeTaken));
+            // Keep the original config for re-attempt
+            // sessionStorage.setItem('mockTestConfig', JSON.stringify(testConfig));
+            router.replace('/mock-test/results');
+            return currentConfig;
+        });
+    }, 100);
+  }, [testConfig, router, updateQuestionTime, currentQuestionIndex]);
 
   const submitSection = useCallback(() => {
-    if (!testConfig) return;
+    if (!testConfig || !activeSection) return;
     
     updateQuestionTime(currentQuestionIndex); 
+    if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
 
-    const updatedConfig = { ...testConfig };
-    if (updatedConfig.sections) {
-        updatedConfig.sections[currentSectionIndex].questions = currentSectionQuestions;
-    } else {
-        updatedConfig.questions = currentSectionQuestions;
-    }
-    sessionStorage.setItem('mockTestConfig', JSON.stringify(updatedConfig));
-    
-    const isLastSection = !updatedConfig.sections || currentSectionIndex >= updatedConfig.sections.length - 1;
+    const isLastSection = !testConfig.sections || currentSectionIndex >= testConfig.sections.length - 1;
 
     if (isLastSection) {
-        submitTest();
+        finalTestSubmission();
     } else {
-        sessionStorage.setItem('resumeSectionIndex', (currentSectionIndex + 1).toString());
-        // We can reload the page to pick up the new section index from sessionStorage
-        window.location.reload();
+        // Wait for state to update before moving to next section
+        setTimeout(() => {
+            setTestConfig(currentConfig => {
+                if (!currentConfig) return null;
+                // Save progress before switching
+                sessionStorage.setItem('mockTestConfig', JSON.stringify(currentConfig));
+                
+                const nextSectionIndex = currentSectionIndex + 1;
+                setCurrentSectionIndex(nextSectionIndex);
+                setCurrentQuestionIndex(0);
+                setTimeLeft(currentConfig.sections![nextSectionIndex].duration);
+                questionStartTime.current = Date.now();
+                return currentConfig;
+            });
+        }, 100);
     }
-    
-  }, [testConfig, currentSectionQuestions, currentQuestionIndex, submitTest, router, currentSectionIndex]);
-
+  }, [testConfig, activeSection, currentQuestionIndex, finalTestSubmission, currentSectionIndex]);
 
   useEffect(() => {
     const configStr = sessionStorage.getItem('mockTestConfig');
@@ -101,46 +123,39 @@ export default function TestPage() {
     }
     const config: TestConfig = JSON.parse(configStr);
     
-    const resumeSectionIndexStr = sessionStorage.getItem('resumeSectionIndex');
-    const sectionIndex = resumeSectionIndexStr ? parseInt(resumeSectionIndexStr, 10) : 0;
+    const initializedConfig: TestConfig = {
+        ...config,
+        sections: config.sections?.map(section => ({
+            ...section,
+            questions: section.questions.map(q => ({
+                ...q,
+                status: q.status || 'unanswered',
+                timeTaken: q.timeTaken || 0,
+                userAnswer: q.userAnswer || undefined,
+            }))
+        }))
+    };
+    setTestConfig(initializedConfig);
     
-    setCurrentSectionIndex(sectionIndex);
-
-    let sectionQuestions: TestQuestion[];
-    if (config.sections && config.sections[sectionIndex]) {
-        const section = config.sections[sectionIndex];
-        setTimeLeft(section.duration);
-        sectionQuestions = section.questions.map(q => ({
-            ...q,
-            status: q.status || 'unanswered',
-            timeTaken: q.timeTaken || 0,
-            userAnswer: q.userAnswer || undefined,
-        }));
-    } else {
-       setTimeLeft(config.duration ? config.duration * 60 : 0);
-       sectionQuestions = (config.questions || []).map(q => ({
-         ...q,
-         status: q.status || 'unanswered',
-         timeTaken: q.timeTaken || 0,
-         userAnswer: q.userAnswer || undefined,
-       }));
+    const initialSection = initializedConfig.sections?.[0];
+    if (initialSection) {
+        setTimeLeft(initialSection.duration);
+    } else if (initializedConfig.duration) { // Fallback for old format
+        setTimeLeft(initializedConfig.duration * 60);
     }
     
-    setTestConfig(config);
-    setCurrentSectionQuestions(sectionQuestions);
-    setCurrentQuestionIndex(0);
     questionStartTime.current = Date.now();
   }, [router]);
   
   useEffect(() => {
-     if (timeLeft <= 0 && (testConfig?.sections || testConfig?.questions)) {
+     if (timeLeft <= 0 && testConfig) {
         if(timerIntervalRef.current) clearInterval(timerIntervalRef.current);
         submitSection();
         return;
      }
      if (timeLeft > 0) {
       timerIntervalRef.current = setInterval(() => {
-        setTimeLeft(prevTime => prevTime - 1);
+        setTimeLeft(prevTime => prevTime > 0 ? prevTime - 1 : 0);
       }, 1000);
       return () => {
           if(timerIntervalRef.current) clearInterval(timerIntervalRef.current);
@@ -148,44 +163,44 @@ export default function TestPage() {
      }
   }, [timeLeft, submitSection, testConfig]);
 
-  const updateQuestionTime = (index: number) => {
-      const timeSpent = (Date.now() - questionStartTime.current) / 1000;
-      setCurrentSectionQuestions(prev => {
-          const newQuestions = [...prev];
-          if(newQuestions[index]) {
-            newQuestions[index].timeTaken = (newQuestions[index].timeTaken || 0) + timeSpent;
-          }
-          return newQuestions;
-      })
-      questionStartTime.current = Date.now();
-  }
 
   const handleAnswerChange = (answer: string) => {
-    setCurrentSectionQuestions(prev => {
-        const newQuestions = [...prev];
-        if (newQuestions[currentQuestionIndex].status !== 'review') {
-            newQuestions[currentQuestionIndex].status = 'answered';
-        }
-        newQuestions[currentQuestionIndex].userAnswer = answer;
-        return newQuestions;
+    if (!activeSection) return;
+    const newQuestions = [...activeSection.questions];
+    if (newQuestions[currentQuestionIndex].status !== 'review') {
+        newQuestions[currentQuestionIndex].status = 'answered';
+    }
+    newQuestions[currentQuestionIndex].userAnswer = answer;
+    
+    setTestConfig(prev => {
+        if (!prev || !prev.sections) return prev;
+        const newSections = [...prev.sections];
+        newSections[currentSectionIndex].questions = newQuestions;
+        return { ...prev, sections: newSections };
     });
   };
   
   const handleMarkForReview = () => {
-    setCurrentSectionQuestions(prev => {
-        const newQuestions = [...prev];
-        const currentStatus = newQuestions[currentQuestionIndex].status;
-        if (currentStatus === 'review') {
-            newQuestions[currentQuestionIndex].status = newQuestions[currentQuestionIndex].userAnswer ? 'answered' : 'unanswered';
-        } else {
-            newQuestions[currentQuestionIndex].status = 'review';
-        }
-        return newQuestions;
+    if (!activeSection) return;
+     const newQuestions = [...activeSection.questions];
+    const currentStatus = newQuestions[currentQuestionIndex].status;
+
+    if (currentStatus === 'review') {
+        newQuestions[currentQuestionIndex].status = newQuestions[currentQuestionIndex].userAnswer ? 'answered' : 'unanswered';
+    } else {
+        newQuestions[currentQuestionIndex].status = 'review';
+    }
+    
+    setTestConfig(prev => {
+        if (!prev || !prev.sections) return prev;
+        const newSections = [...prev.sections];
+        newSections[currentSectionIndex].questions = newQuestions;
+        return { ...prev, sections: newSections };
     });
   }
 
   const handleNext = () => {
-    if (currentQuestionIndex < currentSectionQuestions.length - 1) {
+    if (activeSection && currentQuestionIndex < activeSection.questions.length - 1) {
       updateQuestionTime(currentQuestionIndex);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
@@ -205,7 +220,7 @@ export default function TestPage() {
     }
   }
 
-  if (!testConfig || !currentQuestion) {
+  if (!testConfig || !activeSection || !currentQuestion) {
     return (
       <div className="flex items-center justify-center h-screen bg-secondary">
         <p className="text-lg">Loading your test...</p>
@@ -213,11 +228,11 @@ export default function TestPage() {
     );
   }
 
-  const answeredCount = currentSectionQuestions.filter(q => q.status === 'answered').length;
-  const unansweredCount = currentSectionQuestions.filter(q => q.status === 'unanswered').length;
-  const markedForReviewCount = currentSectionQuestions.filter(q => q.status === 'review').length;
-  const progress = ((answeredCount + markedForReviewCount) / currentSectionQuestions.length) * 100;
-  const isLastQuestionInSection = currentQuestionIndex === currentSectionQuestions.length - 1;
+  const answeredCount = activeSection.questions.filter(q => q.status === 'answered').length;
+  const unansweredCount = activeSection.questions.filter(q => q.status === 'unanswered').length;
+  const markedForReviewCount = activeSection.questions.filter(q => q.status === 'review').length;
+  const progress = ((answeredCount + markedForReviewCount) / activeSection.questions.length) * 100;
+  const isLastQuestionInSection = currentQuestionIndex === activeSection.questions.length - 1;
   const isLastSection = !testConfig.sections || currentSectionIndex >= testConfig.sections.length - 1;
 
 
@@ -257,7 +272,7 @@ export default function TestPage() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Your answers for this section will be evaluated.
+                    Your answers for this section will be evaluated. This action cannot be undone.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -274,12 +289,15 @@ export default function TestPage() {
         {/* Question Area */}
         <div className="lg:col-span-3 flex flex-col">
           <Card className="flex-1 flex flex-col">
+            <CardHeader>
+                <CardTitle>Question {currentQuestionIndex + 1} of {activeSection.questions.length}</CardTitle>
+            </CardHeader>
             <CardContent className="p-6 flex-1 flex flex-col">
               {currentQuestion && (
                 <>
                   <div className="flex justify-between items-start mb-4">
                       <p className="text-lg font-semibold flex-1">
-                          Question {currentQuestionIndex + 1}: {currentQuestion.text}
+                          {currentQuestion.text}
                       </p>
                       <div className="flex items-center gap-2">
                             <Badge variant={currentQuestion.difficulty === 'Easy' ? 'secondary' : currentQuestion.difficulty === 'Hard' ? 'destructive' : 'default'} className="capitalize">{currentQuestion.difficulty}</Badge>
@@ -339,7 +357,7 @@ export default function TestPage() {
                     {activeSection && <CardDescription>Section: {activeSection.name}</CardDescription>}
                 </CardHeader>
                 <CardContent className="grid grid-cols-5 gap-2">
-                {currentSectionQuestions.map((q, index) => (
+                {activeSection.questions.map((q, index) => (
                     <Button
                     key={`${currentSectionIndex}-${q.id}-${index}`}
                     variant="default"
@@ -358,7 +376,7 @@ export default function TestPage() {
                 <div className="p-4 space-y-3">
                     <div className='p-4'>
                         <Progress value={progress} className="w-full" />
-                        <p className='text-sm text-muted-foreground mt-2 text-center'>{answeredCount + markedForReviewCount} of {currentSectionQuestions.length} questions visited</p>
+                        <p className='text-sm text-muted-foreground mt-2 text-center'>{answeredCount + markedForReviewCount} of {activeSection.questions.length} questions visited</p>
                     </div>
                     <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2"><div className="h-4 w-4 rounded-full bg-green-500"></div>{answeredCount} Answered</div>

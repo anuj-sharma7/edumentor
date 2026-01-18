@@ -131,21 +131,22 @@ const generateDppFlow = ai.defineFlow(
   async (input) => {
     
     if (input.dppType === 'full-syllabus') {
+      let allQuestions: Question[] = [];
+      const sections = [];
+
+      if (input.examType === 'jee') {
         const jeeSections = [
-            { name: 'Physics', subjectsToInclude: ['Physics'] },
-            { name: 'Chemistry', subjectsToInclude: ['Chemistry'] },
-            { name: 'Mathematics', subjectsToInclude: ['Mathematics'] },
+            { name: 'Physics', count: 25, subjectsToInclude: ['Physics'] },
+            { name: 'Chemistry', count: 25, subjectsToInclude: ['Chemistry'] },
+            { name: 'Mathematics', count: 25, subjectsToInclude: ['Mathematics'] },
         ];
-        
-        let allQuestions: Question[] = [];
-        const sections = [];
 
         for (const section of jeeSections) {
             const easyQs = await getQuestionsFromBank({ count: 10, difficulty: 'Easy', subjectsToInclude: section.subjectsToInclude });
-            const mediumQs = await getQuestionsFromBank({ count: 15, difficulty: 'Medium', subjectsToInclude: section.subjectsToInclude });
+            const mediumQs = await getQuestionsFromBank({ count: 10, difficulty: 'Medium', subjectsToInclude: section.subjectsToInclude });
             const hardQs = await getQuestionsFromBank({ count: 5, difficulty: 'Hard', subjectsToInclude: section.subjectsToInclude });
             
-            const sectionQuestions = [...easyQs, ...mediumQs, ...hardQs].sort(() => 0.5 - Math.random());
+            const sectionQuestions = [...easyQs, ...mediumQs, ...hardQs].sort(() => 0.5 - Math.random()).slice(0, section.count);
             allQuestions.push(...sectionQuestions);
             
             sections.push({
@@ -154,12 +155,38 @@ const generateDppFlow = ai.defineFlow(
                 questions: sectionQuestions.map(mapQuestionToOutput)
             });
         }
-        
-        return {
+         return {
             name: input.dppName || 'JEE Full Syllabus Mock Test',
             questions: allQuestions.sort(() => 0.5 - Math.random()).map(mapQuestionToOutput),
             sections: sections,
         };
+
+      } else if (input.examType === 'neet') {
+         const neetSections = [
+            { name: 'Physics', count: 50, subjectsToInclude: ['Physics'] },
+            { name: 'Chemistry', count: 50, subjectsToInclude: ['Chemistry'] },
+            // Note: Biology and Zoology data are not available in the current system.
+        ];
+         for (const section of neetSections) {
+            const easyQs = await getQuestionsFromBank({ count: 20, difficulty: 'Easy', subjectsToInclude: section.subjectsToInclude });
+            const mediumQs = await getQuestionsFromBank({ count: 20, difficulty: 'Medium', subjectsToInclude: section.subjectsToInclude });
+            const hardQs = await getQuestionsFromBank({ count: 10, difficulty: 'Hard', subjectsToInclude: section.subjectsToInclude });
+            
+            const sectionQuestions = [...easyQs, ...mediumQs, ...hardQs].sort(() => 0.5 - Math.random()).slice(0, section.count);
+            allQuestions.push(...sectionQuestions);
+            
+            sections.push({
+                name: section.name,
+                duration: 90 * 60, // 90 minutes
+                questions: sectionQuestions.map(mapQuestionToOutput)
+            });
+        }
+         return {
+            name: input.dppName || 'NEET Mock Test (Physics & Chemistry)',
+            questions: allQuestions.sort(() => 0.5 - Math.random()).map(mapQuestionToOutput),
+            sections: sections,
+        };
+      }
     }
 
     // Handle Subjectwise and Custom DPPs by creating sections

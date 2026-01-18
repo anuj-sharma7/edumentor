@@ -1,4 +1,3 @@
-
 import { electrostaticsQuestions } from './data/electrostatics';
 import { moleConceptQuestions } from './data/mole-concept';
 import { atomicStructureQuestions } from './data/atomic-structure';
@@ -35,6 +34,7 @@ import { dAndFBlockElementsQuestions } from './data/d-and-f-block-elements';
 import { sBlockElementsQuestions } from './data/s-block-elements';
 import { biologySubject } from './data/biology';
 import { algebraQuestions } from './data/algebra';
+import { coordinateGeometryQuestions } from './data/coordinate-geometry';
 
 
 export type Question = {
@@ -296,6 +296,13 @@ export const subjects: Subject[] = [
                     { id: 303007, text: 'The function f(x) = x³ - 3x has a local maximum at:', options: ['x = 1', 'x = -1', 'x = 0', 'x = √3'], answer: 'x = -1', difficulty: 'Hard', pageReference: 95, concepts: ['maxima and minima'], isPastPaper: false },
                 ] }
             ]
+        },
+        {
+            id: 33,
+            name: 'Coordinate Geometry',
+            chapters: [
+                coordinateGeometryQuestions
+            ]
         }
     ],
     chapters: [
@@ -335,6 +342,7 @@ export const subjects: Subject[] = [
         ]
       },
       algebraQuestions,
+      coordinateGeometryQuestions
     ]
   },
   biologySubject
@@ -517,3 +525,4 @@ export const conceptMaps = [
     
 
     
+

@@ -203,6 +203,6 @@ export const humanPhysiologyDigestionQuestions: Chapter = {
             pageReference: 8,
             concepts: ['digestive hormones'],
             isPastPaper: false,
-        },
+        }
     ]
 };

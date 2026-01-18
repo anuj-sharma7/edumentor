@@ -35,6 +35,10 @@ import { sBlockElementsQuestions } from './data/s-block-elements';
 import { biologySubject } from './data/biology';
 import { algebraQuestions } from './data/algebra';
 import { coordinateGeometryQuestions } from './data/coordinate-geometry';
+import { probabilityQuestions } from './data/maths-probability';
+import { statisticsQuestions } from './data/maths-statistics';
+import { vectorQuestions } from './data/maths-vectors';
+import { threeDGeometryQuestions } from './data/maths-3d-geometry';
 
 
 export type Question = {
@@ -259,13 +263,7 @@ export const subjects: Subject[] = [
             id: 30,
             name: 'Algebra & Functions',
             chapters: [
-                { id: 301, name: 'Sets, Relations and Functions', questions: [
-                    { id: 301001, text: 'If A = {1, 2, 3} and B = {3, 4, 5}, find A ∪ B.', options: ['{1, 2, 3, 4, 5}', '{3}', '{1, 2, 4, 5}', '{}'], answer: '{1, 2, 3, 4, 5}', difficulty: 'Easy', pageReference: 5, concepts: ['sets', 'union'], isPastPaper: false },
-                    { id: 301002, text: 'Let R be a relation on the set N of natural numbers defined by nRm if n divides m. Then R is:', options: ['Reflexive and symmetric', 'Transitive and symmetric', 'Equivalence', 'Reflexive, transitive but not symmetric'], answer: 'Reflexive, transitive but not symmetric', difficulty: 'Medium', pageReference: 10, concepts: ['relations', 'equivalence relation'], isPastPaper: true },
-                    { id: 301003, text: 'The function f: R → R defined by f(x) = x² is:', options: ['One-one and onto', 'One-one but not onto', 'Not one-one but onto', 'Neither one-one nor onto'], answer: 'Neither one-one nor onto', difficulty: 'Easy', pageReference: 15, concepts: ['functions', 'one-one', 'onto'], isPastPaper: true },
-                    { id: 301004, text: 'If f(x) = x + 7 and g(x) = x - 7, x ∈ R, then find fog(7).', options: ['7', '0', '14', '-7'], answer: '7', difficulty: 'Easy', pageReference: 18, concepts: ['functions', 'composition'], isPastPaper: false },
-                    { id: 301005, text: 'Let A = {1, 2, 3}. The number of equivalence relations containing (1, 2) is:', options: ['1', '2', '3', '4'], answer: '2', difficulty: 'Hard', pageReference: 12, concepts: ['relations', 'equivalence relation'], isPastPaper: true },
-                ] },
+                { id: 301, name: 'Sets, Relations and Functions', questions: [] },
                 algebraQuestions,
             ]
         },
@@ -273,28 +271,14 @@ export const subjects: Subject[] = [
             id: 31,
             name: 'Trigonometry',
             chapters: [
-                { id: 302, name: 'Trigonometry', questions: [
-                    { id: 302001, text: 'The value of sin(75°) is:', options: ['(√3+1)/2√2', '(√3-1)/2√2', '(1-√3)/2√2', '(√3+√2)/2'], answer: '(√3+1)/2√2', difficulty: 'Easy', pageReference: 45, concepts: ['trigonometric functions'], isPastPaper: false },
-                    { id: 302002, text: 'If tan(A) = 3/4 and A is in the third quadrant, the value of sin(A) is:', options: ['3/5', '-3/5', '4/5', '-4/5'], answer: '-3/5', difficulty: 'Medium', pageReference: 48, concepts: ['trigonometric identities'], isPastPaper: true },
-                    { id: 302003, text: 'The value of tan(π/8) is:', options: ['√2 - 1', '√2 + 1', '1 - √2', '2 + √3'], answer: '√2 - 1', difficulty: 'Medium', pageReference: 50, concepts: ['trigonometric functions', 'half-angle formulas'], isPastPaper: false },
-                    { id: 302004, text: 'The general solution of the equation sin(x) = 1/2 is:', options: ['nπ + (-1)ⁿ(π/6)', '2nπ ± π/6', 'nπ + π/6', '2nπ + π/3'], answer: 'nπ + (-1)ⁿ(π/6)', difficulty: 'Medium', pageReference: 55, concepts: ['trigonometric equations'], isPastPaper: false },
-                    { id: 302005, text: 'The maximum value of 3cos(x) + 4sin(x) is:', options: ['3', '4', '5', '7'], answer: '5', difficulty: 'Hard', pageReference: 60, concepts: ['trigonometric functions', 'maximum and minimum values'], isPastPaper: true },
-                ] },
+                { id: 302, name: 'Trigonometry', questions: [] },
             ]
         },
          {
             id: 32,
             name: 'Calculus',
             chapters: [
-                { id: 303, name: 'Calculus', questions: [
-                    { id: 303001, text: 'The derivative of x³ with respect to x is:', options: ['3x²', 'x²', '3x', 'x³/3'], answer: '3x²', difficulty: 'Easy', pageReference: 90, concepts: ['differentiation'], isPastPaper: false },
-                    { id: 303002, text: 'The integral of cos(x) with respect to x is:', options: ['sin(x) + C', '-sin(x) + C', 'cos(x) + C', '-cos(x) + C'], answer: 'sin(x) + C', difficulty: 'Easy', pageReference: 100, concepts: ['integration'], isPastPaper: false },
-                    { id: 303003, text: 'The limit of (sin x / x) as x approaches 0 is:', options: ['0', '1', '∞', 'Does not exist'], answer: '1', difficulty: 'Easy', pageReference: 85, concepts: ['limits'], isPastPaper: false },
-                    { id: 303004, text: 'The area of the region bounded by the curve y = x², the x-axis, and the lines x=0 and x=1 is:', options: ['1', '1/2', '1/3', '1/4'], answer: '1/3', difficulty: 'Medium', pageReference: 105, concepts: ['definite integrals', 'area under curve'], isPastPaper: false },
-                    { id: 303005, text: 'If y = log(sin(x)), then dy/dx is:', options: ['cot(x)', 'tan(x)', 'cos(x)', '-cot(x)'], answer: 'cot(x)', difficulty: 'Medium', pageReference: 92, concepts: ['differentiation', 'chain rule'], isPastPaper: true },
-                    { id: 303006, text: 'The integral of 1/(1+x²) from 0 to 1 is:', options: ['π/2', 'π/3', 'π/4', 'π/6'], answer: 'π/4', difficulty: 'Medium', pageReference: 102, concepts: ['definite integrals'], isPastPaper: false },
-                    { id: 303007, text: 'The function f(x) = x³ - 3x has a local maximum at:', options: ['x = 1', 'x = -1', 'x = 0', 'x = √3'], answer: 'x = -1', difficulty: 'Hard', pageReference: 95, concepts: ['maxima and minima'], isPastPaper: false },
-                ] }
+                { id: 303, name: 'Calculus', questions: [] }
             ]
         },
         {
@@ -303,46 +287,34 @@ export const subjects: Subject[] = [
             chapters: [
                 coordinateGeometryQuestions
             ]
+        },
+        {
+            id: 34,
+            name: 'Vectors & 3D Geometry',
+            chapters: [
+                vectorQuestions,
+                threeDGeometryQuestions,
+            ]
+        },
+        {
+            id: 35,
+            name: 'Statistics & Probability',
+            chapters: [
+                statisticsQuestions,
+                probabilityQuestions,
+            ]
         }
     ],
     chapters: [
-      {
-        id: 301,
-        name: 'Sets, Relations and Functions',
-        questions: [
-            { id: 301001, text: 'If A = {1, 2, 3} and B = {3, 4, 5}, find A ∪ B.', options: ['{1, 2, 3, 4, 5}', '{3}', '{1, 2, 4, 5}', '{}'], answer: '{1, 2, 3, 4, 5}', difficulty: 'Easy', pageReference: 5, concepts: ['sets', 'union'], isPastPaper: false },
-            { id: 301002, text: 'Let R be a relation on the set N of natural numbers defined by nRm if n divides m. Then R is:', options: ['Reflexive and symmetric', 'Transitive and symmetric', 'Equivalence', 'Reflexive, transitive but not symmetric'], answer: 'Reflexive, transitive but not symmetric', difficulty: 'Medium', pageReference: 10, concepts: ['relations', 'equivalence relation'], isPastPaper: true },
-            { id: 301003, text: 'The function f: R → R defined by f(x) = x² is:', options: ['One-one and onto', 'One-one but not onto', 'Not one-one but onto', 'Neither one-one nor onto'], answer: 'Neither one-one nor onto', difficulty: 'Easy', pageReference: 15, concepts: ['functions', 'one-one', 'onto'], isPastPaper: true },
-            { id: 301004, text: 'If f(x) = x + 7 and g(x) = x - 7, x ∈ R, then find fog(7).', options: ['7', '0', '14', '-7'], answer: '7', difficulty: 'Easy', pageReference: 18, concepts: ['functions', 'composition'], isPastPaper: false },
-            { id: 301005, text: 'Let A = {1, 2, 3}. The number of equivalence relations containing (1, 2) is:', options: ['1', '2', '3', '4'], answer: '2', difficulty: 'Hard', pageReference: 12, concepts: ['relations', 'equivalence relation'], isPastPaper: true },
-        ]
-      },
-      {
-        id: 302,
-        name: 'Trigonometry',
-        questions: [
-            { id: 302001, text: 'The value of sin(75°) is:', options: ['(√3+1)/2√2', '(√3-1)/2√2', '(1-√3)/2√2', '(√3+√2)/2'], answer: '(√3+1)/2√2', difficulty: 'Easy', pageReference: 45, concepts: ['trigonometric functions'], isPastPaper: false },
-            { id: 302002, text: 'If tan(A) = 3/4 and A is in the third quadrant, the value of sin(A) is:', options: ['3/5', '-3/5', '4/5', '-4/5'], answer: '-3/5', difficulty: 'Medium', pageReference: 48, concepts: ['trigonometric identities'], isPastPaper: true },
-            { id: 302003, text: 'The value of tan(π/8) is:', options: ['√2 - 1', '√2 + 1', '1 - √2', '2 + √3'], answer: '√2 - 1', difficulty: 'Medium', pageReference: 50, concepts: ['trigonometric functions', 'half-angle formulas'], isPastPaper: false },
-            { id: 302004, text: 'The general solution of the equation sin(x) = 1/2 is:', options: ['nπ + (-1)ⁿ(π/6)', '2nπ ± π/6', 'nπ + π/6', '2nπ + π/3'], answer: 'nπ + (-1)ⁿ(π/6)', difficulty: 'Medium', pageReference: 55, concepts: ['trigonometric equations'], isPastPaper: false },
-            { id: 302005, text: 'The maximum value of 3cos(x) + 4sin(x) is:', options: ['3', '4', '5', '7'], answer: '5', difficulty: 'Hard', pageReference: 60, concepts: ['trigonometric functions', 'maximum and minimum values'], isPastPaper: true },
-        ]
-      },
-      {
-        id: 303,
-        name: 'Calculus',
-        questions: [
-            { id: 303001, text: 'The derivative of x³ with respect to x is:', options: ['3x²', 'x²', '3x', 'x³/3'], answer: '3x²', difficulty: 'Easy', pageReference: 90, concepts: ['differentiation'], isPastPaper: false },
-            { id: 303002, text: 'The integral of cos(x) with respect to x is:', options: ['sin(x) + C', '-sin(x) + C', 'cos(x) + C', '-cos(x) + C'], answer: 'sin(x) + C', difficulty: 'Easy', pageReference: 100, concepts: ['integration'], isPastPaper: false },
-            { id: 303003, text: 'The limit of (sin x / x) as x approaches 0 is:', options: ['0', '1', '∞', 'Does not exist'], answer: '1', difficulty: 'Easy', pageReference: 85, concepts: ['limits'], isPastPaper: false },
-            { id: 303004, text: 'The area of the region bounded by the curve y = x², the x-axis, and the lines x=0 and x=1 is:', options: ['1', '1/2', '1/3', '1/4'], answer: '1/3', difficulty: 'Medium', pageReference: 105, concepts: ['definite integrals', 'area under curve'], isPastPaper: false },
-            { id: 303005, text: 'If y = log(sin(x)), then dy/dx is:', options: ['cot(x)', 'tan(x)', 'cos(x)', '-cot(x)'], answer: 'cot(x)', difficulty: 'Medium', pageReference: 92, concepts: ['differentiation', 'chain rule'], isPastPaper: true },
-            { id: 303006, text: 'The integral of 1/(1+x²) from 0 to 1 is:', options: ['π/2', 'π/3', 'π/4', 'π/6'], answer: 'π/4', difficulty: 'Medium', pageReference: 102, concepts: ['definite integrals'], isPastPaper: false },
-            { id: 303007, text: 'The function f(x) = x³ - 3x has a local maximum at:', options: ['x = 1', 'x = -1', 'x = 0', 'x = √3'], answer: 'x = -1', difficulty: 'Hard', pageReference: 95, concepts: ['maxima and minima'], isPastPaper: false },
-        ]
-      },
+      { id: 301, name: 'Sets, Relations and Functions', questions: [] },
+      { id: 302, name: 'Trigonometry', questions: [] },
+      { id: 303, name: 'Calculus', questions: [] },
       algebraQuestions,
-      coordinateGeometryQuestions
+      coordinateGeometryQuestions,
+      probabilityQuestions,
+      statisticsQuestions,
+      vectorQuestions,
+      threeDGeometryQuestions
     ]
   },
   biologySubject
@@ -525,4 +497,5 @@ export const conceptMaps = [
     
 
     
+
 

@@ -5,6 +5,10 @@ import { anatomyOfFloweringPlantsQuestions } from './botany-anatomy-flowering-pl
 import { breathingAndExchangeQuestions } from './zoology-breathing-exchange-gases';
 import { plantKingdomQuestions } from './botany-plant-kingdom';
 import { bodyFluidsAndCirculationQuestions } from './zoology-body-fluids';
+import { cellUnitOfLifeQuestions } from './botany-cell-unit-of-life';
+import { cellCycleQuestions } from './botany-cell-cycle';
+import { excretoryProductsQuestions } from './zoology-excretory-products';
+import { locomotionQuestions } from './zoology-locomotion';
 
 
 export const biologySubject: Subject = {
@@ -18,6 +22,8 @@ export const biologySubject: Subject = {
         structuralOrganisationInPlantsQuestions,
         anatomyOfFloweringPlantsQuestions,
         plantKingdomQuestions,
+        cellUnitOfLifeQuestions,
+        cellCycleQuestions,
       ]
     },
     {
@@ -27,15 +33,21 @@ export const biologySubject: Subject = {
         humanPhysiologyDigestionQuestions,
         breathingAndExchangeQuestions,
         bodyFluidsAndCirculationQuestions,
+        excretoryProductsQuestions,
+        locomotionQuestions,
       ]
     }
   ],
   chapters: [
     structuralOrganisationInPlantsQuestions,
     anatomyOfFloweringPlantsQuestions,
+    plantKingdomQuestions,
+    cellUnitOfLifeQuestions,
+    cellCycleQuestions,
     humanPhysiologyDigestionQuestions,
     breathingAndExchangeQuestions,
-    plantKingdomQuestions,
     bodyFluidsAndCirculationQuestions,
+    excretoryProductsQuestions,
+    locomotionQuestions,
   ]
 };

@@ -1,8 +1,7 @@
-
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ClipboardList, FileText, Bot, ArrowRight } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ClipboardList, FileText, Bot, ArrowRight, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { generateDpp } from "@/ai/flows/generate-dpp";
@@ -111,13 +110,26 @@ export default function MockTestPage() {
             </Card>
         </div>
         
-        <div className="text-center pt-6">
-            <h3 className="text-2xl font-headline font-semibold mb-4">Or, build your own practice set</h3>
-             <Button asChild variant="outline" size="lg">
-                <Link href="/mock-test/custom">
-                    Create a Custom Test <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-            </Button>
+        <div className="pt-8">
+            <h3 className="text-2xl font-headline font-semibold mb-4 text-center flex items-center justify-center gap-2 text-primary">
+                <Users className="w-6 h-6" />
+                Your Custom Tests
+            </h3>
+            <Link href="/mock-test/custom" className="block">
+                <Card className="bg-secondary/30 hover:bg-primary/10 hover:border-primary transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary/20">
+                    <CardContent className="p-6 flex items-center justify-between">
+                        <div>
+                            <CardTitle className="font-bold text-2xl">Create Your Own Mock Test</CardTitle>
+                            <CardDescription className="text-lg text-muted-foreground mt-1">
+                                Select specific subjects and chapters to build a personalized test.
+                            </CardDescription>
+                        </div>
+                        <div className="p-3 bg-secondary rounded-lg">
+                            <ArrowRight className="w-6 h-6 text-primary" />
+                        </div>
+                    </CardContent>
+                </Card>
+            </Link>
         </div>
       </div>
     </div>

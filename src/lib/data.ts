@@ -33,6 +33,7 @@ import { isomerismQuestions } from './data/isomerism';
 import { pBlockElementsQuestions } from './data/p-block-elements';
 import { dAndFBlockElementsQuestions } from './data/d-and-f-block-elements';
 import { sBlockElementsQuestions } from './data/s-block-elements';
+import { biologySubject } from './data/biology';
 
 
 export type Question = {
@@ -303,6 +304,7 @@ export const subjects: Subject[] = [
       }
     ]
   },
+  biologySubject
 ];
 
 export const formulas: FormulaSubject[] = [

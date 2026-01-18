@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -162,28 +161,37 @@ const generateDppFlow = ai.defineFlow(
         };
 
       } else if (input.examType === 'neet') {
-         const neetSections = [
-            { name: 'Physics', count: 50, subjectsToInclude: ['Physics'] },
-            { name: 'Chemistry', count: 50, subjectsToInclude: ['Chemistry'] },
-            // Note: Biology and Zoology data are not available in the current system.
-        ];
-         for (const section of neetSections) {
-            const easyQs = await getQuestionsFromBank({ count: 20, difficulty: 'Easy', subjectsToInclude: section.subjectsToInclude });
-            const mediumQs = await getQuestionsFromBank({ count: 20, difficulty: 'Medium', subjectsToInclude: section.subjectsToInclude });
-            const hardQs = await getQuestionsFromBank({ count: 10, difficulty: 'Hard', subjectsToInclude: section.subjectsToInclude });
+         const biologySubject = subjects.find(s => s.name === 'Biology');
+         const botanyChapters = biologySubject?.units.find(u => u.name === 'Botany')?.chapters || [];
+         const zoologyChapters = biologySubject?.units.find(u => u.name === 'Zoology')?.chapters || [];
+         const physicsChapters = subjects.find(s => s.name === 'Physics')?.chapters || [];
+         const chemistryChapters = subjects.find(s => s.name === 'Chemistry')?.chapters || [];
+
+         const neetConfig = [
+            { name: 'Physics', count: 50, source: physicsChapters },
+            { name: 'Chemistry', count: 50, source: chemistryChapters },
+            { name: 'Botany', count: 50, source: botanyChapters },
+            { name: 'Zoology', count: 50, source: zoologyChapters },
+         ];
+         
+         for (const section of neetConfig) {
+            let potentialQuestions: Question[] = section.source.flatMap(c => c.questions);
+            const easyQs = potentialQuestions.filter(q => q.difficulty === 'Easy').sort(() => 0.5 - Math.random()).slice(0, 20);
+            const mediumQs = potentialQuestions.filter(q => q.difficulty === 'Medium').sort(() => 0.5 - Math.random()).slice(0, 20);
+            const hardQs = potentialQuestions.filter(q => q.difficulty === 'Hard').sort(() => 0.5 - Math.random()).slice(0, 10);
             
             const sectionQuestions = [...easyQs, ...mediumQs, ...hardQs].sort(() => 0.5 - Math.random()).slice(0, section.count);
             allQuestions.push(...sectionQuestions);
             
             sections.push({
                 name: section.name,
-                duration: 90 * 60, // 90 minutes
+                duration: 45 * 60, // 45 minutes per section
                 questions: sectionQuestions.map(mapQuestionToOutput)
             });
         }
          return {
-            name: input.dppName || 'NEET Mock Test (Physics & Chemistry)',
-            questions: allQuestions.sort(() => 0.5 - Math.random()).map(mapQuestionToOutput),
+            name: input.dppName || 'NEET Full Syllabus Mock Test',
+            questions: allQuestions.map(mapQuestionToOutput),
             sections: sections,
         };
       }

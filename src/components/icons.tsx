@@ -71,3 +71,23 @@ export function OscillationsIcon(props: SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
+
+export function LeafIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg 
+        width="24" 
+        height="24" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor"
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        {...props}
+    >
+        <path d="M7 20.444a8.62 8.62 0 0 1-4.95-10.74C3.253 6.647 6.602 3.5 12 3.5c5.398 0 8.747 3.147 9.95 6.204a8.62 8.62 0 0 1-4.95 10.74" />
+        <path d="M12 3.5v17" />
+    </svg>
+  );
+}
+

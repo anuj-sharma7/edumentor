@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -32,7 +31,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChapterCard } from '@/components/ui/chapter-card';
 import { Input } from '@/components/ui/input';
-import { AlternatingCurrentIcon, CurrentElectricityIcon, OscillationsIcon, RotationalMotionIcon, SemiconductorsIcon } from '@/components/icons';
+import { AlternatingCurrentIcon, CurrentElectricityIcon, LeafIcon, OscillationsIcon, RotationalMotionIcon, SemiconductorsIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
 import Autoplay from "embla-carousel-autoplay";
 import { useState } from 'react';
@@ -57,6 +56,7 @@ const subjects = [
   { name: 'Physics', icon: <Atom className="w-5 h-5" /> },
   { name: 'Chemistry', icon: <FlaskConical className="w-5 h-5" /> },
   { name: 'Mathematics', icon: <Calculator className="w-5 h-5" /> },
+  { name: 'Biology', icon: <LeafIcon className="w-5 h-5" /> },
 ];
 
 const formulaChapters = {
@@ -259,7 +259,7 @@ export default function HomePage() {
                         </div>
                         <h3 className="font-bold text-2xl">PYQ Mock Tests</h3>
                     </div>
-                    <div className="flex items-center gap-2">
+                     <div className="flex items-center gap-2">
                         <Badge variant="secondary" className="bg-red-500/20 text-red-400 border-red-500/30 text-base">NEW</Badge>
                         <ChevronRight className="w-6 h-6" />
                     </div>

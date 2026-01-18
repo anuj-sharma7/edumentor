@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -15,7 +14,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, Calculator, Loader2, History, Trash2, Repeat, Clock } from 'lucide-react';
+import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, Calculator, Loader2, History, Trash2, Repeat, Clock, Leaf } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
@@ -49,12 +48,14 @@ const subjectIcons: { [key: string]: React.ElementType } = {
   Physics: Atom,
   Chemistry: FlaskConical,
   Mathematics: Calculator,
+  Biology: Leaf,
 };
 
 const subjectColors: {[key: string]: string} = {
     Physics: "from-orange-500 to-amber-500 hover:shadow-orange-500/30",
     Chemistry: "from-green-500 to-emerald-500 hover:shadow-green-500/30",
     Mathematics: "from-blue-500 to-sky-500 hover:shadow-blue-500/30",
+    Biology: "from-emerald-500 to-green-500 hover:shadow-emerald-500/30",
 };
 
 
@@ -319,7 +320,7 @@ export default function DppGenerator({ subjects }: DppGeneratorProps) {
 
       return (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {subjects.map(subject => {
                     const Icon = subjectIcons[subject.name];
                     return (

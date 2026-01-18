@@ -1,22 +1,24 @@
-
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Atom, Calculator, FlaskConical } from "lucide-react";
+import { Atom, Calculator, FlaskConical, Leaf } from "lucide-react";
 import { subjects } from "@/lib/data";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { LeafIcon } from "@/components/icons";
 
 const subjectIcons: { [key: string]: React.ElementType } = {
   Physics: Atom,
   Chemistry: FlaskConical,
   Mathematics: Calculator,
+  Biology: LeafIcon,
 };
 
 const subjectColors: {[key: string]: string} = {
     Physics: "from-orange-500 to-amber-500 hover:shadow-orange-500/30",
     Chemistry: "from-green-500 to-emerald-500 hover:shadow-green-500/30",
     Mathematics: "from-blue-500 to-sky-500 hover:shadow-blue-500/30",
+    Biology: "from-emerald-500 to-green-500 hover:shadow-emerald-500/30",
 };
 
 
@@ -36,7 +38,7 @@ export default function QuestionBankPage() {
             </p>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {subjects.map(subject => {
                     const Icon = subjectIcons[subject.name];
                     return (

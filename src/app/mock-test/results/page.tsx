@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -8,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { Check, X, Flag, BarChart, FileText, ArrowLeft, Lightbulb, Clock, Repeat, BrainCircuit } from 'lucide-react';
+import { Check, X, Flag, BarChart, FileText, ArrowLeft, Lightbulb, Repeat, Clock, BrainCircuit } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import type { MockTestHistoryItem } from '../generator-form';
@@ -252,7 +251,7 @@ export default function ResultsPage() {
                 </div>
 
                 <div className="space-y-2 my-4">
-                  {question.options.map((option, i) => (
+                  {question.options?.map((option, i) => (
                     <div
                       key={i}
                       className={cn("flex items-center p-3 border rounded-md", getOptionClass(option, question))}

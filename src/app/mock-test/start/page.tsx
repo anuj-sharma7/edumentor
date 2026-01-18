@@ -36,7 +36,6 @@ interface TestConfig {
 
 export default function TestPage() {
   const [testConfig, setTestConfig] = useState<TestConfig | null>(null);
-  const [testQuestions, setTestQuestions] = useState<TestQuestion[]>([]);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -46,45 +45,52 @@ export default function TestPage() {
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const activeSection = testConfig?.sections ? testConfig.sections[currentSectionIndex] : null;
-  const currentQuestion = activeSection ? activeSection.questions[currentQuestionIndex] : testQuestions[currentQuestionIndex];
+  // This state will hold the questions for the *current* section being attempted
+  const [currentSectionQuestions, setCurrentSectionQuestions] = useState<TestQuestion[]>([]);
 
+  const currentQuestion = currentSectionQuestions[currentQuestionIndex];
+
+  // This function is for the final submission of the entire test
   const submitTest = useCallback(() => {
     if (!testConfig) return;
     
     if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
     }
-    updateQuestionTime(currentQuestionIndex); 
-
-    let allQuestions: TestQuestion[] = [];
-    if(testConfig.sections) {
-      allQuestions = testConfig.sections.flatMap(s => s.questions);
-    } else {
-      allQuestions = testQuestions;
-    }
     
-    const totalTimeTaken = allQuestions.reduce((acc, q) => acc + q.timeTaken, 0);
+    const allQuestions = testConfig.sections ? testConfig.sections.flatMap(s => s.questions) : testConfig.questions;
+    const totalTimeTaken = allQuestions.reduce((acc, q) => acc + (q?.timeTaken || 0), 0);
 
     sessionStorage.setItem('testResults', JSON.stringify(allQuestions));
     sessionStorage.setItem('totalTimeTaken', JSON.stringify(totalTimeTaken));
-    // Keep mockTestConfig in session for re-attempts from results page
     router.replace('/mock-test/results');
-  }, [testConfig, testQuestions, currentQuestionIndex, router]);
+  }, [testConfig, router]);
 
 
   const submitSection = useCallback(() => {
-    if (!testConfig || (!activeSection && testQuestions.length === 0)) return;
+    if (!testConfig) return;
     
-    updateQuestionTime(currentQuestionIndex); // Final update for the current question
+    updateQuestionTime(currentQuestionIndex); 
 
-    const questionsToReview = activeSection ? activeSection.questions : testQuestions;
-    sessionStorage.setItem('testSectionResults', JSON.stringify(questionsToReview));
-    sessionStorage.setItem('mockTestConfig', JSON.stringify(testConfig));
-    sessionStorage.setItem('currentSectionIndex', JSON.stringify(currentSectionIndex));
-
-    router.replace('/mock-test/review');
+    const updatedConfig = { ...testConfig };
+    if (updatedConfig.sections) {
+        updatedConfig.sections[currentSectionIndex].questions = currentSectionQuestions;
+    } else {
+        updatedConfig.questions = currentSectionQuestions;
+    }
+    sessionStorage.setItem('mockTestConfig', JSON.stringify(updatedConfig));
     
-  }, [testConfig, activeSection, testQuestions, currentQuestionIndex, router]);
+    const isLastSection = !updatedConfig.sections || currentSectionIndex >= updatedConfig.sections.length - 1;
+
+    if (isLastSection) {
+        submitTest();
+    } else {
+        sessionStorage.setItem('resumeSectionIndex', (currentSectionIndex + 1).toString());
+        // We can reload the page to pick up the new section index from sessionStorage
+        window.location.reload();
+    }
+    
+  }, [testConfig, currentSectionQuestions, currentQuestionIndex, submitTest, router, currentSectionIndex]);
 
 
   useEffect(() => {
@@ -95,142 +101,91 @@ export default function TestPage() {
     }
     const config: TestConfig = JSON.parse(configStr);
     
-    const resumeSectionIndex = sessionStorage.getItem('resumeSectionIndex');
-    const sectionIndex = resumeSectionIndex ? parseInt(resumeSectionIndex, 10) : 0;
+    const resumeSectionIndexStr = sessionStorage.getItem('resumeSectionIndex');
+    const sectionIndex = resumeSectionIndexStr ? parseInt(resumeSectionIndexStr, 10) : 0;
+    
     setCurrentSectionIndex(sectionIndex);
-    sessionStorage.removeItem('resumeSectionIndex');
 
-
-    if (config.sections) {
-        const isResuming = config.sections[sectionIndex].questions.some(q => q.status !== 'unanswered');
-        if (!isResuming) {
-             const processedSections = config.sections.map(section => ({
-                ...section,
-                questions: section.questions.map(q => ({
-                    ...q,
-                    status: 'unanswered' as const,
-                    timeTaken: 0,
-                    userAnswer: undefined,
-                }))
-            }));
-            config.sections = processedSections;
-        }
-        setTimeLeft(config.sections[sectionIndex].duration);
+    let sectionQuestions: TestQuestion[];
+    if (config.sections && config.sections[sectionIndex]) {
+        const section = config.sections[sectionIndex];
+        setTimeLeft(section.duration);
+        sectionQuestions = section.questions.map(q => ({
+            ...q,
+            status: q.status || 'unanswered',
+            timeTaken: q.timeTaken || 0,
+            userAnswer: q.userAnswer || undefined,
+        }));
     } else {
-       // Legacy or single-section tests
-       const isResuming = (config.questions || []).some(q => q.status !== 'unanswered');
-       if(!isResuming) {
-           const questions = (config.questions || []).map(q => ({
-             ...q,
-             status: 'unanswered' as const,
-             timeTaken: 0,
-             userAnswer: undefined,
-           }));
-           config.questions = questions;
-           setTestQuestions(questions);
-       }
        setTimeLeft(config.duration ? config.duration * 60 : 0);
+       sectionQuestions = (config.questions || []).map(q => ({
+         ...q,
+         status: q.status || 'unanswered',
+         timeTaken: q.timeTaken || 0,
+         userAnswer: q.userAnswer || undefined,
+       }));
     }
     
     setTestConfig(config);
+    setCurrentSectionQuestions(sectionQuestions);
+    setCurrentQuestionIndex(0);
     questionStartTime.current = Date.now();
   }, [router]);
   
   useEffect(() => {
-     if (timeLeft <= 0 && testConfig) {
-        if (activeSection || testQuestions.length > 0) {
-          submitSection();
-        }
+     if (timeLeft <= 0 && (testConfig?.sections || testConfig?.questions)) {
+        if(timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+        submitSection();
         return;
      }
      if (timeLeft > 0) {
       timerIntervalRef.current = setInterval(() => {
         setTimeLeft(prevTime => prevTime - 1);
       }, 1000);
-      return () => clearInterval(timerIntervalRef.current as NodeJS.Timeout);
+      return () => {
+          if(timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+      }
      }
-  }, [timeLeft, submitSection, testConfig, activeSection, testQuestions]);
+  }, [timeLeft, submitSection, testConfig]);
 
   const updateQuestionTime = (index: number) => {
       const timeSpent = (Date.now() - questionStartTime.current) / 1000;
-      if (activeSection) {
-        setTestConfig(prevConfig => {
-          if (!prevConfig?.sections) return prevConfig;
-          const newSections = [...prevConfig.sections];
-          const newQuestions = [...newSections[currentSectionIndex].questions];
-          if(newQuestions[index]) {
-            newQuestions[index].timeTaken += timeSpent;
-          }
-          newSections[currentSectionIndex] = { ...newSections[currentSectionIndex], questions: newQuestions };
-          return { ...prevConfig, sections: newSections };
-        });
-      } else {
-        setTestQuestions(prev => {
+      setCurrentSectionQuestions(prev => {
           const newQuestions = [...prev];
           if(newQuestions[index]) {
-            newQuestions[index].timeTaken += timeSpent;
+            newQuestions[index].timeTaken = (newQuestions[index].timeTaken || 0) + timeSpent;
           }
           return newQuestions;
-        });
-      }
+      })
       questionStartTime.current = Date.now();
   }
 
   const handleAnswerChange = (answer: string) => {
-    const updateState = (prev: TestQuestion[]) => {
-      const newQuestions = [...prev];
-      if (newQuestions[currentQuestionIndex].status !== 'review') {
-        newQuestions[currentQuestionIndex].status = 'answered';
-      }
-      newQuestions[currentQuestionIndex].userAnswer = answer;
-      return newQuestions;
-    };
-    
-    if (activeSection) {
-        setTestConfig(prevConfig => {
-            if (!prevConfig?.sections) return prevConfig;
-            const newSections = [...prevConfig.sections];
-            const sectionQuestions = newSections[currentSectionIndex].questions;
-            const newSectionQuestions = [...sectionQuestions];
-            if(newSectionQuestions[currentQuestionIndex].status !== 'review') {
-                newSectionQuestions[currentQuestionIndex].status = 'answered';
-            }
-            newSectionQuestions[currentQuestionIndex].userAnswer = answer;
-            newSections[currentSectionIndex] = {...newSections[currentSectionIndex], questions: newSectionQuestions};
-            return {...prevConfig, sections: newSections};
-        });
-    } else {
-        setTestQuestions(updateState);
-    }
+    setCurrentSectionQuestions(prev => {
+        const newQuestions = [...prev];
+        if (newQuestions[currentQuestionIndex].status !== 'review') {
+            newQuestions[currentQuestionIndex].status = 'answered';
+        }
+        newQuestions[currentQuestionIndex].userAnswer = answer;
+        return newQuestions;
+    });
   };
   
   const handleMarkForReview = () => {
-    const updateStatus = (status: TestQuestion['status']) => 
-      status === 'review' 
-        ? (currentQuestion.userAnswer ? 'answered' : 'unanswered')
-        : 'review';
-    
-     if (activeSection) {
-        setTestConfig(prevConfig => {
-            if (!prevConfig?.sections) return prevConfig;
-            const newSections = [...prevConfig.sections];
-            const newQuestions = [...newSections[currentSectionIndex].questions];
-            newQuestions[currentQuestionIndex].status = updateStatus(newQuestions[currentQuestionIndex].status);
-            newSections[currentSectionIndex] = {...newSections[currentSectionIndex], questions: newQuestions};
-            return {...prevConfig, sections: newSections};
-        });
-    } else {
-      setTestQuestions(prev => {
+    setCurrentSectionQuestions(prev => {
         const newQuestions = [...prev];
-        newQuestions[currentQuestionIndex].status = updateStatus(newQuestions[currentQuestionIndex].status);
+        const currentStatus = newQuestions[currentQuestionIndex].status;
+        if (currentStatus === 'review') {
+            newQuestions[currentQuestionIndex].status = newQuestions[currentQuestionIndex].userAnswer ? 'answered' : 'unanswered';
+        } else {
+            newQuestions[currentQuestionIndex].status = 'review';
+        }
         return newQuestions;
-      });
-    }
+    });
   }
 
   const handleNext = () => {
-    const questions = activeSection ? activeSection.questions : testQuestions;
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < currentSectionQuestions.length - 1) {
       updateQuestionTime(currentQuestionIndex);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
@@ -250,20 +205,21 @@ export default function TestPage() {
     }
   }
 
-  if (!testConfig || (!activeSection && testQuestions.length === 0)) {
+  if (!testConfig || !currentQuestion) {
     return (
       <div className="flex items-center justify-center h-screen bg-secondary">
-        <p className="text-lg">Generating your test...</p>
+        <p className="text-lg">Loading your test...</p>
       </div>
     );
   }
 
-  const questionsForPalette = activeSection ? activeSection.questions : testQuestions;
-  const answeredCount = questionsForPalette.filter(q => q.status === 'answered').length;
-  const unansweredCount = questionsForPalette.filter(q => q.status === 'unanswered').length;
-  const markedForReviewCount = questionsForPalette.filter(q => q.status === 'review').length;
-  const progress = ((answeredCount + markedForReviewCount) / questionsForPalette.length) * 100;
-  const isLastQuestionInSection = currentQuestionIndex === questionsForPalette.length - 1;
+  const answeredCount = currentSectionQuestions.filter(q => q.status === 'answered').length;
+  const unansweredCount = currentSectionQuestions.filter(q => q.status === 'unanswered').length;
+  const markedForReviewCount = currentSectionQuestions.filter(q => q.status === 'review').length;
+  const progress = ((answeredCount + markedForReviewCount) / currentSectionQuestions.length) * 100;
+  const isLastQuestionInSection = currentQuestionIndex === currentSectionQuestions.length - 1;
+  const isLastSection = !testConfig.sections || currentSectionIndex >= testConfig.sections.length - 1;
+
 
   const getStatusColor = (status: TestQuestion['status']) => {
     switch (status) {
@@ -286,7 +242,7 @@ export default function TestPage() {
       <header className="flex justify-between items-center p-4 border-b">
         <div>
             <h1 className="text-2xl font-headline font-bold text-primary">{testConfig.name}</h1>
-            {activeSection && <p className="text-muted-foreground">Section: {activeSection.name} ({currentQuestionIndex + 1} / {activeSection.questions.length})</p>}
+            {activeSection && <p className="text-muted-foreground">Section {currentSectionIndex + 1} of {testConfig.sections?.length}: {activeSection.name}</p>}
         </div>
         <div className="flex items-center gap-4">
            <Badge variant="outline" className="text-lg font-semibold tabular-nums p-2">
@@ -295,18 +251,18 @@ export default function TestPage() {
             </Badge>
            <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="destructive">Submit Section</Button>
+                <Button variant="destructive">{isLastSection ? 'Submit Final Test' : 'Submit Section'}</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you sure you want to submit this section?</AlertDialogTitle>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Your answers for this section will be evaluated for the practice round.
+                    Your answers for this section will be evaluated.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={submitSection}>Confirm & Submit Section</AlertDialogAction>
+                  <AlertDialogAction onClick={submitSection}>Confirm & Submit</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -341,7 +297,7 @@ export default function TestPage() {
                     onValueChange={handleAnswerChange}
                     className="space-y-3 my-4"
                   >
-                    {currentQuestion.options.map((option, i) => (
+                    {currentQuestion.options?.map((option, i) => (
                       <Label key={i} htmlFor={`${currentQuestion.id}-option-${i}`} className={cn("flex items-center p-4 border rounded-md cursor-pointer hover:bg-secondary has-[:checked]:bg-primary/10 has-[:checked]:border-primary transition-colors", {'border-primary': currentQuestion.userAnswer === option})}>
                         <RadioGroupItem value={option} id={`${currentQuestion.id}-option-${i}`} className="mr-3" />
                         <span>{option}</span>
@@ -362,7 +318,7 @@ export default function TestPage() {
                 </Button>
                 {isLastQuestionInSection ? (
                      <Button onClick={submitSection} variant="accent">
-                        Submit Section
+                        {isLastSection ? 'Submit Final Test' : 'Submit Section & Proceed'}
                         <CheckCircle className="ml-2 h-4 w-4" />
                     </Button>
                 ) : (
@@ -383,7 +339,7 @@ export default function TestPage() {
                     {activeSection && <CardDescription>Section: {activeSection.name}</CardDescription>}
                 </CardHeader>
                 <CardContent className="grid grid-cols-5 gap-2">
-                {questionsForPalette.map((q, index) => (
+                {currentSectionQuestions.map((q, index) => (
                     <Button
                     key={`${currentSectionIndex}-${q.id}-${index}`}
                     variant="default"
@@ -402,7 +358,7 @@ export default function TestPage() {
                 <div className="p-4 space-y-3">
                     <div className='p-4'>
                         <Progress value={progress} className="w-full" />
-                        <p className='text-sm text-muted-foreground mt-2 text-center'>{answeredCount + markedForReviewCount} of {questionsForPalette.length} questions visited</p>
+                        <p className='text-sm text-muted-foreground mt-2 text-center'>{answeredCount + markedForReviewCount} of {currentSectionQuestions.length} questions visited</p>
                     </div>
                     <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2"><div className="h-4 w-4 rounded-full bg-green-500"></div>{answeredCount} Answered</div>

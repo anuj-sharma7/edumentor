@@ -1,8 +1,11 @@
+
 import type { Subject } from '.';
 import { structuralOrganisationInPlantsQuestions } from './botany-structural-organisation';
 import { humanPhysiologyDigestionQuestions } from './zoology-human-physiology';
 import { anatomyOfFloweringPlantsQuestions } from './botany-anatomy-flowering-plants';
 import { breathingAndExchangeQuestions } from './zoology-breathing-exchange-gases';
+import { plantKingdomQuestions } from './botany-plant-kingdom';
+import { bodyFluidsAndCirculationQuestions } from './zoology-body-fluids';
 
 
 export const biologySubject: Subject = {
@@ -14,7 +17,8 @@ export const biologySubject: Subject = {
       name: 'Botany',
       chapters: [
         structuralOrganisationInPlantsQuestions,
-        anatomyOfFloweringPlantsQuestions
+        anatomyOfFloweringPlantsQuestions,
+        plantKingdomQuestions,
       ]
     },
     {
@@ -22,7 +26,8 @@ export const biologySubject: Subject = {
       name: 'Zoology',
       chapters: [
         humanPhysiologyDigestionQuestions,
-        breathingAndExchangeQuestions
+        breathingAndExchangeQuestions,
+        bodyFluidsAndCirculationQuestions,
       ]
     }
   ],
@@ -31,5 +36,7 @@ export const biologySubject: Subject = {
     anatomyOfFloweringPlantsQuestions,
     humanPhysiologyDigestionQuestions,
     breathingAndExchangeQuestions,
+    plantKingdomQuestions,
+    bodyFluidsAndCirculationQuestions,
   ]
 };

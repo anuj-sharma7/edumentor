@@ -352,7 +352,7 @@ function TaggingFormComponent() {
 
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full w-full rounded-2xl bg-background/80 backdrop-blur-sm border border-white/20 shadow-2xl shadow-black/20 overflow-hidden">
         <Sheet>
             <div className="flex-1 grid grid-cols-1 md:grid-cols-5 xl:grid-cols-3 overflow-hidden">
             {/* Input Form Section */}

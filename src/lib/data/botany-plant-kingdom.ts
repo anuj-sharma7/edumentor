@@ -56,6 +56,156 @@ export const plantKingdomQuestions: Chapter = {
             concepts: ['Angiosperms', 'Double fertilization'],
             isPastPaper: true,
         },
+        {
+            id: 403016,
+            text: 'The main plant body of a bryophyte is:',
+            options: ['Diploid sporophyte', 'Haploid gametophyte', 'Diploid gametophyte', 'Haploid sporophyte'],
+            answer: 'Haploid gametophyte',
+            difficulty: 'Easy',
+            pageReference: 3,
+            concepts: ['Bryophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403017,
+            text: 'Which of the following is an example of a colonial alga?',
+            options: ['Chlamydomonas', 'Volvox', 'Ulothrix', 'Spirogyra'],
+            answer: 'Volvox',
+            difficulty: 'Easy',
+            pageReference: 1,
+            concepts: ['Algae forms'],
+            isPastPaper: false
+        },
+        {
+            id: 403018,
+            text: 'The main pigments in green algae (Chlorophyceae) are:',
+            options: ['Chlorophyll a and c', 'Chlorophyll a and d', 'Chlorophyll a and b', 'Fucoxanthin'],
+            answer: 'Chlorophyll a and b',
+            difficulty: 'Easy',
+            pageReference: 2,
+            concepts: ['Algae classification'],
+            isPastPaper: false
+        },
+        {
+            id: 403019,
+            text: 'The food is stored as floridean starch in:',
+            options: ['Chlorophyceae', 'Phaeophyceae', 'Rhodophyceae', 'All of the above'],
+            answer: 'Rhodophyceae',
+            difficulty: 'Easy',
+            pageReference: 2,
+            concepts: ['Algae classification'],
+            isPastPaper: false
+        },
+        {
+            id: 403020,
+            text: 'The first terrestrial plants to possess vascular tissues - xylem and phloem are:',
+            options: ['Bryophytes', 'Pteridophytes', 'Gymnosperms', 'Algae'],
+            answer: 'Pteridophytes',
+            difficulty: 'Easy',
+            pageReference: 5,
+            concepts: ['Pteridophytes characteristics'],
+            isPastPaper: false
+        },
+        {
+            id: 403021,
+            text: 'The antheridium in bryophytes produces:',
+            options: ['A single egg', 'Multiple eggs', 'Biflagellate antherozoids', 'Spores'],
+            answer: 'Biflagellate antherozoids',
+            difficulty: 'Easy',
+            pageReference: 3,
+            concepts: ['Bryophytes reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403022,
+            text: 'What is the ploidy of the endosperm in gymnosperms?',
+            options: ['Haploid (n)', 'Diploid (2n)', 'Triploid (3n)', 'Polyploid'],
+            answer: 'Haploid (n)',
+            difficulty: 'Easy',
+            pageReference: 8,
+            concepts: ['Gymnosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403023,
+            text: 'The smallest angiosperm is:',
+            options: ['Eucalyptus', 'Wolfia', 'Rafflesia', 'Sequoia'],
+            answer: 'Wolfia',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Angiosperms'],
+            isPastPaper: false
+        },
+        {
+            id: 403024,
+            text: 'A life cycle where the dominant, photosynthetic phase is the diploid sporophyte is called:',
+            options: ['Haplontic', 'Diplontic', 'Haplodiplontic', 'None of the above'],
+            answer: 'Diplontic',
+            difficulty: 'Easy',
+            pageReference: 11,
+            concepts: ['Plant life cycles'],
+            isPastPaper: false
+        },
+        {
+            id: 403025,
+            text: 'In mosses, the spore germinates to form a:',
+            options: ['Prothallus', 'Protonema', 'Capsule', 'Rhizoid'],
+            answer: 'Protonema',
+            difficulty: 'Easy',
+            pageReference: 4,
+            concepts: ['Moss life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403026,
+            text: 'Which group of plants includes horsetails?',
+            options: ['Lycopsida', 'Sphenopsida', 'Pteropsida', 'Psilopsida'],
+            answer: 'Sphenopsida',
+            difficulty: 'Easy',
+            pageReference: 6,
+            concepts: ['Pteridophytes classification'],
+            isPastPaper: false
+        },
+        {
+            id: 403027,
+            text: 'The male and female gametophytes in gymnosperms are:',
+            options: ['Independent and free-living', 'Dependent on the sporophyte', 'The dominant phase', 'Large and multicellular'],
+            answer: 'Dependent on the sporophyte',
+            difficulty: 'Easy',
+            pageReference: 8,
+            concepts: ['Gymnosperms life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403028,
+            text: 'The fusion of one male gamete with the egg and the other male gamete with the secondary nucleus is termed:',
+            options: ['Vegetative fertilization', 'Syngamy', 'Triple fusion', 'Double fertilization'],
+            answer: 'Double fertilization',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Double fertilization'],
+            isPastPaper: false
+        },
+        {
+            id: 403029,
+            text: 'Which algae is used as food by space travellers?',
+            options: ['Chlorella', 'Spirogyra', 'Laminaria', 'Sargassum'],
+            answer: 'Chlorella',
+            difficulty: 'Easy',
+            pageReference: 2,
+            concepts: ['Economic importance of Algae'],
+            isPastPaper: false
+        },
+        {
+            id: 403030,
+            text: 'The leaves in gymnosperms are well-adapted to withstand extremes of temperature, humidity and wind. This is a _____ character.',
+            options: ['Hydrophytic', 'Mesophytic', 'Xerophytic', 'Epiphytic'],
+            answer: 'Xerophytic',
+            difficulty: 'Easy',
+            pageReference: 7,
+            concepts: ['Gymnosperms characteristics'],
+            isPastPaper: false
+        },
 
         // Medium
         {
@@ -108,6 +258,256 @@ export const plantKingdomQuestions: Chapter = {
             concepts: ['Angiosperms', 'Endosperm formation'],
             isPastPaper: true,
         },
+        {
+            id: 403031,
+            text: 'In Phaeophyceae (brown algae), the plant body is differentiated into a holdfast, stipe, and frond. Which part is photosynthetic?',
+            options: ['Holdfast', 'Stipe', 'Frond', 'All parts'],
+            answer: 'Frond',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae structure'],
+            isPastPaper: false
+        },
+        {
+            id: 403032,
+            text: 'Sexual reproduction in algae where one gamete is large and non-motile (female) and the other is small and motile (male) is called:',
+            options: ['Isogamous', 'Anisogamous', 'Oogamous', 'Hologamous'],
+            answer: 'Oogamous',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403033,
+            text: 'In liverworts like Marchantia, asexual reproduction occurs by fragmentation or by specialized structures called:',
+            options: ['Gemmae', 'Spores', 'Rhizoids', 'Antherozoids'],
+            answer: 'Gemmae',
+            difficulty: 'Medium',
+            pageReference: 4,
+            concepts: ['Bryophytes reproduction', 'Liverworts'],
+            isPastPaper: false
+        },
+        {
+            id: 403034,
+            text: 'In pteridophytes, the gametophyte is a small, inconspicuous structure called a:',
+            options: ['Protonema', 'Prothallus', 'Strobilus', 'Rhizome'],
+            answer: 'Prothallus',
+            difficulty: 'Medium',
+            pageReference: 5,
+            concepts: ['Pteridophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403035,
+            text: 'The presence of a nucellus enclosed in an envelope and one or more archegonia is characteristic of the ovule in:',
+            options: ['Angiosperms', 'Gymnosperms', 'Pteridophytes', 'Bryophytes'],
+            answer: 'Gymnosperms',
+            difficulty: 'Medium',
+            pageReference: 8,
+            concepts: ['Gymnosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403036,
+            text: 'What is the product of triple fusion in angiosperms?',
+            options: ['Zygote', 'Embryo', 'Primary Endosperm Nucleus (PEN)', 'Seed coat'],
+            answer: 'Primary Endosperm Nucleus (PEN)',
+            difficulty: 'Medium',
+            pageReference: 9,
+            concepts: ['Double fertilization'],
+            isPastPaper: false
+        },
+        {
+            id: 403037,
+            text: 'Which life cycle pattern is exhibited by most algae like Spirogyra?',
+            options: ['Haplontic', 'Diplontic', 'Haplodiplontic', 'None of the above'],
+            answer: 'Haplontic',
+            difficulty: 'Medium',
+            pageReference: 11,
+            concepts: ['Plant life cycles', 'Haplontic'],
+            isPastPaper: false
+        },
+        {
+            id: 403038,
+            text: 'The sporophyte in bryophytes is:',
+            options: ['Free-living and independent', 'Photosynthetic and independent', 'Attached to the gametophyte and dependent on it', 'The dominant phase'],
+            answer: 'Attached to the gametophyte and dependent on it',
+            difficulty: 'Medium',
+            pageReference: 3,
+            concepts: ['Bryophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403039,
+            text: 'The presence of two types of spores, microspores and megaspores, is known as:',
+            options: ['Homospory', 'Heterospory', 'Isogamy', 'Anisogamy'],
+            answer: 'Heterospory',
+            difficulty: 'Medium',
+            pageReference: 6,
+            concepts: ['Heterospory'],
+            isPastPaper: false
+        },
+        {
+            id: 403040,
+            text: 'In Pinus, the male and female cones or strobili are borne:',
+            options: ['On different trees', 'On the same tree', 'On the prothallus', 'Underground'],
+            answer: 'On the same tree',
+            difficulty: 'Medium',
+            pageReference: 8,
+            concepts: ['Gymnosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403041,
+            text: 'The cell wall of Phaeophyceae (brown algae) has cellulose and an outer gelatinous coating of:',
+            options: ['Pectin', 'Algin', 'Agar', 'Carrageen'],
+            answer: 'Algin',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae classification'],
+            isPastPaper: false
+        },
+        {
+            id: 403042,
+            text: 'The gametophyte of a pteridophyte requires which conditions to grow?',
+            options: ['Hot, dry, sunny places', 'Cool, damp, shady places', 'Salty water', 'Deep sea'],
+            answer: 'Cool, damp, shady places',
+            difficulty: 'Medium',
+            pageReference: 5,
+            concepts: ['Pteridophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403043,
+            text: 'Mycorrhiza is a symbiotic association of fungi with the roots of:',
+            options: ['Cycas', 'Pinus', 'Selaginella', 'Marchantia'],
+            answer: 'Pinus',
+            difficulty: 'Medium',
+            pageReference: 7,
+            concepts: ['Gymnosperms', 'Mycorrhiza'],
+            isPastPaper: false
+        },
+        {
+            id: 403044,
+            text: 'The pollen grain in angiosperms represents the:',
+            options: ['Male sporophyte', 'Male gametophyte', 'Female sporophyte', 'Female gametophyte'],
+            answer: 'Male gametophyte',
+            difficulty: 'Medium',
+            pageReference: 9,
+            concepts: ['Angiosperms life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403045,
+            text: 'A diplontic life cycle is characteristic of:',
+            options: ['Fucus (an alga) and all seed-bearing plants', 'Most algae and bryophytes', 'Pteridophytes only', 'All fungi'],
+            answer: 'Fucus (an alga) and all seed-bearing plants',
+            difficulty: 'Medium',
+            pageReference: 11,
+            concepts: ['Plant life cycles', 'Diplontic'],
+            isPastPaper: false
+        },
+        {
+            id: 403046,
+            text: 'In mosses, the secondary protonema develops as a lateral bud from the primary protonema and develops into:',
+            options: ['The sporophyte', 'The leafy stage (gametophyte)', 'The capsule', 'The rhizoids'],
+            answer: 'The leafy stage (gametophyte)',
+            difficulty: 'Medium',
+            pageReference: 4,
+            concepts: ['Moss life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403047,
+            text: 'The antherozoids of pteridophytes require what to reach the archegonia?',
+            options: ['Wind', 'Insects', 'Water', 'Animals'],
+            answer: 'Water',
+            difficulty: 'Easy',
+            pageReference: 5,
+            concepts: ['Pteridophytes reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403048,
+            text: 'The tallest tree species is a gymnosperm called:',
+            options: ['Pinus', 'Cycas', 'Ginkgo', 'Sequoia'],
+            answer: 'Sequoia',
+            difficulty: 'Easy',
+            pageReference: 7,
+            concepts: ['Gymnosperms'],
+            isPastPaper: false
+        },
+        {
+            id: 403049,
+            text: 'In angiosperms, after fertilization, the ovary develops into the:',
+            options: ['Seed', 'Fruit', 'Embryo', 'Endosperm'],
+            answer: 'Fruit',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Angiosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403050,
+            text: 'Which group of algae is characterized by the presence of pigments phycoerythrin?',
+            options: ['Green algae', 'Brown algae', 'Red algae', 'Blue-green algae'],
+            answer: 'Red algae',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae classification'],
+            isPastPaper: false
+        },
+        {
+            id: 403051,
+            text: 'The main economic importance of bryophytes is:',
+            options: ['As a food source', 'As a source of timber', 'In soil formation and as peat fuel', 'In manufacturing medicines'],
+            answer: 'In soil formation and as peat fuel',
+            difficulty: 'Medium',
+            pageReference: 4,
+            concepts: ['Economic importance of Bryophytes'],
+            isPastPaper: false
+        },
+        {
+            id: 403052,
+            text: 'The evolution of the seed habit is linked to:',
+            options: ['Homospory', 'The development of a zygote into an embryo', 'Retention of the female gametophyte on the parent sporophyte', 'All of the above'],
+            answer: 'Retention of the female gametophyte on the parent sporophyte',
+            difficulty: 'Medium',
+            pageReference: 6,
+            concepts: ['Seed habit evolution'],
+            isPastPaper: false
+        },
+        {
+            id: 403053,
+            text: 'The male gametes in gymnosperms are carried to the archegonia by:',
+            options: ['Water', 'Wind', 'Pollen tube', 'Insects'],
+            answer: 'Pollen tube',
+            difficulty: 'Easy',
+            pageReference: 8,
+            concepts: ['Gymnosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403054,
+            text: 'The haplodiplontic life cycle is found in:',
+            options: ['All bryophytes and pteridophytes', 'All algae and fungi', 'All gymnosperms and angiosperms', 'Spirogyra and Volvox'],
+            answer: 'All bryophytes and pteridophytes',
+            difficulty: 'Medium',
+            pageReference: 11,
+            concepts: ['Plant life cycles'],
+            isPastPaper: false
+        },
+        {
+            id: 403055,
+            text: 'In brown algae, the gametes are:',
+            options: ['Non-motile', 'Pyriform (pear-shaped) and bear two unequal lateral flagella', 'Spherical with no flagella', 'Similar in size and shape'],
+            answer: 'Pyriform (pear-shaped) and bear two unequal lateral flagella',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae reproduction'],
+            isPastPaper: false
+        },
 
         // Hard
         {
@@ -125,7 +525,7 @@ export const plantKingdomQuestions: Chapter = {
             text: 'In mosses, the sporophyte is differentiated into:',
             options: ['Root, stem, and leaf', 'Thallus and rhizoids', 'Foot, seta, and capsule', 'Capsule only'],
             answer: 'Foot, seta, and capsule',
-            difficulty: 'Hard',
+            difficulty: 'Medium',
             pageReference: 4,
             concepts: ['Bryophytes', 'Moss life cycle'],
             isPastPaper: false,
@@ -145,7 +545,7 @@ export const plantKingdomQuestions: Chapter = {
             text: 'Which of the following gymnosperms has winged pollen grains?',
             options: ['Cycas', 'Pinus', 'Gnetum', 'Ephedra'],
             answer: 'Pinus',
-            difficulty: 'Hard',
+            difficulty: 'Medium',
             pageReference: 8,
             concepts: ['Gymnosperms', 'Pollen grains'],
             isPastPaper: false,
@@ -155,10 +555,462 @@ export const plantKingdomQuestions: Chapter = {
             text: 'In the life cycle of an angiosperm, the synergids and antipodals are found within the:',
             options: ['Pollen grain', 'Embryo sac', 'Endosperm', 'Ovary'],
             answer: 'Embryo sac',
-            difficulty: 'Hard',
+            difficulty: 'Medium',
             pageReference: 9,
             concepts: ['Angiosperms', 'Embryo sac'],
             isPastPaper: false,
+        },
+        {
+            id: 403056,
+            text: 'Mannitol is the stored food in which group of algae?',
+            options: ['Chlorophyceae', 'Phaeophyceae', 'Rhodophyceae', 'Cyanophyceae'],
+            answer: 'Phaeophyceae',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae classification'],
+            isPastPaper: false
+        },
+        {
+            id: 403057,
+            text: 'The elaborate mechanism of spore dispersal is a characteristic feature of the sporophyte of:',
+            options: ['Liverworts', 'Mosses', 'Ferns', 'Gymnosperms'],
+            answer: 'Mosses',
+            difficulty: 'Hard',
+            pageReference: 4,
+            concepts: ['Moss life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403058,
+            text: 'In pteridophytes, the zygote develops into a multicellular, well-differentiated:',
+            options: ['Gametophyte', 'Sporophyte', 'Prothallus', 'Embryo'],
+            answer: 'Sporophyte',
+            difficulty: 'Medium',
+            pageReference: 5,
+            concepts: ['Pteridophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403059,
+            text: 'Which of the following is considered a "living fossil"?',
+            options: ['Pinus', 'Cycas', 'Ginkgo', 'Sequoia'],
+            answer: 'Ginkgo',
+            difficulty: 'Medium',
+            pageReference: 7,
+            concepts: ['Gymnosperms', 'Living fossil'],
+            isPastPaper: true
+        },
+        {
+            id: 403060,
+            text: 'Which of the following lacks a cell wall?',
+            options: ['Male gametes of angiosperms', 'Gametes of some algae', 'Egg cell in bryophytes', 'Spores of fungi'],
+            answer: 'Gametes of some algae',
+            difficulty: 'Hard',
+            pageReference: 2,
+            concepts: ['Algae characteristics'],
+            isPastPaper: false
+        },
+        {
+            id: 403061,
+            text: 'The pyrenoids in green algae are storage bodies containing:',
+            options: ['Protein besides starch', 'Starch besides protein', 'Fats besides starch', 'Oil besides protein'],
+            answer: 'Protein besides starch',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae structure'],
+            isPastPaper: false
+        },
+        {
+            id: 403062,
+            text: 'In Funaria (a moss), the archegonium contains:',
+            options: ['One egg cell', 'Two egg cells', 'One antherozoid', 'Many spores'],
+            answer: 'One egg cell',
+            difficulty: 'Medium',
+            pageReference: 4,
+            concepts: ['Bryophytes reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403063,
+            text: 'The spread of living pteridophytes is limited and restricted to narrow geographical regions because:',
+            options: ['They lack vascular tissues', 'Their gametophytes require cool, damp, shady places to grow', 'They are heterosporous', 'They are non-flowering plants'],
+            answer: 'Their gametophytes require cool, damp, shady places to grow',
+            difficulty: 'Medium',
+            pageReference: 5,
+            concepts: ['Pteridophytes ecology'],
+            isPastPaper: false
+        },
+        {
+            id: 403064,
+            text: 'The cones bearing megasporophylls with ovules or megasporangia in gymnosperms are called:',
+            options: ['Microsporangiate or male strobili', 'Macrsporangiate or female strobili', 'Gametophytes', 'Prothallus'],
+            answer: 'Macrsporangiate or female strobili',
+            difficulty: 'Medium',
+            pageReference: 8,
+            concepts: ['Gymnosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403065,
+            text: 'In angiosperms, the embryo sac is also known as the:',
+            options: ['Pollen grain', 'Female gametophyte', 'Endosperm', 'Ovule'],
+            answer: 'Female gametophyte',
+            difficulty: 'Medium',
+            pageReference: 9,
+            concepts: ['Angiosperms life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403066,
+            text: 'The life cycle in which the gametophyte is the dominant, photosynthetic phase is called:',
+            options: ['Haplontic', 'Diplontic', 'Haplodiplontic', 'None of the above'],
+            answer: 'Haplontic',
+            difficulty: 'Medium',
+            pageReference: 11,
+            concepts: ['Plant life cycles'],
+            isPastPaper: false
+        },
+        {
+            id: 403067,
+            text: 'In red algae (Rhodophyceae), sexual reproduction is:',
+            options: ['Isogamous', 'Anisogamous', 'Oogamous', 'All of the above'],
+            answer: 'Oogamous',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Algae reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403068,
+            text: 'In which group is the sporophyte not free-living but attached to and deriving nourishment from the gametophyte?',
+            options: ['Bryophytes', 'Pteridophytes', 'Gymnosperms', 'Angiosperms'],
+            answer: 'Bryophytes',
+            difficulty: 'Medium',
+            pageReference: 3,
+            concepts: ['Bryophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403069,
+            text: 'The evolution of heterospory was a significant event because it is a precursor to the:',
+            options: ['Vascular system', 'Flower', 'Seed habit', 'Fruit'],
+            answer: 'Seed habit',
+            difficulty: 'Medium',
+            pageReference: 6,
+            concepts: ['Seed habit evolution'],
+            isPastPaper: false
+        },
+        {
+            id: 403070,
+            text: 'The endosperm in angiosperms develops from:',
+            options: ['The zygote', 'The synergids', 'The antipodal cells', 'The primary endosperm nucleus (PEN)'],
+            answer: 'The primary endosperm nucleus (PEN)',
+            difficulty: 'Medium',
+            pageReference: 9,
+            concepts: ['Endosperm formation'],
+            isPastPaper: false
+        },
+        {
+            id: 403071,
+            text: 'The classification system proposed by Linnaeus was an "artificial" system because:',
+            options: ['It was based on natural affinities', 'It used only a few vegetative characters', 'It was based on evolutionary relationships', 'It was based on gross superficial characters such as habit, color, number and shape of leaves'],
+            answer: 'It was based on gross superficial characters such as habit, color, number and shape of leaves',
+            difficulty: 'Easy',
+            pageReference: 1,
+            concepts: ['Classification systems'],
+            isPastPaper: false
+        },
+        {
+            id: 403072,
+            text: 'Fucus, an alga, has which type of life cycle?',
+            options: ['Haplontic', 'Diplontic', 'Haplodiplontic', 'None of the above'],
+            answer: 'Diplontic',
+            difficulty: 'Medium',
+            pageReference: 11,
+            concepts: ['Plant life cycles', 'Diplontic'],
+            isPastPaper: true
+        },
+        {
+            id: 403073,
+            text: 'Gemma cups are found in:',
+            options: ['Mosses', 'Some liverworts', 'Ferns', 'Gymnosperms'],
+            answer: 'Some liverworts',
+            difficulty: 'Easy',
+            pageReference: 4,
+            concepts: ['Bryophytes reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403074,
+            text: 'Which class of Pteridophytes includes ferns?',
+            options: ['Psilopsida', 'Lycopsida', 'Sphenopsida', 'Pteropsida'],
+            answer: 'Pteropsida',
+            difficulty: 'Easy',
+            pageReference: 6,
+            concepts: ['Pteridophytes classification'],
+            isPastPaper: false
+        },
+        {
+            id: 403075,
+            text: 'Which statement about gymnosperms is incorrect?',
+            options: ['They are heterosporous', 'The male and female gametophytes are independent and free-living', 'The ovules are not enclosed by an ovary wall', 'They include medium-sized trees or tall trees and shrubs'],
+            answer: 'The male and female gametophytes are independent and free-living',
+            difficulty: 'Medium',
+            pageReference: 8,
+            concepts: ['Gymnosperms life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403076,
+            text: 'The polar nuclei of the embryo sac fuse with a male gamete to form the:',
+            options: ['Zygote', 'Embryo', 'Primary Endosperm Nucleus', 'Antipodal cells'],
+            answer: 'Primary Endosperm Nucleus',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Double fertilization'],
+            isPastPaper: false
+        },
+        {
+            id: 403077,
+            text: 'Hydrocolloids like algin and carrageen are obtained from:',
+            options: ['Green and red algae respectively', 'Brown and red algae respectively', 'Red and brown algae respectively', 'Green and brown algae respectively'],
+            answer: 'Brown and red algae respectively',
+            difficulty: 'Medium',
+            pageReference: 2,
+            concepts: ['Economic importance of Algae'],
+            isPastPaper: false
+        },
+        {
+            id: 403078,
+            text: 'Which group of plants has a dominant gametophytic generation and a dependent sporophytic generation?',
+            options: ['Algae', 'Bryophytes', 'Pteridophytes', 'Gymnosperms'],
+            answer: 'Bryophytes',
+            difficulty: 'Easy',
+            pageReference: 3,
+            concepts: ['Bryophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403079,
+            text: 'The prothallus of a fern is:',
+            options: ['Diploid', 'Haploid', 'Triploid', 'A part of the sporophyte'],
+            answer: 'Haploid',
+            difficulty: 'Easy',
+            pageReference: 5,
+            concepts: ['Pteridophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403080,
+            text: 'Which of the following is a characteristic of monocots?',
+            options: ['Two cotyledons in seed', 'Reticulate venation', 'Tap root system', 'Parallel venation'],
+            answer: 'Parallel venation',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Angiosperms', 'Monocots'],
+            isPastPaper: false
+        },
+        {
+            id: 403081,
+            text: 'The alternation of generations refers to:',
+            options: ['The alternation between haploid and diploid phases in a life cycle', 'The alternation between day and night', 'The alternation of reproductive and vegetative phases', 'The alternation of different types of leaves'],
+            answer: 'The alternation between haploid and diploid phases in a life cycle',
+            difficulty: 'Easy',
+            pageReference: 11,
+            concepts: ['Alternation of generations'],
+            isPastPaper: false
+        },
+        {
+            id: 403082,
+            text: 'Which of these has a haplontic life cycle?',
+            options: ['Spirogyra', 'Pinus', 'Funaria', 'Dryopteris'],
+            answer: 'Spirogyra',
+            difficulty: 'Medium',
+            pageReference: 11,
+            concepts: ['Plant life cycles'],
+            isPastPaper: true
+        },
+        {
+            id: 403083,
+            text: 'In mosses, the leafy stage develops from:',
+            options: ['A spore', 'A zygote', 'The secondary protonema', 'The capsule'],
+            answer: 'The secondary protonema',
+            difficulty: 'Medium',
+            pageReference: 4,
+            concepts: ['Moss life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403084,
+            text: 'The leaves of which pteridophyte have sporangia-bearing structures called sporophylls?',
+            options: ['Selaginella', 'Equisetum', 'Ferns (like Dryopteris)', 'Psilotum'],
+            answer: 'Ferns (like Dryopteris)',
+            difficulty: 'Medium',
+            pageReference: 5,
+            concepts: ['Pteridophytes structure'],
+            isPastPaper: false
+        },
+        {
+            id: 403085,
+            text: 'The male gametophyte of a gymnosperm is highly reduced and is confined to only a limited number of cells. This is called a:',
+            options: ['Pollen grain', 'Embryo sac', 'Prothallus', 'Strobilus'],
+            answer: 'Pollen grain',
+            difficulty: 'Easy',
+            pageReference: 8,
+            concepts: ['Gymnosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403086,
+            text: 'In angiosperms, the zygote develops into the:',
+            options: ['Fruit', 'Seed', 'Embryo', 'Endosperm'],
+            answer: 'Embryo',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Angiosperms reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403087,
+            text: 'Which of the following is a unicellular alga?',
+            options: ['Laminaria', 'Sargassum', 'Chlamydomonas', 'Volvox'],
+            answer: 'Chlamydomonas',
+            difficulty: 'Easy',
+            pageReference: 1,
+            concepts: ['Algae forms'],
+            isPastPaper: false
+        },
+        {
+            id: 403088,
+            text: 'The female sex organ in bryophytes is called:',
+            options: ['Antheridium', 'Oogonium', 'Archegonium', 'Carpogonium'],
+            answer: 'Archegonium',
+            difficulty: 'Easy',
+            pageReference: 3,
+            concepts: ['Bryophytes reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403089,
+            text: 'Cones or strobili are found in:',
+            options: ['Bryophytes and Pteridophytes', 'Pteridophytes and Gymnosperms', 'Gymnosperms and Angiosperms', 'Algae and Fungi'],
+            answer: 'Pteridophytes and Gymnosperms',
+            difficulty: 'Medium',
+            pageReference: 6,
+            concepts: ['Strobilus'],
+            isPastPaper: false
+        },
+        {
+            id: 403090,
+            text: 'The most advanced group of plants based on evolution are:',
+            options: ['Algae', 'Bryophytes', 'Pteridophytes', 'Angiosperms'],
+            answer: 'Angiosperms',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Plant evolution'],
+            isPastPaper: false
+        },
+        {
+            id: 403091,
+            text: 'In which group of algae is sexual reproduction oogamous and accompanied by complex post-fertilisation developments?',
+            options: ['Chlorophyceae', 'Phaeophyceae', 'Rhodophyceae', 'All of the above'],
+            answer: 'Rhodophyceae',
+            difficulty: 'Hard',
+            pageReference: 2,
+            concepts: ['Algae reproduction'],
+            isPastPaper: false
+        },
+        {
+            id: 403092,
+            text: 'Elaters are hygroscopic structures found in the sporophyte of some:',
+            options: ['Mosses', 'Liverworts', 'Ferns', 'Gymnosperms'],
+            answer: 'Liverworts',
+            difficulty: 'Hard',
+            pageReference: 4,
+            concepts: ['Bryophytes reproduction'],
+            isPastPaper: true
+        },
+        {
+            id: 403093,
+            text: 'The "Resurrection Plant," which can survive extreme desiccation, is:',
+            options: ['Salvinia', 'Selaginella', 'Sequoia', 'Spirogyra'],
+            answer: 'Selaginella',
+            difficulty: 'Hard',
+            pageReference: 6,
+            concepts: ['Pteridophytes'],
+            isPastPaper: false
+        },
+        {
+            id: 403094,
+            text: 'The presence of vessels in the xylem is a characteristic feature of:',
+            options: ['Pteridophytes and Gymnosperms', 'Gymnosperms and Angiosperms', 'Gnetum (a gymnosperm) and Angiosperms', 'Bryophytes and Pteridophytes'],
+            answer: 'Gnetum (a gymnosperm) and Angiosperms',
+            difficulty: 'Hard',
+            pageReference: 8,
+            concepts: ['Vascular tissues'],
+            isPastPaper: false
+        },
+        {
+            id: 403095,
+            text: 'Which of the following statements about the embryo sac in angiosperms is correct?',
+            options: ['It is a 7-celled, 8-nucleate structure', 'It contains the male gametes', 'It develops from the microspore', 'It is diploid'],
+            answer: 'It is a 7-celled, 8-nucleate structure',
+            difficulty: 'Medium',
+            pageReference: 9,
+            concepts: ['Embryo sac'],
+            isPastPaper: false
+        },
+        {
+            id: 403096,
+            text: 'The product of syngamy in angiosperms is:',
+            options: ['Endosperm', 'Zygote', 'Embryo', 'Seed'],
+            answer: 'Zygote',
+            difficulty: 'Easy',
+            pageReference: 9,
+            concepts: ['Double fertilization'],
+            isPastPaper: false
+        },
+        {
+            id: 403097,
+            text: 'The "protonema" stage is found in the life cycle of:',
+            options: ['Ferns', 'Mosses', 'Liverworts', 'Algae'],
+            answer: 'Mosses',
+            difficulty: 'Medium',
+            pageReference: 4,
+            concepts: ['Moss life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403098,
+            text: 'In Pteridophytes, the dominant generation is the:',
+            options: ['Haploid gametophyte', 'Diploid gametophyte', 'Haploid sporophyte', 'Diploid sporophyte'],
+            answer: 'Diploid sporophyte',
+            difficulty: 'Easy',
+            pageReference: 5,
+            concepts: ['Pteridophytes life cycle'],
+            isPastPaper: false
+        },
+        {
+            id: 403099,
+            text: 'The unbranched stems are a characteristic of which gymnosperm?',
+            options: ['Pinus', 'Cedrus', 'Cycas', 'All of the above'],
+            answer: 'Cycas',
+            difficulty: 'Medium',
+            pageReference: 7,
+            concepts: ['Gymnosperms structure'],
+            isPastPaper: false
+        },
+        {
+            id: 403100,
+            text: 'Which group of plants represents the most primitive vascular plants?',
+            options: ['Bryophytes', 'Pteridophytes', 'Gymnosperms', 'Angiosperms'],
+            answer: 'Pteridophytes',
+            difficulty: 'Easy',
+            pageReference: 5,
+            concepts: ['Plant evolution'],
+            isPastPaper: false
         }
     ]
 };
+
+    

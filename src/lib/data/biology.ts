@@ -1,7 +1,8 @@
+
 import type { Subject } from '.';
 import { structuralOrganisationInPlantsQuestions } from './botany-structural-organisation';
 import { humanPhysiologyDigestionQuestions } from './zoology-human-physiology';
-import { anatomyOfFloweringPlantsQuestions } from './botany-anatomy-flowering-plants';
+import { anatomyOfFloweringPlantsQuestions } from './botany-anatomy-of-flowering-plants';
 import { breathingAndExchangeQuestions } from './zoology-breathing-exchange-gases';
 import { plantKingdomQuestions } from './botany-plant-kingdom';
 import { bodyFluidsAndCirculationQuestions } from './zoology-body-fluids';

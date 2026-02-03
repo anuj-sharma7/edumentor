@@ -117,6 +117,58 @@ export const theory: TheorySubject[] = [
                         derivation: 'Derived from Newton\'s second law for rotation, τ = dL/dt. If τ = 0, then dL/dt = 0, which means L is constant.'
                     }
                 ]
+            },
+            {
+                name: 'Gravitation',
+                concepts: [
+                    {
+                        title: 'Newton\'s Law of Universal Gravitation',
+                        explanation: 'Every particle attracts every other particle in the universe with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between their centers.',
+                        formula: 'F = G * (m₁m₂ / r²)',
+                        derivation: 'A fundamental empirical law derived from observations of planetary motion.'
+                    },
+                    {
+                        title: 'Gravitational Potential Energy',
+                        explanation: 'The energy an object possesses because of its position in a gravitational field.',
+                        formula: 'U = -G * (Mm / r)',
+                        derivation: 'Calculated as the work done by the gravitational force in bringing a mass m from infinity to a distance r from a mass M. W = ∫ F·dr.'
+                    },
+                    {
+                        title: 'Escape Velocity',
+                        explanation: 'The minimum speed needed for a free, non-propelled object to escape from the gravitational influence of a massive body.',
+                        formula: 'v_e = √(2GM / R) = √(2gR)',
+                        derivation: 'Derived by equating the initial kinetic energy of the object to the magnitude of its gravitational potential energy at the surface of the massive body. (1/2)mv_e² = GMm/R.'
+                    }
+                ]
+            },
+             {
+                name: 'Electrostatics',
+                concepts: [
+                    {
+                        title: 'Coulomb\'s Law',
+                        explanation: 'Quantifies the amount of force between two stationary, electrically charged particles.',
+                        formula: 'F = k * |q₁q₂| / r²',
+                        derivation: 'An experimental law that forms the basis of electrostatics. The constant k = 1 / (4πε₀).'
+                    },
+                    {
+                        title: 'Electric Field',
+                        explanation: 'A vector field that associates to each point in space the force experienced per unit of positive electric charge.',
+                        formula: 'E = F / q',
+                        derivation: 'The electric field is defined as the electrostatic force per unit test charge. For a point charge, E = kq/r².'
+                    },
+                    {
+                        title: 'Gauss\'s Law',
+                        explanation: 'Relates the distribution of electric charge to the resulting electric field. It states that the total electric flux through any closed surface is proportional to the total electric charge enclosed within that surface.',
+                        formula: 'Φ_E = ∫ E · dA = Q_enclosed / ε₀',
+                        derivation: 'A fundamental law of electromagnetism, one of Maxwell\'s four equations. It can be derived from Coulomb\'s law and the superposition principle for symmetrical charge distributions.'
+                    },
+                    {
+                        title: 'Capacitance',
+                        explanation: 'The ability of a system to store an electric charge. It is the ratio of the change in an electric charge in a system to the corresponding change in its electric potential.',
+                        formula: 'C = Q / V. For parallel plates: C = ε₀A/d',
+                        derivation: 'The general definition C=Q/V is fundamental. The formula for a parallel plate capacitor is derived by finding the potential difference V between the plates for a given charge Q, using V = Ed and E = σ/ε₀ = Q/Aε₀.'
+                    }
+                ]
             }
         ]
     },
@@ -189,6 +241,29 @@ export const theory: TheorySubject[] = [
                         explanation: 'A method for describing the electronic structure of molecules using quantum mechanics. It describes bonding in terms of molecular orbitals that result from the combination of atomic orbitals.',
                         formula: 'Bond Order = 1/2 * (No. of bonding e⁻ - No. of antibonding e⁻)',
                         derivation: 'Based on the linear combination of atomic orbitals (LCAO) approximation. Atomic orbitals combine to form an equal number of molecular orbitals (bonding and antibonding), which are filled by electrons according to the Aufbau principle and Hund\'s rule.'
+                    }
+                ]
+            },
+            {
+                name: 'Thermodynamics',
+                concepts: [
+                    {
+                        title: 'First Law of Thermodynamics',
+                        explanation: 'The law of conservation of energy, which states that energy can neither be created nor destroyed, only transferred or changed from one form to another.',
+                        formula: 'ΔU = q + w',
+                        derivation: 'A fundamental conservation law. ΔU is the change in internal energy, q is the heat added to the system, and w is the work done on the system.'
+                    },
+                    {
+                        title: 'Gibbs Free Energy',
+                        explanation: 'A thermodynamic potential that can be used to calculate the maximum reversible work that may be performed by a thermodynamic system at a constant temperature and pressure. It is the ultimate criterion for spontaneity.',
+                        formula: 'G = H - TS\nΔG = ΔH - TΔS',
+                        derivation: 'Defined to combine the enthalpy (H) and entropy (S) of a system into a single value. A negative ΔG indicates a spontaneous process.'
+                    },
+                    {
+                        title: 'Hess\'s Law',
+                        explanation: 'States that the total enthalpy change for a reaction is the same, no matter how many steps the reaction is carried out in.',
+                        formula: 'ΔH_reaction = ΣΔH_f(products) - ΣΔH_f(reactants)',
+                        derivation: 'A direct consequence of enthalpy being a state function. The total change depends only on the initial and final states, not the path between them.'
                     }
                 ]
             }

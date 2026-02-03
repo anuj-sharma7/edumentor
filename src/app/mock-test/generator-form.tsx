@@ -14,13 +14,14 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, History, Repeat, Trash2, ArrowLeft, CheckCircle, Calculator, Loader2, Leaf } from 'lucide-react';
+import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, History, Repeat, Trash2, ArrowLeft, CheckCircle, Calculator, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { cn } from '@/lib/utils';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { generateDpp, DppInput } from '@/ai/flows/generate-dpp';
+import { LeafIcon } from '@/components/icons';
 
 
 interface GeneratorFormProps {
@@ -55,7 +56,7 @@ const subjectIcons: { [key: string]: React.ElementType } = {
   Physics: Atom,
   Chemistry: FlaskConical,
   Mathematics: Calculator,
-  Biology: Leaf,
+  Biology: LeafIcon,
 };
 
 export default function GeneratorForm({ subjects }: GeneratorFormProps) {
@@ -258,7 +259,7 @@ export default function GeneratorForm({ subjects }: GeneratorFormProps) {
             </div>
             <div>
                 <h3 className="font-headline text-2xl font-semibold mb-4">Subject</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {subjects.map(subject => (
                         <Card key={subject.id} 
                             className={cn("p-4 flex items-center gap-4 cursor-pointer transition-all", selectedSubject?.id === subject.id ? "border-primary ring-2 ring-primary" : "hover:border-primary/50")}

@@ -14,7 +14,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, Calculator, Loader2, History, Trash2, Repeat, Clock, Leaf } from 'lucide-react';
+import { Lightbulb, BookCopy, FileText, Atom, FlaskConical, Calculator, Loader2, History, Trash2, Repeat, Clock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
@@ -22,6 +22,7 @@ import { generateDpp, DppInput } from '@/ai/flows/generate-dpp';
 import { cn } from '@/lib/utils';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { LeafIcon } from '@/components/icons';
 
 
 interface DppGeneratorProps {
@@ -48,7 +49,7 @@ const subjectIcons: { [key: string]: React.ElementType } = {
   Physics: Atom,
   Chemistry: FlaskConical,
   Mathematics: Calculator,
-  Biology: Leaf,
+  Biology: LeafIcon,
 };
 
 const subjectColors: {[key: string]: string} = {

@@ -23,7 +23,7 @@ export default function TheoryPage() {
   const [activeSubject, setActiveSubject] = useState(theory[0]);
 
   return (
-    <div className="p-6 md:p-10">
+    <div className="p-6 md:p-10 animate-fade-in-up">
       <div className="space-y-8">
         <header className="space-y-2">
           <h1 className="text-4xl font-headline font-bold">Theory & Derivations</h1>

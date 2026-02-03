@@ -17,7 +17,7 @@ import { Sigma } from 'lucide-react';
 
 export default function FormulasPage() {
   return (
-    <div className="p-6 md:p-10">
+    <div className="p-6 md:p-10 animate-fade-in-up">
       <div className="space-y-8">
         <header className="space-y-2">
           <h1 className="text-4xl font-headline font-bold">Formula Sheets</h1>

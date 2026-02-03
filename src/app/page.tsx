@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -91,7 +92,7 @@ export default function HomePage() {
    };
 
   return (
-    <div className="space-y-10 pb-12 px-6 md:px-10">
+    <div className="space-y-10 pb-12 px-6 md:px-10 animate-fade-in-up">
       {isLoading || !profile ? (
         <header className="space-y-4 pt-6 md:pt-10">
             <Skeleton className="h-12 w-72" />
@@ -210,7 +211,7 @@ export default function HomePage() {
       </section>
 
        <section>
-        <Card className="p-8 bg-secondary/30 cursor-pointer hover:bg-primary/10 hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/20" onClick={() => router.push('/question-bank')}>
+        <Card className="p-8 bg-secondary/30 cursor-pointer hover:bg-primary/10 hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/20 group" onClick={() => router.push('/question-bank')}>
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="flex-1 space-y-3">
               <h2 className="text-4xl font-headline font-bold">
@@ -223,7 +224,7 @@ export default function HomePage() {
             </div>
             <div className="flex-shrink-0 flex flex-wrap gap-4">
               {subjects.map((subject) => (
-                <Button key={subject.name} variant="outline" size="lg" className="text-lg">
+                <Button key={subject.name} variant="outline" size="lg" className="text-lg transition-transform group-hover:scale-105">
                   {subject.icon}
                   <span>{subject.name}</span>
                 </Button>
@@ -236,7 +237,7 @@ export default function HomePage() {
       <section className="space-y-6">
         <Card
           onClick={() => router.push('/dpp')}
-          className="p-6 bg-gradient-to-r from-secondary/30 to-background border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/20 transition-shadow duration-300 cursor-pointer">
+          className="p-6 bg-gradient-to-r from-secondary/30 to-background border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300 cursor-pointer group">
             <div className="flex justify-between items-center">
                 <div className="flex flex-col">
                     <h3 className="font-bold text-2xl">Solve DPPs</h3>
@@ -244,14 +245,14 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center gap-2">
                     <Badge variant="outline" className="border-amber-400 text-amber-400 bg-amber-900/50 text-base">PREMIUM</Badge>
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
                 </div>
             </div>
         </Card>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
              <Card 
                 onClick={() => router.push('/mock-test')}
-                className="p-6 bg-secondary/30 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20">
+                className="p-6 bg-secondary/30 hover:bg-primary/10 hover:border-primary transition-all duration-300 cursor-pointer group hover:shadow-lg hover:shadow-primary/20">
                  <div className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <div className="p-3 bg-primary/20 rounded-lg">
@@ -261,11 +262,13 @@ export default function HomePage() {
                     </div>
                      <div className="flex items-center gap-2">
                         <Badge variant="secondary" className="bg-red-500/20 text-red-400 border-red-500/30 text-base">NEW</Badge>
-                        <ChevronRight className="w-6 h-6" />
+                        <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
                     </div>
                  </div>
              </Card>
-             <Card className="p-6 bg-secondary/30 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20">
+             <Card 
+              onClick={() => router.push('/mock-test/custom')}
+              className="p-6 bg-secondary/30 hover:bg-primary/10 hover:border-primary transition-all duration-300 cursor-pointer group hover:shadow-lg hover:shadow-primary/20">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
                          <div className="p-3 bg-primary/20 rounded-lg">
@@ -275,7 +278,7 @@ export default function HomePage() {
                     </div>
                      <div className="flex items-center gap-2">
                         <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-base">UPDATED</Badge>
-                        <ChevronRight className="w-6 h-6" />
+                        <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
                     </div>
                 </div>
              </Card>
@@ -352,9 +355,9 @@ export default function HomePage() {
                 <p className="text-lg text-muted-foreground">For future Doctors and Engineers</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20">
+                <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20 group">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/20 rounded-lg">
+                        <div className="p-3 bg-primary/20 rounded-lg transition-transform group-hover:scale-110">
                            <ListTree className="w-8 h-8 text-primary" />
                         </div>
                         <div className="flex flex-col">
@@ -362,9 +365,9 @@ export default function HomePage() {
                         </div>
                     </div>
                 </Card>
-                <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20">
+                <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20 group">
                     <div className="flex items-center gap-4">
-                         <div className="p-3 bg-primary/20 rounded-lg">
+                         <div className="p-3 bg-primary/20 rounded-lg transition-transform group-hover:scale-110">
                            <FileQuestion className="w-8 h-8 text-primary" />
                         </div>
                         <div className="flex flex-col">
@@ -372,9 +375,9 @@ export default function HomePage() {
                         </div>
                     </div>
                 </Card>
-                 <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20">
+                 <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20 group">
                     <div className="flex items-center gap-4">
-                         <div className="p-3 bg-primary/20 rounded-lg">
+                         <div className="p-3 bg-primary/20 rounded-lg transition-transform group-hover:scale-110">
                            <ImageIcon className="w-8 h-8 text-primary" />
                         </div>
                         <div className="flex flex-col">

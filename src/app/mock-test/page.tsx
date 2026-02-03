@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -47,7 +48,7 @@ export default function MockTestPage() {
   };
 
   return (
-    <div className="p-6 md:p-10">
+    <div className="p-6 md:p-10 animate-fade-in-up">
       <div className="space-y-8 max-w-4xl mx-auto">
         <header className="space-y-2 text-center">
             <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter">AI Mock Tests</h1>

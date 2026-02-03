@@ -26,7 +26,7 @@ export default function ResourcesPage() {
     const [activeTab, setActiveTab] = useState('mind-maps');
 
     return (
-        <div className="p-6 md:p-10">
+        <div className="p-6 md:p-10 animate-fade-in-up">
         <div className="space-y-8">
             <header className="space-y-2">
             <h1 className="text-4xl font-headline font-bold">Resources</h1>
@@ -123,7 +123,7 @@ export default function ResourcesPage() {
 
                                         {concept.derivation && (
                                             <div className='my-4'>
-                                                <h5 className='font-semibold text-sm mb-2'>Derivation / Key Points:</h5>
+                                                 <h5 className='font-semibold text-sm mb-2'>Derivation / Key Points:</h5>
                                                 <p className="text-sm text-muted-foreground prose dark:prose-invert">
                                                     {concept.derivation}
                                                 </p>

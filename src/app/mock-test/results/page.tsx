@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import { Check, X, Flag, BarChart, FileText, ArrowLeft, Lightbulb, Repeat, Clock
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import type { MockTestHistoryItem } from '../generator-form';
+import PracticeQuestionGenerator from '@/components/learning/PracticeQuestionGenerator';
 
 
 interface TestQuestion extends Question {
@@ -286,6 +288,12 @@ export default function ResultsPage() {
                       </>
                    )}
                 </div>
+
+                {question.userAnswer && question.userAnswer !== question.answer && (
+                  <div className="mt-2">
+                    <PracticeQuestionGenerator originalQuestion={question} />
+                  </div>
+                )}
 
                 <div className="mt-4 p-3 rounded-md bg-background/50">
                     <h4 className="font-semibold flex items-center gap-2 mb-2"><BrainCircuit className="h-4 w-4 text-blue-400"/>Related Concepts</h4>

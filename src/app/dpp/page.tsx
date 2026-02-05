@@ -17,7 +17,7 @@ export default function DppPage() {
         <div className="flex justify-center">
              <DppGenerator subjects={subjects} />
         </div>
-        <Card className="mt-12 bg-secondary/50 border-amber-500/30">
+        <Card className="mt-12 bg-secondary/30 border-amber-500/30">
           <CardHeader className="text-center">
             <CardTitle className="font-headline text-2xl flex items-center justify-center gap-2">
                 <Flame className="w-6 h-6 text-amber-500" />

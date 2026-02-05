@@ -56,45 +56,57 @@ async function getQuestionsFromBank({ chapters, difficulty, count, subjectsToInc
     chapters?: { id: number; questionCount: number }[];
     difficulty?: 'Easy' | 'Medium' | 'Hard' | 'Mixed';
     count?: number;
-    subjectsToInclude?: string[];
+    subjectsToInclude?: { subjectName: string, unitName?: string }[];
 }): Promise<Question[]> {
     let allQuestions: Question[] = [];
     
-    const relevantSubjects = subjectsToInclude 
-        ? subjects.filter(s => subjectsToInclude.includes(s.name))
-        : subjects;
+    let potentialQuestions: Question[] = [];
 
-    const chapterMap = new Map<number, Chapter>();
-    relevantSubjects.forEach(subject => {
-        subject.chapters.forEach(chapter => {
-            chapterMap.set(chapter.id, chapter);
+    if (subjectsToInclude) {
+        subjectsToInclude.forEach(spec => {
+            const subject = subjects.find(s => s.name === spec.subjectName);
+            if (subject) {
+                if (spec.unitName) {
+                     const unit = subject.units.find(u => u.name === spec.unitName);
+                     if (unit) {
+                         unit.chapters.forEach(chapter => {
+                             potentialQuestions.push(...chapter.questions);
+                         });
+                     }
+                } else {
+                    subject.chapters.forEach(chapter => {
+                        potentialQuestions.push(...chapter.questions);
+                    });
+                }
+            }
         });
-    });
+    }
+
 
     if (chapters) {
+        const chapterMap = new Map<number, Chapter>();
+        subjects.forEach(subject => {
+            subject.chapters.forEach(chapter => {
+                chapterMap.set(chapter.id, chapter);
+            });
+        });
+
         for (const chapterInfo of chapters) {
             const chapter = chapterMap.get(chapterInfo.id);
             if (chapter) {
-                let potentialQuestions = chapter.questions;
+                let chapterQuestions = chapter.questions;
                 if (difficulty && difficulty !== 'Mixed') {
-                    potentialQuestions = potentialQuestions.filter(q => q.difficulty === difficulty);
+                    chapterQuestions = chapterQuestions.filter(q => q.difficulty === difficulty);
                 }
-                const shuffled = [...potentialQuestions].sort(() => 0.5 - Math.random());
+                const shuffled = [...chapterQuestions].sort(() => 0.5 - Math.random());
                 const selected = shuffled.slice(0, chapterInfo.questionCount);
                 allQuestions.push(...selected);
             }
         }
-    } else if (count) {
-        let potentialQuestions: Question[] = [];
-         relevantSubjects.forEach(subject => {
-            subject.chapters.forEach(chapter => {
-                if (difficulty && difficulty !== 'Mixed') {
-                    potentialQuestions.push(...chapter.questions.filter(q => q.difficulty === difficulty));
-                } else {
-                    potentialQuestions.push(...chapter.questions);
-                }
-            });
-        });
+    } else if (count && potentialQuestions.length > 0) {
+        if (difficulty && difficulty !== 'Mixed') {
+            potentialQuestions = potentialQuestions.filter(q => q.difficulty === difficulty);
+        }
         const shuffled = [...potentialQuestions].sort(() => 0.5 - Math.random());
         allQuestions = shuffled.slice(0, count);
     }
@@ -135,9 +147,9 @@ const generateDppFlow = ai.defineFlow(
 
       if (input.examType === 'jee') {
         const jeeSections = [
-            { name: 'Physics', count: 25, subjectsToInclude: ['Physics'] },
-            { name: 'Chemistry', count: 25, subjectsToInclude: ['Chemistry'] },
-            { name: 'Mathematics', count: 25, subjectsToInclude: ['Mathematics'] },
+            { name: 'Physics', count: 25, subjectsToInclude: [{subjectName: 'Physics'}] },
+            { name: 'Chemistry', count: 25, subjectsToInclude: [{subjectName: 'Chemistry'}] },
+            { name: 'Mathematics', count: 25, subjectsToInclude: [{subjectName: 'Mathematics'}] },
         ];
 
         for (const section of jeeSections) {
@@ -161,24 +173,17 @@ const generateDppFlow = ai.defineFlow(
         };
 
       } else if (input.examType === 'neet') {
-         const biologySubject = subjects.find(s => s.name === 'Biology');
-         const botanyChapters = biologySubject?.units.find(u => u.name === 'Botany')?.chapters || [];
-         const zoologyChapters = biologySubject?.units.find(u => u.name === 'Zoology')?.chapters || [];
-         const physicsChapters = subjects.find(s => s.name === 'Physics')?.chapters || [];
-         const chemistryChapters = subjects.find(s => s.name === 'Chemistry')?.chapters || [];
-
          const neetConfig = [
-            { name: 'Physics', count: 50, source: physicsChapters },
-            { name: 'Chemistry', count: 50, source: chemistryChapters },
-            { name: 'Botany', count: 50, source: botanyChapters },
-            { name: 'Zoology', count: 50, source: zoologyChapters },
+            { name: 'Physics', count: 50, subjectsToInclude: [{subjectName: 'Physics'}] },
+            { name: 'Chemistry', count: 50, subjectsToInclude: [{subjectName: 'Chemistry'}] },
+            { name: 'Botany', count: 50, subjectsToInclude: [{subjectName: 'Biology', unitName: 'Botany'}] },
+            { name: 'Zoology', count: 50, subjectsToInclude: [{subjectName: 'Biology', unitName: 'Zoology'}] },
          ];
          
          for (const section of neetConfig) {
-            let potentialQuestions: Question[] = section.source.flatMap(c => c.questions);
-            const easyQs = potentialQuestions.filter(q => q.difficulty === 'Easy').sort(() => 0.5 - Math.random()).slice(0, 20);
-            const mediumQs = potentialQuestions.filter(q => q.difficulty === 'Medium').sort(() => 0.5 - Math.random()).slice(0, 20);
-            const hardQs = potentialQuestions.filter(q => q.difficulty === 'Hard').sort(() => 0.5 - Math.random()).slice(0, 10);
+            const easyQs = await getQuestionsFromBank({ count: 20, difficulty: 'Easy', subjectsToInclude: section.subjectsToInclude });
+            const mediumQs = await getQuestionsFromBank({ count: 20, difficulty: 'Medium', subjectsToInclude: section.subjectsToInclude });
+            const hardQs = await getQuestionsFromBank({ count: 10, difficulty: 'Hard', subjectsToInclude: section.subjectsToInclude });
             
             const sectionQuestions = [...easyQs, ...mediumQs, ...hardQs].sort(() => 0.5 - Math.random()).slice(0, section.count);
             allQuestions.push(...sectionQuestions);

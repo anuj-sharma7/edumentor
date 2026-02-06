@@ -1,4 +1,3 @@
-
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -11,12 +10,11 @@ export default function AppContent({ children }: { children: React.ReactNode }) 
   const isDoubtSolverPage = pathname.startsWith('/doubt-solver');
   const isDppStartPage = pathname.startsWith('/dpp/start');
   const isTaggingPage = pathname.startsWith('/tagging');
-  const isQuestionBankPage = pathname.startsWith('/question-bank');
   const isMockTestStartPage = pathname.startsWith('/mock-test/start');
   const isMockTestReviewPage = pathname.startsWith('/mock-test/review');
 
 
-  if (isDoubtSolverPage || isDppStartPage || isTaggingPage || isQuestionBankPage || isMockTestStartPage || isMockTestReviewPage) {
+  if (isDoubtSolverPage || isDppStartPage || isTaggingPage || isMockTestStartPage || isMockTestReviewPage) {
     return <main>{children}</main>;
   }
 

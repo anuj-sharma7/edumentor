@@ -18,41 +18,38 @@ export default function QuestionBankPage() {
   const router = useRouter();
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden p-6 md:p-10 bg-gray-900/50 flex items-center justify-center">
-        <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[60rem] rounded-full bg-gradient-cyan-purple-pink-fast opacity-20 blur-3xl animate-rotate" />
-        <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-[50rem] h-[50rem] rounded-full bg-gradient-cyan-purple-pink opacity-30 blur-3xl animate-rotate" style={{animationDelay: '5s'}} />
-        
-        <div className="relative z-10 space-y-8 max-w-4xl mx-auto">
-            <header className="space-y-2 text-center">
-            <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter text-white">Question Bank</h1>
-            <p className="text-muted-foreground md:text-xl">
-                Select a subject to dive into our vast library of questions, filter by chapter, and start practicing.
-            </p>
-            </header>
+    <div className="p-6 md:p-10 animate-fade-in-up">
+      <div className="space-y-8 max-w-7xl mx-auto">
+        <header className="space-y-2 text-center">
+          <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter">Question Bank</h1>
+          <p className="text-muted-foreground md:text-xl">
+            Select a subject to dive into our vast library of questions, filter by chapter, and start practicing.
+          </p>
+        </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {subjects.map(subject => {
-                    const Icon = subjectIcons[subject.name];
-                    return (
-                        <Card 
-                            key={subject.id} 
-                            className={cn(
-                                "p-6 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 ease-in-out cursor-pointer group",
-                                "bg-white/5 border border-white/10 backdrop-blur-sm",
-                                "hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2"
-                            )}
-                            onClick={() => router.push(`/question-bank/${subject.name.toLowerCase()}`)}
-                        >
-                            <div className="p-4 bg-white/10 rounded-full group-hover:scale-110 group-hover:bg-primary/20 transition-transform">
-                                <Icon className="w-12 h-12 text-white" />
-                            </div>
-                            <CardTitle className="font-headline text-3xl text-white">{subject.name}</CardTitle>
-                            <CardDescription className="text-white/60">{subject.chapters.length} Chapters</CardDescription>
-                        </Card>
-                    )
-                })}
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {subjects.map(subject => {
+            const Icon = subjectIcons[subject.name];
+            return (
+              <Card
+                key={subject.id}
+                className={cn(
+                  "p-6 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 ease-in-out cursor-pointer group",
+                  "bg-secondary/30",
+                  "hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2"
+                )}
+                onClick={() => router.push(`/question-bank/${subject.name.toLowerCase()}`)}
+              >
+                <div className="p-4 bg-primary/10 rounded-full group-hover:scale-110 group-hover:bg-primary/20 transition-transform">
+                  <Icon className="w-12 h-12 text-primary" />
+                </div>
+                <CardTitle className="font-headline text-3xl">{subject.name}</CardTitle>
+                <CardDescription className="text-muted-foreground">{subject.chapters.length} Chapters</CardDescription>
+              </Card>
+            )
+          })}
         </div>
+      </div>
     </div>
   );
 }

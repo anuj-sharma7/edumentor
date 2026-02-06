@@ -23,23 +23,53 @@ export const theory: TheorySubject[] = [
             {
                 name: 'Kinematics',
                 concepts: [
+                    {
+                        title: 'Displacement vs. Distance',
+                        explanation: 'Distance is the total path length covered by an object. It is a scalar quantity. Displacement is the shortest distance between the initial and final points. It is a vector quantity, having both magnitude and direction.',
+                        formula: 'Distance ≥ |Displacement|',
+                        derivation: 'Displacement is a vector connecting the start and end points, while distance is the scalar length of the actual path taken. The shortest path is a straight line, so distance is always greater than or equal to the magnitude of displacement.'
+                    },
+                    {
+                        title: 'Speed and Velocity',
+                        explanation: 'Speed is the rate of change of distance (a scalar), while velocity is the rate of change of displacement (a vector). Instantaneous velocity is the derivative of position with respect to time.',
+                        formula: 'Average Speed = Total Distance / Total Time\nAverage Velocity = Total Displacement / Total Time\nInstantaneous Velocity (v) = ds/dt',
+                        derivation: 'These are definitional. Instantaneous velocity is the limit of the average velocity as the time interval approaches zero.'
+                    },
+                    {
+                        title: 'Acceleration',
+                        explanation: 'Acceleration is the rate of change of velocity. It is a vector quantity. A body accelerates if its speed, direction, or both change.',
+                        formula: 'Average Acceleration (a_avg) = Δv / Δt\nInstantaneous Acceleration (a) = dv/dt = d²s/dt²',
+                        derivation: 'Definitional. Instantaneous acceleration is the limit of average acceleration as the time interval approaches zero. It is the second derivative of position.'
+                    },
                     { 
                         title: 'Equations of Motion (Constant Acceleration)',
                         explanation: 'These are the fundamental equations that describe the motion of an object under constant acceleration.',
-                        formula: '1. v = u + at\n2. s = ut + (1/2)at^2\n3. v^2 = u^2 + 2as',
-                        derivation: '1. Derived from a = dv/dt. Integrating gives v = at + C. At t=0, v=u, so C=u. Hence v = u + at.\n2. Derived from v = ds/dt. Integrating ds = (u+at)dt gives s = ut + (1/2)at^2.\n3. Derived by eliminating time from the first two equations.'
+                        formula: '1. v = u + at\n2. s = ut + (1/2)at^2\n3. v^2 = u^2 + 2as\n4. Displacement in nth second: s_n = u + a(n - 1/2)',
+                        derivation: '1. Derived from a = dv/dt. Integrating gives v = at + C. At t=0, v=u, so C=u. Hence v = u + at.\n2. Derived from v = ds/dt. Integrating ds = (u+at)dt gives s = ut + (1/2)at^2.\n3. Derived by eliminating time from the first two equations.\n4. s_n = s(n) - s(n-1).'
+                    },
+                    {
+                        title: 'Motion Under Gravity',
+                        explanation: 'A special case of motion with constant acceleration, where the acceleration is due to gravity (g ≈ 9.8 m/s²), acting downwards.',
+                        formula: 'Replace \'a\' with \'-g\' in equations of motion for upward motion, and with \'+g\' for downward motion.',
+                        derivation: 'This is a direct application of the equations of motion where the acceleration is constant and equal to g.'
                     },
                     {
                         title: 'Projectile Motion',
-                        explanation: 'Motion of an object thrown into the air, subject only to the acceleration of gravity. It is a 2D motion with constant acceleration.',
-                        formula: 'Horizontal Range (R) = (u^2 * sin(2θ)) / g\nMaximum Height (H) = (u^2 * sin^2(θ)) / (2g)\nTime of Flight (T) = (2u * sin(θ)) / g',
+                        explanation: 'Motion of an object thrown into the air, subject only to the acceleration of gravity. It is a 2D motion with constant vertical acceleration and zero horizontal acceleration.',
+                        formula: 'Trajectory: y = x tan(θ) - (gx²) / (2u² cos²(θ))\nHorizontal Range (R) = (u² * sin(2θ)) / g\nMaximum Height (H) = (u² * sin²(θ)) / (2g)\nTime of Flight (T) = (2u * sin(θ)) / g',
                         derivation: 'Derived by analyzing the horizontal (constant velocity) and vertical (constant acceleration) components of motion separately.'
+                    },
+                    {
+                        title: 'Circular Motion',
+                        explanation: 'Motion of an object along the circumference of a circle. If the speed is constant, it is Uniform Circular Motion (UCM). A force directed towards the center (centripetal force) is required to maintain this motion.',
+                        formula: 'Relation: v = ωr\nCentripetal Acceleration (a_c) = v²/r = ω²r\nCentripetal Force (F_c) = mv²/r',
+                        derivation: 'Centripetal acceleration is derived from the change in the direction of the velocity vector. The force is derived from Newton\'s Second Law, F=ma_c.'
                     },
                     {
                         title: 'Relative Velocity',
                         explanation: 'The velocity of an object or observer B in the rest frame of another object or observer A.',
                         formula: 'v_AB = v_A - v_B',
-                        derivation: 'It is the vector difference between the velocities of the two objects.'
+                        derivation: 'It is the vector difference between the velocities of the two objects. This concept is useful in solving problems involving motion in two dimensions, like river-boat or rain-man problems.'
                     }
                 ]
             },
@@ -296,278 +326,9 @@ export const theory: TheorySubject[] = [
                     }
                 ]
             },
-            {
+             {
                 name: 'Chemical Equilibrium',
                 concepts: [
-                    {
-                        title: 'Law of Mass Action and Equilibrium Constant',
-                        explanation: 'For a reversible reaction at equilibrium, the ratio of the product of the concentrations of the products to that of the reactants, with each concentration term raised to the power of its stoichiometric coefficient, is constant at a given temperature.',
-                        formula: 'For aA + bB ⇌ cC + dD, K_c = [C]^c[D]^d / [A]^a[B]^b',
-                        derivation: 'Derived from the principle that at equilibrium, the rate of the forward reaction equals the rate of the reverse reaction.'
-                    },
-                    {
-                        title: 'Le Chatelier\'s Principle',
-                        explanation: 'States that if a change of condition (like concentration, pressure, or temperature) is applied to a system in equilibrium, the system will shift in a direction that counteracts the change.',
-                        formula: 'Qualitative principle, no single formula.',
-                        derivation: 'A consequence of the system\'s tendency to seek a new state of minimum Gibbs free energy after being disturbed.'
-                    },
-                    {
-                        title: 'Relationship between Kp and Kc',
-                        explanation: 'Relates the equilibrium constant expressed in terms of partial pressures (Kp) to the one expressed in molar concentrations (Kc).',
-                        formula: 'K_p = K_c(RT)^Δn_g',
-                        derivation: 'Derived from the ideal gas law (P = (n/V)RT = CRT) by substituting partial pressures for concentrations in the equilibrium expression.'
-                    }
-                ]
-            },
-            {
-                name: 'Solutions',
-                concepts: [
-                    {
-                        title: 'Raoult\'s Law',
-                        explanation: 'States that the partial vapor pressure of each component of an ideal mixture of liquids is equal to the vapor pressure of the pure component multiplied by its mole fraction in the mixture.',
-                        formula: 'P_A = P°_A * x_A',
-                        derivation: 'An empirical law defining an ideal solution, where the partial vapor pressure of a component is proportional to its mole fraction.'
-                    },
-                    {
-                        title: 'Elevation in Boiling Point',
-                        explanation: 'The boiling point of a solvent is elevated upon the addition of a non-volatile solute.',
-                        formula: 'ΔT_b = i * K_b * m',
-                        derivation: 'A colligative property derived from the lowering of vapor pressure. The solution must reach a higher temperature to have its vapor pressure equal the external pressure.'
-                    },
-                    {
-                        title: 'Osmotic Pressure',
-                        explanation: 'The external pressure required to be applied to a solution to prevent the inward flow of its pure solvent across a semipermeable membrane.',
-                        formula: 'π = i * MRT',
-                        derivation: 'Derived from thermodynamic principles, the formula is analogous to the ideal gas law. It is a colligative property dependent on the molar concentration of the solute.'
-                    }
-                ]
-            },
-             {
-                name: 'Coordination Compounds',
-                concepts: [
-                    {
-                        title: 'Werner\'s Theory',
-                        explanation: 'Proposed that metals in coordination compounds have two types of valencies: a primary (ionisable) valency corresponding to the oxidation state and a secondary (non-ionisable) valency corresponding to the coordination number.',
-                        formula: 'e.g., [Co(NH₃)₆]Cl₃. Secondary valency = 6. Primary valency = 3.',
-                        derivation: 'A foundational theory based on experimental observations of conductivity and precipitation reactions of coordination compounds.'
-                    },
-                    {
-                        title: 'Valence Bond Theory (VBT)',
-                        explanation: 'Describes the formation of coordinate bonds as the overlap between filled ligand orbitals and vacant hybrid orbitals of the central metal atom. It is used to predict the geometry and magnetic properties.',
-                        formula: 'Examples: [Ni(CN)₄]²⁻ (dsp², square planar), [Ni(CO)₄] (sp³, tetrahedral)',
-                        derivation: 'An application of valence bond principles to coordination complexes, involving hybridization to explain observed geometries.'
-                    },
-                    {
-                        title: 'Crystal Field Theory (CFT)',
-                        explanation: 'An electrostatic model that describes the splitting of the d-orbitals of a central metal ion in the electric field created by the surrounding ligands. It explains the color and magnetic properties of complexes.',
-                        formula: 'For octahedral complexes, d-orbitals split into t₂g (lower energy) and e_g (higher energy) sets. The energy difference is Δ₀.',
-                        derivation: 'Based on considering ligands as point charges that repel the d-electrons of the metal ion to different extents depending on the orbital\'s orientation, leading to a splitting of their energy levels.'
-                    }
-                ]
-            }
-        ]
-    }
-];
-
-export const formulas: FormulaSubject[] = [
-    {
-        subject: 'Physics',
-        topics: [
-            {
-                name: 'Electrostatics',
-                formulae: [
-                    { name: 'Coulomb\'s Law', formula: 'F = k * |q₁q₂| / r²', derivation: 'Force between two point charges. k = 1 / (4πε₀).' },
-                    { name: 'Electric Field (Point Charge)', formula: 'E = kq/r²', derivation: 'Field created by a point charge q.' },
-                    { name: 'Gauss\'s Law', formula: 'Φ_E = ∫ E · dA = Q_enclosed / ε₀', derivation: 'Relates electric flux to enclosed charge.' },
-                    { name: 'Electric Potential (Point Charge)', formula: 'V = kq/r', derivation: 'Work done per unit charge to bring a charge from infinity.' },
-                    { name: 'Capacitance (Parallel Plate)', formula: 'C = Kε₀A/d', derivation: 'Capacitance with dielectric K.' },
-                    { name: 'Energy in Capacitor', formula: 'U = (1/2)CV² = Q²/2C', derivation: 'Energy stored in the electric field of a capacitor.' },
-                    { name: 'Dipole Moment', formula: 'p = q * 2a', derivation: 'Product of charge and separation distance of a dipole.' },
-                    { name: 'Torque on Dipole', formula: 'τ = p x E = pEsinθ', derivation: 'Torque experienced by a dipole in a uniform electric field.' }
-                ]
-            },
-            {
-                name: 'Current Electricity',
-                formulae: [
-                    { name: 'Ohm\'s Law', formula: 'V = IR', derivation: 'Relates voltage, current, and resistance for ohmic conductors.' },
-                    { name: 'Resistance & Resistivity', formula: 'R = ρ(L/A)', derivation: 'Resistance in terms of material property (ρ) and geometry.' },
-                    { name: 'Drift Velocity', formula: 'I = nAve', derivation: 'Relates current (I) to number density (n), area (A), charge (e), and drift velocity (v).' },
-                    { name: 'Kirchhoff\'s Junction Rule (KCL)', formula: 'ΣI = 0', derivation: 'Conservation of charge at a junction.' },
-                    { name: 'Kirchhoff\'s Loop Rule (KVL)', formula: 'ΣV = 0', derivation: 'Conservation of energy in a closed loop.' },
-                    { name: 'Wheatstone Bridge (Balanced)', formula: 'R₁/R₂ = R₃/R₄', derivation: 'Condition for zero current through the galvanometer.' },
-                    { name: 'Potentiometer Principle', formula: 'E₁/E₂ = l₁/l₂', derivation: 'Comparing EMFs using balancing lengths.' }
-                ]
-            },
-            {
-                name: 'Magnetic Effects of Current',
-                formulae: [
-                    { name: 'Lorentz Force', formula: 'F = q(E + v x B)', derivation: 'Total force on a charge in electromagnetic fields.' },
-                    { name: 'Biot-Savart Law', formula: 'dB = (μ₀/4π) * (I dL x r̂) / r²', derivation: 'Field from a small current element.' },
-                    { name: 'Field (Long Straight Wire)', formula: 'B = μ₀I / 2πr', derivation: 'Derived from Ampere\'s Law.' },
-                    { name: 'Field (Center of Circular Loop)', formula: 'B = μ₀I / 2R', derivation: 'Derived from Biot-Savart Law.' },
-                    { name: 'Ampere\'s Circuital Law', formula: '∮ B · dL = μ₀I_enclosed', derivation: 'Relates magnetic field circulation to enclosed current.' },
-                    { name: 'Force on Current Wire', formula: 'F = I(L x B)', derivation: 'Force on a straight wire of length L in a uniform field B.' }
-                ]
-            },
-            {
-                name: 'Electromagnetic Induction & AC',
-                formulae: [
-                    { name: 'Faraday\'s Law of Induction', formula: 'ε = -dΦ_B/dt', derivation: 'Induced EMF is the rate of change of magnetic flux.' },
-                    { name: 'Motional EMF', formula: 'ε = Blv', derivation: 'EMF induced in a conductor moving in a B-field.' },
-                    { name: 'Self-Inductance', formula: 'ε = -L(dI/dt)', derivation: 'EMF induced in a coil due to change in its own current.' },
-                    { name: 'Inductive Reactance', formula: 'X_L = ωL = 2πfL', derivation: 'Opposition to AC current by an inductor.' },
-                    { name: 'Capacitive Reactance', formula: 'X_C = 1/(ωC) = 1/(2πfC)', derivation: 'Opposition to AC current by a capacitor.' },
-                    { name: 'Impedance (LCR Circuit)', formula: 'Z = √(R² + (X_L - X_C)²) ', derivation: 'Total opposition to current in a series LCR circuit.' },
-                    { name: 'Resonant Frequency', formula: 'f₀ = 1 / (2π√(LC))', derivation: 'Frequency at which X_L = X_C and impedance is minimum.' }
-                ]
-            },
-             {
-                name: 'Electromagnetic Waves',
-                formulae: [
-                    { name: 'Speed in Vacuum', formula: 'c = 1/√(μ₀ε₀)', derivation: 'Derived from Maxwell\'s equations.' },
-                    { name: 'Wave Relation', formula: 'c = fλ', derivation: 'Fundamental wave property.' },
-                    { name: 'Field Relation', formula: 'E₀ = cB₀', derivation: 'Relation between amplitudes of electric and magnetic fields.' },
-                    { name: 'Energy Density', formula: 'u = (1/2)ε₀E² + B²/(2μ₀)', derivation: 'Total energy stored per unit volume in EM fields.' },
-                ]
-            },
-            {
-                name: 'Ray Optics and Optical Instruments',
-                formulae: [
-                    { name: 'Mirror Formula', formula: '1/f = 1/v + 1/u', derivation: 'Derived from geometry of reflection for spherical mirrors.' },
-                    { name: 'Lens Maker\'s Formula', formula: '1/f = (n-1)(1/R₁ - 1/R₂)', derivation: 'Relates the focal length of a thin lens to its refractive index and radii of curvature.' },
-                    { name: 'Thin Lens Formula', formula: '1/f = 1/v - 1/u', derivation: 'Relates object distance, image distance, and focal length for a thin lens.' },
-                ]
-            },
-            {
-                name: 'Wave Optics',
-                formulae: [
-                    { name: 'YDSE Fringe Width', formula: 'β = λD/d', derivation: 'Separation between consecutive bright/dark fringes.' },
-                    { name: 'Single Slit Diffraction (Minima)', formula: 'a sinθ = nλ', derivation: 'Condition for destructive interference from a single slit of width a.' },
-                    { name: 'Brewster\'s Law', formula: 'n = tan(θ_p)', derivation: 'Relates refractive index to the polarizing angle.' },
-                    { name: 'Malus\'s Law', formula: 'I = I₀ cos²θ', derivation: 'Intensity of light transmitted through a second polarizer.' }
-                ]
-            },
-             {
-                name: 'Dual Nature of Radiation and Matter',
-                formulae: [
-                    { name: 'Photon Energy', formula: 'E = hf = hc/λ', derivation: 'Energy of a single quantum of light.' },
-                    { name: 'Photoelectric Equation', formula: 'K_max = hf - φ₀', derivation: 'Einstein\'s equation explaining energy conservation in photoelectric effect.' },
-                    { name: 'de Broglie Wavelength', formula: 'λ = h/p = h/mv', derivation: 'Wavelength associated with a moving particle.' }
-                ]
-            },
-            {
-                name: 'Atoms',
-                formulae: [
-                    { name: 'Bohr\'s Radius', formula: 'r_n = (n²h²ε₀)/(πme²Z)', derivation: 'Radius of the nth quantized orbit in a hydrogen-like atom.' },
-                    { name: 'Bohr\'s Energy', formula: 'E_n = -(me⁴Z²)/(8ε₀²h²n²)', derivation: 'Energy of the nth quantized orbit.' },
-                    { name: 'Rydberg Formula', formula: '1/λ = RZ²(1/n₁² - 1/n₂²)', derivation: 'Calculates the wavelength of spectral lines emitted during electronic transitions.' }
-                ]
-            },
-             {
-                name: 'Nuclei',
-                formulae: [
-                    { name: 'Nuclear Radius', formula: 'R = R₀A^(1/3)', derivation: 'Empirical formula relating nuclear radius to mass number A.' },
-                    { name: 'Mass-Energy Equivalence', formula: 'E = mc²', derivation: 'Einstein\'s famous equation relating mass and energy.' },
-                    { name: 'Binding Energy', formula: 'B.E. = [Zmp + (A-Z)mn - M_nuc]c²', derivation: 'Energy equivalent of the mass defect.' },
-                    { name: 'Law of Radioactive Decay', formula: 'N(t) = N₀e^(-λt)', derivation: 'Describes the exponential decay of radioactive nuclei.' },
-                    { name: 'Half-Life', formula: 'T₁/₂ = ln(2)/λ ≈ 0.693/λ', derivation: 'Time taken for half of the nuclei in a sample to decay.' }
-                ]
-            },
-            {
-                name: 'Semiconductor Electronics',
-                formulae: [
-                    { name: 'Transistor Current Gains', formula: 'β = α/(1-α), α = β/(1+β)', derivation: 'Relates the common-base current gain (α) and common-emitter current gain (β).' },
-                    { name: 'Voltage Gain (CE Amplifier)', formula: 'A_v = -β (R_out / R_in)', derivation: 'Approximation for the voltage amplification in a common-emitter configuration.' }
-                ]
-            }
-        ]
-    },
-    {
-        subject: 'Chemistry',
-        topics: [
-            {
-                name: 'Mole Concept',
-                formulae: [
-                    {
-                        name: 'The Mole and Avogadro\'s Number',
-                        formula: '1 mole = 6.022 x 10²³ particles',
-                        derivation: 'Based on the number of atoms in exactly 12 grams of Carbon-12.'
-                    },
-                    {
-                        name: 'Molar Mass',
-                        formula: 'Molar Mass (M) = Mass (m) / Moles (n)',
-                        derivation: 'A fundamental conversion factor used in stoichiometry.'
-                    },
-                    {
-                        name: 'Empirical & Molecular Formulas',
-                        formula: 'Molecular Formula = n * (Empirical Formula)\nn = Molar Mass / Empirical Formula Mass',
-                        derivation: 'Determined experimentally through elemental analysis.'
-                    }
-                ]
-            },
-            {
-                name: 'Atomic Structure',
-                formulae: [
-                    {
-                        name: 'Bohr Model Energy',
-                        formula: 'E_n = -R_H * (Z^2 / n^2)',
-                        derivation: 'Derived by combining classical mechanics with the quantization of angular momentum.'
-                    },
-                    {
-                        name: 'de Broglie Wavelength',
-                        formula: 'λ = h / mv = h / p',
-                        derivation: 'Postulated by de Broglie to describe the wave-particle duality of matter.'
-                    },
-                    {
-                        name: 'Heisenberg Uncertainty Principle',
-                        formula: 'Δx * Δp ≥ h / 4π',
-                        derivation: 'A fundamental principle of quantum mechanics.'
-                    }
-                ]
-            },
-            {
-                name: 'Chemical Bonding',
-                formulae: [
-                    {
-                        name: 'Formal Charge',
-                        formula: 'FC = (Valence e⁻) - (Non-bonding e⁻) - (1/2 * Bonding e⁻)',
-                        derivation: 'A method for keeping track of electrons in a Lewis structure.'
-                    },
-                    {
-                        name: 'Bond Order (MOT)',
-                        formula: 'Bond Order = 1/2 * (Bonding e⁻ - Antibonding e⁻)',
-                        derivation: 'A key concept in Molecular Orbital Theory that correlates with bond strength and length.'
-                    },
-                    {
-                        name: 'Dipole Moment',
-                        formula: 'μ = q × d',
-                        derivation: 'Defined as the product of the magnitude of the charge (q) and the distance of separation (d). It measures the polarity of a bond.'
-                    }
-                ]
-            },
-            {
-                name: 'Thermodynamics',
-                formulae: [
-                    {
-                        name: 'First Law of Thermodynamics',
-                        formula: 'ΔU = q + w',
-                        derivation: 'A statement of the conservation of energy.'
-                    },
-                    {
-                        name: 'Enthalpy',
-                        formula: 'H = U + PV\nΔH = ΔU + Δn_gRT',
-                        derivation: 'Defined for convenience, especially for processes at constant pressure where ΔH = q_p.'
-                    },
-                    {
-                        name: 'Gibbs Free Energy',
-                        formula: 'ΔG = ΔH - TΔS',
-                        derivation: 'The criterion for spontaneity at constant temperature and pressure. A negative ΔG indicates a spontaneous process.'
-                    }
-                ]
-            },
-             {
-                name: 'Equilibrium',
-                formulae: [
                     { name: 'Kp and Kc Relation', formula: 'K_p = K_c(RT)^Δn_g', derivation: 'Derived from the ideal gas law (P = CRT) by substituting partial pressures for concentrations in the equilibrium expression.' },
                     { name: 'Gibbs Energy and Equilibrium', formula: 'ΔG° = -RT ln(K)', derivation: 'A fundamental equation linking the standard Gibbs free energy change to the equilibrium constant.' },
                     { name: 'Henderson-Hasselbalch Equation', formula: 'pH = pKa + log([A⁻]/[HA])', derivation: 'Derived from the acid dissociation constant (Ka) expression, it is used to calculate the pH of a buffer solution.' },
@@ -576,7 +337,7 @@ export const formulas: FormulaSubject[] = [
             },
             {
                 name: 'Solutions',
-                formulae: [
+                concepts: [
                     { name: 'Raoult\'s Law', formula: 'P_A = P°_A * x_A', derivation: 'An empirical law defining an ideal solution, where the partial vapor pressure of a component is proportional to its mole fraction.' },
                     { name: 'Boiling Point Elevation', formula: 'ΔT_b = i * K_b * m', derivation: 'A colligative property derived from the lowering of vapor pressure by a non-volatile solute.' },
                     { name: 'Freezing Point Depression', formula: 'ΔT_f = i * K_f * m', derivation: 'A colligative property where a solute disrupts the crystal lattice formation of the solvent.' },
@@ -617,6 +378,7 @@ export const conceptMaps = [
     
 
     
+
 
 
 

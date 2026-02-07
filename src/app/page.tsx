@@ -39,6 +39,7 @@ import { cn } from '@/lib/utils';
 import Autoplay from "embla-carousel-autoplay";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 const examCategories = [
@@ -377,16 +378,18 @@ export default function HomePage() {
                         </div>
                     </div>
                 </Card>
-                 <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20 group">
-                    <div className="flex items-center gap-4">
-                         <div className="p-3 bg-primary/20 rounded-lg transition-transform group-hover:scale-110">
-                           <ImageIcon className="w-8 h-8 text-primary" />
+                 <Link href="/diagram-questions">
+                    <Card className="p-6 bg-background/50 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer hover:shadow-lg hover:shadow-primary/20 group">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-primary/20 rounded-lg transition-transform group-hover:scale-110">
+                            <ImageIcon className="w-8 h-8 text-primary" />
+                            </div>
+                            <div className="flex flex-col">
+                            <h3 className="font-bold text-2xl">Diagram Based Qs</h3>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                           <h3 className="font-bold text-2xl">Diagram Based Qs</h3>
-                        </div>
-                    </div>
-                </Card>
+                    </Card>
+                 </Link>
             </div>
         </Card>
       </section>

@@ -46,7 +46,9 @@ export default function Header() {
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b border-border bg-background/80 px-4 backdrop-blur-sm md:px-8">
       <SidebarTrigger className="md:hidden" />
 
-      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+      {/* flex-1, not w-full: w-full is 100% of the header, which overflows once
+          the sidebar trigger sits beside it on small screens. */}
+      <div className="flex min-w-0 flex-1 items-center gap-4 md:gap-2 lg:gap-4">
         <div className="ml-auto flex items-center gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

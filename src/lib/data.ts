@@ -41,6 +41,8 @@ import { statisticsQuestions } from './data/maths-statistics';
 import { vectorQuestions } from './data/maths-vectors';
 import { threeDGeometryQuestions } from './data/maths-3d-geometry';
 import { anatomyOfFloweringPlantsQuestions } from './data/botany-anatomy-of-flowering-plants';
+import { propertiesOfSolidsAndLiquidsQuestions } from './data/properties-of-solids-and-liquids';
+import { kineticTheoryOfGasesQuestions } from './data/kinetic-theory-of-gases';
 
 
 export type Question = {
@@ -114,6 +116,7 @@ export const subjects: Subject[] = [
             chapters: [
                 rotationalMotionQuestions,
                 gravitationQuestions,
+                propertiesOfSolidsAndLiquidsQuestions,
             ]
         },
         {
@@ -122,7 +125,7 @@ export const subjects: Subject[] = [
             chapters: [
                 thermodynamicsQuestions,
                 statesOfMatterQuestions,
-                { id: 108, name: 'Kinetic Theory of Gases', questions: [] },
+                kineticTheoryOfGasesQuestions,
             ]
         },
         {
@@ -169,17 +172,9 @@ export const subjects: Subject[] = [
       workPowerEnergyQuestions,
       rotationalMotionQuestions,
       gravitationQuestions,
-      {
-        id: 106,
-        name: 'Properties of Solids and Liquids',
-        questions: []
-      },
+      propertiesOfSolidsAndLiquidsQuestions,
       thermodynamicsQuestions,
-      {
-        id: 108,
-        name: 'Kinetic Theory of Gases',
-        questions: []
-      },
+      kineticTheoryOfGasesQuestions,
       oscillationsAndWavesQuestions,
       electrostaticsQuestions,
       currentElectricityQuestions,

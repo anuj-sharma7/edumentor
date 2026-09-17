@@ -46,15 +46,20 @@ export default function FormulasPage() {
                     {subjectData.topics.map((topic) => (
                       <div key={topic.name} className="ml-4 mt-2 space-y-2 border-l-2 pl-4">
                          <h4 className="font-semibold text-lg">{topic.name}</h4>
-                         {topic.formulae.map((formula) => (
-                           <div key={formula.name} className="p-3 bg-secondary/50 rounded-md">
-                             <p className="font-semibold">{formula.name}</p>
-                             <code className="block my-2 p-2 rounded bg-muted font-code text-primary text-base">
+                         {topic.concepts.map((formula) => (
+                           <div key={formula.title} className="p-3 bg-secondary/50 rounded-md">
+                             <p className="font-semibold">{formula.title}</p>
+                             {formula.explanation && (
+                               <p className="text-sm text-muted-foreground mt-1">{formula.explanation}</p>
+                             )}
+                             <code className="block whitespace-pre-wrap my-2 p-2 rounded bg-muted font-code text-primary text-base">
                                {formula.formula}
                              </code>
-                             <p className="text-sm text-muted-foreground">
-                               <span className="font-semibold">Derivation:</span> {formula.derivation}
-                             </p>
+                             {formula.derivation && (
+                               <p className="text-sm text-muted-foreground">
+                                 <span className="font-semibold">Derivation:</span> {formula.derivation}
+                               </p>
+                             )}
                            </div>
                          ))}
                       </div>

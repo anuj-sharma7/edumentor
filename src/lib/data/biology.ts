@@ -1,5 +1,5 @@
 
-import type { Subject } from '.';
+import type { Subject } from '../data';
 import { structuralOrganisationInPlantsQuestions } from './botany-structural-organisation';
 import { humanPhysiologyDigestionQuestions } from './zoology-human-physiology';
 import { anatomyOfFloweringPlantsQuestions } from './botany-anatomy-of-flowering-plants';

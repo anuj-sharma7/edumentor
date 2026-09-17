@@ -255,7 +255,7 @@ export default function DppResultsPage() {
                 </div>
 
                 <div className="space-y-2 my-4">
-                  {question.options.map((option, i) => (
+                  {question.options?.map((option, i) => (
                     <div
                       key={i}
                       className={cn("flex items-center p-3 border rounded-md", getOptionClass(option, question))}

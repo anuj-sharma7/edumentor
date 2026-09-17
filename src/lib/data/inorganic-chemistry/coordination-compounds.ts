@@ -1,5 +1,5 @@
 
-import type { Chapter } from '../data';
+import type { Chapter } from '../../data';
 
 export const coordinationCompoundQuestions: Chapter = {
     id: 211,

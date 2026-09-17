@@ -1,5 +1,5 @@
 
-import type { Question } from '.';
+import type { Question } from '../data';
 import { lawsOfMotionQuestions } from './laws-of-motion';
 import { workPowerEnergyQuestions } from './work-power-energy';
 import { electrostaticsQuestions } from './electrostatics';

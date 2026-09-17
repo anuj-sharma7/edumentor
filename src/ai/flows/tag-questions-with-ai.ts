@@ -28,15 +28,16 @@ const PastPaperDetailsSchema = z.object({
 });
 
 const FormulaSchema = z.object({
-    name: z.string(),
+    title: z.string(),
+    explanation: z.string().optional(),
     formula: z.string(),
-    derivation: z.string(),
+    derivation: z.string().optional(),
 });
 
 const QuestionSchema = z.object({
     id: z.number(),
     text: z.string(),
-    options: z.array(z.string()),
+    options: z.array(z.string()).optional(),
     answer: z.string(),
     difficulty: z.enum(['Easy', 'Medium', 'Hard']),
     pageReference: z.number(),
@@ -103,16 +104,16 @@ const findRelatedFormulas = ai.defineTool(
     for (const subject of formulas) {
         for (const topic of subject.topics) {
              if (topic.name.toLowerCase().includes(lowerCaseConcept)) {
-                related.push(...topic.formulae);
+                related.push(...topic.concepts);
              }
-             for (const formula of topic.formulae) {
-                if (formula.name.toLowerCase().includes(lowerCaseConcept)) {
+             for (const formula of topic.concepts) {
+                if (formula.title.toLowerCase().includes(lowerCaseConcept)) {
                     related.push(formula);
                 }
              }
         }
     }
-    return related.filter((v,i,a)=>a.findIndex(t=>(t.name === v.name))===i);
+    return related.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
   }
 );
 

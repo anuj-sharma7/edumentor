@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from 'react';
 import type { Subject, Chapter, Question } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Flame, Telescope, X, Check, Filter, SortAsc, ArrowLeft } from 'lucide-react';
+import { Flame, Telescope, X, Check, Filter, SortAsc, ArrowLeft, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select"
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Switch } from '@/components/ui/switch';
 import {
   Accordion,
   AccordionContent,
@@ -27,6 +28,29 @@ import {
 } from '@/components/ui/accordion';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
+
+/**
+ * Ranks concepts by how often they show up in questions tagged isPastPaper
+ * within a set of chapters. This is the one "most tested" signal the data
+ * actually carries - there's no per-question exam year or session, so this
+ * ranks by real (if year-unlabelled) past-paper frequency rather than
+ * inventing a specific "2025/2026" provenance the data can't back up.
+ */
+function rankHighYieldConcepts(chapters: Chapter[], limit = 8) {
+  const counts = new Map<string, number>();
+  for (const chapter of chapters) {
+    for (const q of chapter.questions) {
+      if (!q.isPastPaper) continue;
+      for (const concept of q.concepts) {
+        counts.set(concept, (counts.get(concept) ?? 0) + 1);
+      }
+    }
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit)
+    .map(([concept, count]) => ({ concept, count }));
+}
 
 const QuestionCard = ({ question, index }: { question: Question; index: number }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -55,7 +79,10 @@ const QuestionCard = ({ question, index }: { question: Question; index: number }
 
 
   return (
-    <div className="p-4 rounded-lg bg-secondary/50 transition-colors border">
+    <div className={cn(
+      "p-4 rounded-lg bg-secondary/50 transition-colors border",
+      question.isPastPaper && "border-l-4 border-l-amber-500"
+    )}>
        <div className="flex justify-between items-start mb-2">
             <p className="font-semibold flex-1 pr-4">
                 Q{index + 1}: {question.text}
@@ -63,9 +90,9 @@ const QuestionCard = ({ question, index }: { question: Question; index: number }
             <div className="flex items-center gap-2">
               <Badge variant={question.difficulty === 'Easy' ? 'secondary' : question.difficulty === 'Hard' ? 'destructive' : 'default'} className="capitalize">{question.difficulty}</Badge>
               {question.isPastPaper && (
-                  <Badge variant="outline" className="ml-4 border-amber-500 text-amber-500 flex-shrink-0">
+                  <Badge variant="outline" className="border-amber-500 text-amber-500 flex-shrink-0">
                       <Flame className="mr-1.5 h-3.5 w-3.5" />
-                      Past Paper
+                      High-Yield &middot; Past Paper
                   </Badge>
               )}
             </div>
@@ -128,6 +155,8 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
   const [selectedChapters, setSelectedChapters] = useState<number[]>([]);
   const [difficultyFilter, setDifficultyFilter] = useState<'All' | 'Easy' | 'Medium' | 'Hard'>('All');
   const [questionTypeFilter, setQuestionTypeFilter] = useState<'all' | 'mcq' | 'numerical'>('all');
+  const [pastPaperOnly, setPastPaperOnly] = useState(false);
+  const [highYieldFirst, setHighYieldFirst] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [openUnits, setOpenUnits] = useState<string[]>([]);
 
@@ -157,17 +186,25 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
   };
 
 
+  const selectedChapterObjects = useMemo(
+    () => subject.chapters.filter(c => selectedChapters.includes(c.id)),
+    [subject, selectedChapters]
+  );
+
+  const highYieldConcepts = useMemo(
+    () => rankHighYieldConcepts(selectedChapterObjects),
+    [selectedChapterObjects]
+  );
+
   const filteredQuestions = useMemo(() => {
     if (selectedChapters.length === 0) return [];
-    
-    let questions = subject.chapters
-      .filter(c => selectedChapters.includes(c.id))
-      .flatMap(c => c.questions);
-      
+
+    let questions = selectedChapterObjects.flatMap(c => c.questions);
+
     if (difficultyFilter !== 'All') {
       questions = questions.filter(q => q.difficulty === difficultyFilter);
     }
-    
+
     if (questionTypeFilter !== 'all') {
       if (questionTypeFilter === 'mcq') {
         questions = questions.filter(q => q.questionType === 'mcq' || !q.questionType);
@@ -176,8 +213,18 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
       }
     }
 
+    if (pastPaperOnly) {
+      questions = questions.filter(q => q.isPastPaper);
+    }
+
+    // Stable sort: keep the original chapter/id ordering within each group,
+    // just move past-paper questions to the front when asked for.
+    if (highYieldFirst) {
+      questions = [...questions].sort((a, b) => Number(b.isPastPaper) - Number(a.isPastPaper));
+    }
+
     return questions;
-  }, [selectedChapters, difficultyFilter, questionTypeFilter, subject]);
+  }, [selectedChapterObjects, selectedChapters.length, difficultyFilter, questionTypeFilter, pastPaperOnly, highYieldFirst]);
 
   if (!subject) {
     return <p>Subject not found.</p>;
@@ -240,6 +287,27 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
                 })}
             </Accordion>
           </ScrollArea>
+
+          {highYieldConcepts.length > 0 && (
+            <div className="mt-6 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+              <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                <TrendingUp className="h-4 w-4" aria-hidden="true" />
+                <h4 className="font-semibold">High-Yield Concepts</h4>
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                The most frequently tested concepts among past-paper questions in your selection.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {highYieldConcepts.map(({ concept, count }) => (
+                  <Badge key={concept} variant="outline" className="border-amber-500/40 font-normal capitalize">
+                    {concept}
+                    <span className="ml-1.5 text-amber-600 dark:text-amber-400">&times;{count}</span>
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
            <div className="flex justify-end mt-6">
               <Button onClick={() => setIsStarted(true)} disabled={selectedChapters.length === 0} size="lg">
                 View {filteredQuestions.length} Questions
@@ -288,9 +356,38 @@ export default function QuestionBankView({ subject }: { subject: Subject }) {
                         </SelectContent>
                     </Select>
                 </div>
+                <div className="flex items-center gap-2">
+                    <Switch id="past-paper-only" checked={pastPaperOnly} onCheckedChange={setPastPaperOnly} />
+                    <Label htmlFor="past-paper-only" className="font-semibold shrink-0 cursor-pointer">Past papers only</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Switch id="high-yield-first" checked={highYieldFirst} onCheckedChange={setHighYieldFirst} />
+                    <Label htmlFor="high-yield-first" className="font-semibold shrink-0 cursor-pointer">
+                        <TrendingUp className="inline h-4 w-4 mr-1 -mt-0.5" aria-hidden="true" />
+                        High-yield first
+                    </Label>
+                </div>
                 <Button variant="outline" onClick={() => setIsStarted(false)}>Back to Chapters</Button>
             </div>
         </div>
+
+        {highYieldConcepts.length > 0 && (
+            <div className="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+                <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                    <TrendingUp className="h-4 w-4" aria-hidden="true" />
+                    <h4 className="font-semibold text-sm">High-Yield Concepts in this selection</h4>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                    {highYieldConcepts.map(({ concept, count }) => (
+                        <Badge key={concept} variant="outline" className="border-amber-500/40 font-normal capitalize">
+                            {concept}
+                            <span className="ml-1.5 text-amber-600 dark:text-amber-400">&times;{count}</span>
+                        </Badge>
+                    ))}
+                </div>
+            </div>
+        )}
+
         <div className="space-y-4">
             {filteredQuestions.length > 0 ? (
                 filteredQuestions.map((q, i) => <QuestionCard key={q.id} question={q} index={i} />)

@@ -183,7 +183,7 @@ export default function SettingsForm() {
                           key={star}
                           className={cn(
                             "w-8 h-8 cursor-pointer transition-colors",
-                            (hoverRating || field.value) >= star ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/50"
+                            (hoverRating || field.value || 0) >= star ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/50"
                           )}
                           onClick={() => form.setValue("rating", star)}
                           onMouseEnter={() => setHoverRating(star)}

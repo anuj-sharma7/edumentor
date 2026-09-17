@@ -88,7 +88,7 @@ const QuestionCard = ({ question, index }: { question: Question; index: number }
         className="space-y-2 my-4"
         disabled={isSubmitted}
       >
-        {question.options.map((option, i) => (
+        {question.options?.map((option, i) => (
           <div key={i} className="flex items-center space-x-2">
             <RadioGroupItem value={option} id={`${question.id}-option-${i}`} />
             <Label htmlFor={`${question.id}-option-${i}`} className={cn("cursor-pointer flex-1 p-3 rounded-md border transition-all", getOptionClass(option))}>

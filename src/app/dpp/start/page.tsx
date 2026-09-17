@@ -261,7 +261,7 @@ export default function DppStartPage() {
                 onValueChange={handleAnswerChange}
                 className="space-y-3 my-4"
               >
-                {currentQuestion.options.map((option, i) => (
+                {currentQuestion.options?.map((option, i) => (
                   <Label key={i} htmlFor={`${currentQuestion.id}-option-${i}`} className={cn("flex items-center p-4 border rounded-md cursor-pointer hover:bg-secondary has-[:checked]:bg-primary/10 has-[:checked]:border-primary transition-colors", {'border-primary': currentQuestion.userAnswer === option})}>
                     <RadioGroupItem value={option} id={`${currentQuestion.id}-option-${i}`} className="mr-3" />
                     <span>{option}</span>

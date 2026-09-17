@@ -224,7 +224,7 @@ export default function ChatInterface() {
 
     try {
       const history = newMessages.slice(0, -1).filter(m => m.role !== 'system').map(msg => ({
-          role: msg.role === 'assistant' ? 'model' : 'user',
+          role: (msg.role === 'assistant' ? 'model' : 'user') as 'model' | 'user',
           content: msg.content,
       }));
 

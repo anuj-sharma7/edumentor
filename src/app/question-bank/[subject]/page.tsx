@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 
 export default function SubjectQuestionBankPage() {
   const params = useParams();
-  const subjectParam = Array.isArray(params.subject) ? params.subject[0] : params.subject;
+  const subjectParam = (Array.isArray(params.subject) ? params.subject[0] : params.subject) ?? '';
 
   const subjectName = subjectParam.charAt(0).toUpperCase() + subjectParam.slice(1);
   const subjectData = subjects.find(s => s.name.toLowerCase() === subjectParam.toLowerCase());

@@ -30,6 +30,8 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ConceptMap } from '@/components/ui/concept-map';
+import { hasFormula, FormulaBlock } from '@/components/ui/theory-formatting';
+import { conceptDiagrams } from '@/components/ui/concept-diagrams';
 import { LeafIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
 import type { TheorySubject } from '@/lib/data/theory';
@@ -40,11 +42,6 @@ const subjectIcons: Record<string, React.ElementType> = {
   Mathematics: Calculator,
   Biology: LeafIcon,
 };
-
-/** A formula of literally 'N/A' isn't a formula - treat it as absent. */
-function hasFormula(formula?: string) {
-  return !!formula && formula.trim().toUpperCase() !== 'N/A';
-}
 
 type FlatConcept = {
   subject: string;
@@ -58,6 +55,7 @@ type FlatConcept = {
 /** One concept card, used both in the per-subject browser and in search results. */
 function ConceptCard({ concept, showPath = false }: { concept: FlatConcept; showPath?: boolean }) {
   const [showDerivation, setShowDerivation] = useState(false);
+  const Diagram = conceptDiagrams[concept.title];
 
   return (
     <Card>
@@ -72,11 +70,13 @@ function ConceptCard({ concept, showPath = false }: { concept: FlatConcept; show
       <CardContent className="space-y-3">
         <p className="text-sm leading-relaxed text-muted-foreground">{concept.explanation}</p>
 
-        {hasFormula(concept.formula) && (
-          <pre className="whitespace-pre-wrap rounded-md border bg-muted/50 p-3 font-code text-sm text-foreground">
-            {concept.formula}
-          </pre>
+        {Diagram && (
+          <div className="rounded-md border bg-background/50 p-4">
+            <Diagram />
+          </div>
         )}
+
+        {hasFormula(concept.formula) && <FormulaBlock formula={concept.formula!} />}
 
         {concept.derivation && (
           <div>

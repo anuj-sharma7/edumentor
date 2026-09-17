@@ -5,16 +5,13 @@ import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import type { TheoryConcept } from '@/lib/data/theory';
+import { hasFormula, FormulaBlock } from '@/components/ui/theory-formatting';
+import { conceptDiagrams } from '@/components/ui/concept-diagrams';
 
 export type ConceptMapProps = {
   chapterName: string;
   concepts: TheoryConcept[];
 };
-
-/** A formula of literally 'N/A' isn't a formula - treat it as absent. */
-function hasFormula(formula?: string) {
-  return !!formula && formula.trim().toUpperCase() !== 'N/A';
-}
 
 /**
  * A radial diagram of a chapter's concepts, built from the real theory data -
@@ -47,6 +44,7 @@ export function ConceptMap({ chapterName, concepts }: ConceptMapProps) {
   }, [concepts]);
 
   const active = concepts[activeIndex];
+  const Diagram = conceptDiagrams[active.title];
 
   const selectConcept = (index: number) => {
     setActiveIndex(index);
@@ -123,10 +121,16 @@ export function ConceptMap({ chapterName, concepts }: ConceptMapProps) {
           {active.explanation}
         </p>
 
+        {Diagram && (
+          <div className="mt-4 rounded-md border bg-background/50 p-4">
+            <Diagram />
+          </div>
+        )}
+
         {hasFormula(active.formula) && (
-          <pre className="mt-4 whitespace-pre-wrap rounded-md border bg-muted/50 p-3 font-code text-sm text-foreground">
-            {active.formula}
-          </pre>
+          <div className="mt-4">
+            <FormulaBlock formula={active.formula!} />
+          </div>
         )}
 
         {active.derivation && (

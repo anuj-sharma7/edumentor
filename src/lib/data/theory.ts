@@ -268,7 +268,177 @@ export const theory: TheorySubject[] = [
                         derivation: 'Derived using phasor diagrams to vectorially add the resistance and reactances.'
                     }
                 ]
-            }
+            },
+            {
+                name: 'Thermodynamics',
+                concepts: [
+                    {
+                        title: 'First Law of Thermodynamics',
+                        explanation: 'The heat supplied to a system is used partly to increase its internal energy and partly to do work on the surroundings. It is a statement of conservation of energy applied to thermal processes.',
+                        formula: 'ΔQ = ΔU + ΔW',
+                        derivation: 'Follows directly from the law of conservation of energy: energy given to the gas as heat cannot disappear, so it is accounted for as a rise in internal energy plus the work done by the gas.'
+                    },
+                    {
+                        title: 'Relation Between Specific Heats (Mayer\'s Relation)',
+                        explanation: 'For an ideal gas, the molar specific heat at constant pressure exceeds the molar specific heat at constant volume, because at constant pressure some of the heat supplied goes into doing work as the gas expands.',
+                        formula: 'C_p - C_v = R',
+                        derivation: 'At constant volume, ΔQ = C_vΔT = ΔU. At constant pressure, ΔQ = C_pΔT = ΔU + PΔV = ΔU + RΔT (using PV=RT for one mole). Subtracting gives C_p - C_v = R.'
+                    },
+                    {
+                        title: 'Carnot Engine Efficiency',
+                        explanation: 'The Carnot engine is an idealised, reversible heat engine operating between a source at temperature T₁ and a sink at temperature T₂. No engine operating between the same two temperatures can be more efficient than a Carnot engine.',
+                        formula: 'η = 1 - T₂/T₁ = W/Q₁',
+                        derivation: 'Efficiency is defined as work output over heat absorbed, η = 1 - Q₂/Q₁. For a Carnot cycle, Q₂/Q₁ = T₂/T₁, so η = 1 - T₂/T₁.'
+                    },
+                    {
+                        title: 'Adiabatic Process',
+                        explanation: 'A process in which no heat enters or leaves the system (ΔQ = 0), usually because it happens too quickly for heat exchange, or the system is thermally insulated. All the work done changes the internal energy.',
+                        formula: 'PV^γ = constant, TV^(γ-1) = constant',
+                        derivation: 'From ΔQ=0, the first law gives dU = -PdV. Combined with the ideal gas law and Cv dT = dU, integrating leads to PV^γ = constant, where γ = C_p/C_v.'
+                    }
+                ]
+            },
+            {
+                name: 'Oscillations and Waves',
+                concepts: [
+                    {
+                        title: 'Simple Harmonic Motion (SHM)',
+                        explanation: 'A periodic motion in which the restoring force (and hence acceleration) is directly proportional to the displacement from the mean position and is always directed towards it.',
+                        formula: 'a = -ω²x,  x(t) = A sin(ωt + φ)',
+                        derivation: 'For a spring-mass system, Newton\'s second law gives F = -kx = ma, so a = -(k/m)x. Comparing with a = -ω²x gives ω = √(k/m).'
+                    },
+                    {
+                        title: 'Simple Pendulum',
+                        explanation: 'A simple pendulum performs SHM for small angular displacements, where the restoring torque is provided by the component of gravity along the arc.',
+                        formula: 'T = 2π√(L/g)',
+                        derivation: 'For a small angle θ, the restoring force is -mg sinθ ≈ -mgθ = -(mg/L)x. This is of the SHM form with ω² = g/L, giving T = 2π/ω = 2π√(L/g).'
+                    },
+                    {
+                        title: 'Wave Speed',
+                        explanation: 'The speed at which a wave profile travels through a medium, related to how fast the medium oscillates (frequency) and how far the pattern repeats in space (wavelength).',
+                        formula: 'v = fλ,  v = √(T/μ) for a stretched string',
+                        derivation: 'In one time period T, the wave advances exactly one wavelength λ, so v = λ/T = fλ (since f = 1/T).'
+                    },
+                    {
+                        title: 'Doppler Effect',
+                        explanation: 'The apparent change in frequency of a wave (commonly sound) heard by an observer when there is relative motion between the source and the observer.',
+                        formula: 'f\' = f · v / (v − v_s)  (source approaching a stationary observer)',
+                        derivation: 'A source moving towards the observer emits each successive wavefront from a position closer to the observer, compressing the wavelength and hence raising the observed frequency.'
+                    }
+                ]
+            },
+            {
+                name: 'Kinetic Theory of Gases',
+                concepts: [
+                    {
+                        title: 'Kinetic Interpretation of Pressure',
+                        explanation: 'Gas pressure arises from the continuous bombardment of the container walls by molecules; it can be related to the mean square speed of the molecules.',
+                        formula: 'P = (1/3)ρv²_rms',
+                        derivation: 'Each collision with a wall transfers momentum 2mv_x; summing over all molecules and dividing by wall area and time gives P = (1/3)(N/V)m⟨v²⟩ = (1/3)ρ⟨v²⟩.'
+                    },
+                    {
+                        title: 'RMS Speed of Gas Molecules',
+                        explanation: 'The square root of the mean of the squares of the individual molecular speeds; it sets the characteristic speed scale of the gas at a given temperature.',
+                        formula: 'v_rms = √(3RT/M)',
+                        derivation: 'Combining P = (1/3)ρv²_rms with the ideal gas law PV = nRT and ρ = nM/V gives v²_rms = 3RT/M.'
+                    },
+                    {
+                        title: 'Degrees of Freedom and Specific Heat',
+                        explanation: 'By the law of equipartition of energy, each degree of freedom of a molecule contributes (1/2)RT to the molar internal energy. This fixes the molar specific heats from the molecule\'s structure alone.',
+                        formula: 'C_v = (f/2)R,  γ = 1 + 2/f',
+                        derivation: 'A monatomic gas has f=3 (translation only), giving C_v=(3/2)R and γ=5/3. A rigid diatomic gas adds 2 rotational degrees of freedom (f=5), giving C_v=(5/2)R and γ=7/5.'
+                    }
+                ]
+            },
+            {
+                name: 'Properties of Solids and Liquids',
+                concepts: [
+                    {
+                        title: 'Young\'s Modulus',
+                        explanation: 'A measure of a solid\'s resistance to elastic stretching or compression along its length: the ratio of longitudinal stress to longitudinal strain, valid up to the proportional limit.',
+                        formula: 'Y = (F/A) / (ΔL/L)',
+                        derivation: 'Definitional, from Hooke\'s law: stress is proportional to strain within the elastic limit, and Y is the constant of proportionality.'
+                    },
+                    {
+                        title: 'Excess Pressure Due to Surface Tension',
+                        explanation: 'Surface tension causes the pressure just inside a curved liquid surface to exceed the pressure outside; a soap bubble has two surfaces, so its excess pressure is double that of a single liquid drop of the same radius.',
+                        formula: 'Drop: ΔP = 2T/r,   Soap bubble: ΔP = 4T/r',
+                        derivation: 'For a drop, the surface tension force 2πrT pulling the hemisphere together balances the excess pressure force ΔP·πr², giving ΔP = 2T/r. A bubble has an inner and outer surface, doubling the result.'
+                    },
+                    {
+                        title: 'Terminal Velocity (Stokes\' Law)',
+                        explanation: 'A small sphere falling through a viscous fluid reaches a constant terminal velocity once the viscous drag and buoyant force together balance its weight.',
+                        formula: 'v_t = 2r²(ρ − σ)g / (9η)',
+                        derivation: 'At terminal velocity, weight = buoyancy + viscous drag: (4/3)πr³ρg = (4/3)πr³σg + 6πηrv, which rearranges to v_t = 2r²(ρ−σ)g/(9η).'
+                    }
+                ]
+            },
+            {
+                name: 'Capacitors',
+                concepts: [
+                    {
+                        title: 'Series and Parallel Combination',
+                        explanation: 'Capacitors combine differently from resistors: in series the reciprocals of capacitance add (charge is common), while in parallel the capacitances themselves add (voltage is common).',
+                        formula: 'Series: 1/C_eq = 1/C₁ + 1/C₂ + …    Parallel: C_eq = C₁ + C₂ + …',
+                    },
+                    {
+                        title: 'Energy Stored in a Capacitor',
+                        explanation: 'A charged capacitor stores energy in the electric field between its plates. This energy is the work done in building up the charge against the growing potential difference.',
+                        formula: 'U = (1/2)CV² = Q²/(2C) = (1/2)QV',
+                        derivation: 'At charge q, the voltage is q/C, so the work to add dq is (q/C)dq. Integrating from 0 to Q gives U = Q²/(2C).'
+                    },
+                    {
+                        title: 'Effect of a Dielectric',
+                        explanation: 'Inserting an insulating (dielectric) material between the plates of a capacitor increases its capacitance, because the dielectric partially cancels the electric field by polarising in response to it.',
+                        formula: 'C\' = K·C',
+                        derivation: 'The dielectric constant K quantifies how much the field is reduced (E\' = E/K) for the same free charge; since C = Q/V ∝ 1/E, the capacitance increases by the same factor K.'
+                    }
+                ]
+            },
+            {
+                name: 'Ray Optics',
+                concepts: [
+                    {
+                        title: 'Mirror Formula',
+                        explanation: 'Relates the object distance, image distance and focal length of a spherical mirror, using the Cartesian sign convention (distances measured from the pole, with the direction of incident light taken as positive).',
+                        formula: '1/v + 1/u = 1/f'
+                    },
+                    {
+                        title: 'Lens Formula and Magnification',
+                        explanation: 'Relates object distance, image distance and focal length for a thin lens, and gives the ratio of image height to object height.',
+                        formula: '1/v − 1/u = 1/f,   m = v/u'
+                    },
+                    {
+                        title: 'Refraction and Snell\'s Law',
+                        explanation: 'When light passes from one transparent medium to another, it bends at the interface because its speed changes; the relationship between the angles of incidence and refraction is fixed by the refractive indices of the two media.',
+                        formula: 'n₁ sinθ₁ = n₂ sinθ₂,   n = c/v'
+                    }
+                ]
+            },
+            {
+                name: 'Modern Physics',
+                concepts: [
+                    {
+                        title: 'Photoelectric Effect',
+                        explanation: 'When light of sufficiently high frequency strikes a metal surface, electrons are ejected instantaneously. Einstein explained this by treating light as discrete photons, each carrying energy hν.',
+                        formula: 'KE_max = hν − φ  (eV₀ = hν − φ)',
+                        derivation: 'Each photon transfers its entire energy hν to one electron. Part of this energy (the work function φ) frees the electron from the metal; the rest appears as its kinetic energy.'
+                    },
+                    {
+                        title: 'Radioactive Decay Law',
+                        explanation: 'Radioactive decay is a random process in which the number of undecayed nuclei falls exponentially with time; the half-life is the time for half the nuclei in a sample to decay.',
+                        formula: 'N = N₀e^(−λt),   t_½ = 0.693/λ',
+                        derivation: 'The decay rate is proportional to the number of nuclei present, dN/dt = −λN. Integrating gives N = N₀e^(−λt); setting N=N₀/2 gives the half-life.'
+                    },
+                    {
+                        title: 'Mass-Energy Equivalence and Binding Energy',
+                        explanation: 'Mass and energy are equivalent. The mass of a nucleus is always slightly less than the sum of the masses of its free constituent nucleons; this mass defect corresponds to the binding energy holding the nucleus together.',
+                        formula: 'E = mc²,   E_b = Δm·c²',
+                        derivation: 'The mass defect Δm = (sum of masses of free nucleons) − (mass of the nucleus) is converted, via E=mc², into the energy that would be needed to pull the nucleus apart.'
+                    }
+                ]
+            },
+        
         ]
     },
     {
@@ -468,7 +638,84 @@ export const theory: TheorySubject[] = [
                         derivation: 'Explains the color and magnetic properties of transition metal complexes based on the energy difference between the split d-orbitals.'
                     }
                 ]
-            }
+            },
+            {
+                name: 'General Organic Chemistry',
+                concepts: [
+                    {
+                        title: 'Inductive Effect',
+                        explanation: 'The permanent displacement of electron density along a chain of sigma bonds, caused by a difference in electronegativity between atoms. Electron-withdrawing groups (e.g. −NO₂, −COOH, halogens) show a −I effect; electron-releasing alkyl groups show a +I effect.',
+                    },
+                    {
+                        title: 'Resonance',
+                        explanation: 'When a molecule or ion can be represented by two or more valid Lewis structures differing only in the position of electrons (not atoms), the actual structure is a hybrid of these contributing structures and is more stable than any single one of them.',
+                        derivation: 'Delocalisation of π electrons or lone pairs over more than two atoms lowers the overall energy of the system; this stabilisation is called resonance energy, as seen in benzene and the carboxylate ion.'
+                    }
+                ]
+            },
+            {
+                name: 'Isomerism',
+                concepts: [
+                    {
+                        title: 'Structural Isomerism',
+                        explanation: 'Compounds with the same molecular formula but a different arrangement of atoms. The main types are chain isomerism (different carbon skeleton), position isomerism (same skeleton, substituent at a different position), and functional group isomerism (different functional groups entirely, e.g. an alcohol and an ether).',
+                    },
+                    {
+                        title: 'Stereoisomerism',
+                        explanation: 'Compounds with the same structural formula but a different spatial arrangement of atoms. Geometrical isomerism (cis-trans) arises from restricted rotation about a double bond or in a ring; optical isomerism arises from a chiral centre whose mirror images cannot be superimposed on each other.',
+                    }
+                ]
+            },
+            {
+                name: 'Redox Reactions and Electrochemistry',
+                concepts: [
+                    {
+                        title: 'Nernst Equation',
+                        explanation: 'Gives the electrode (or cell) potential under non-standard conditions, in terms of the standard potential and the concentrations (activities) of the species involved.',
+                        formula: 'E = E° − (0.059/n) log Q   (at 298 K)',
+                        derivation: 'Derived from the relation between Gibbs free energy and cell potential, ΔG = −nFE, combined with ΔG = ΔG° + RT ln Q.'
+                    },
+                    {
+                        title: 'Standard Cell EMF',
+                        explanation: 'The potential difference of a galvanic cell under standard conditions, found from the standard reduction potentials of the two half-cells.',
+                        formula: 'E°_cell = E°_cathode − E°_anode',
+                        derivation: 'By convention both electrode potentials are tabulated as reduction potentials; the cell EMF is the difference between the potential of the electrode where reduction occurs (cathode) and the one where oxidation occurs (anode).'
+                    },
+                    {
+                        title: 'Faraday\'s Laws of Electrolysis',
+                        explanation: 'The mass of a substance deposited or liberated at an electrode is directly proportional to the quantity of charge passed through the electrolyte.',
+                        formula: 'm = (E × I × t) / 96500',
+                        derivation: 'One mole of electrons (1 Faraday ≈ 96500 C) deposits one gram-equivalent of a substance, so the mass deposited is proportional to charge It and to the equivalent weight E.'
+                    }
+                ]
+            },
+            {
+                name: 'p-Block Elements',
+                concepts: [
+                    {
+                        title: 'Anomalous Behaviour of the First Member',
+                        explanation: 'The first element of each p-block group (e.g. boron, nitrogen) behaves differently from the rest of its group, because of its unusually small size, high electronegativity, high ionisation enthalpy, and the absence of d-orbitals in its valence shell.',
+                    },
+                    {
+                        title: 'Allotropes of Carbon',
+                        explanation: 'Carbon exists in several structural forms. Diamond (sp³, tetrahedral network) is extremely hard and an electrical insulator; graphite (sp², layered hexagonal sheets) is soft and conducts electricity; fullerenes (sp², closed cage structures such as C₆₀) form a third distinct class.',
+                    }
+                ]
+            },
+            {
+                name: 'd- and f-Block Elements',
+                concepts: [
+                    {
+                        title: 'General Characteristics of Transition Elements',
+                        explanation: 'Transition elements typically show variable oxidation states (because the (n−1)d and ns orbitals are close in energy), form coloured ions (due to d-d electronic transitions), act as good catalysts, and are often paramagnetic due to unpaired d electrons.',
+                    },
+                    {
+                        title: 'Lanthanoid Contraction',
+                        explanation: 'A steady decrease in the atomic and ionic radii of the lanthanoids with increasing atomic number, caused by the poor shielding of nuclear charge by 4f electrons. Its main consequence is that second and third-row transition elements of the same group (e.g. Zr and Hf) have very similar radii and properties.',
+                    }
+                ]
+            },
+        
         ]
     },
     {
@@ -566,7 +813,88 @@ export const theory: TheorySubject[] = [
                         derivation: 'Defined by a normal vector (n) and the perpendicular distance from the origin (d).'
                     }
                 ]
-            }
+            },
+            {
+                name: 'Trigonometry',
+                concepts: [
+                    {
+                        title: 'Fundamental Trigonometric Identities',
+                        explanation: 'The core identities relating the trigonometric ratios of an angle, derived directly from the Pythagorean theorem applied to a right triangle inscribed in a unit circle.',
+                        formula: 'sin²θ + cos²θ = 1\n1 + tan²θ = sec²θ\n1 + cot²θ = cosec²θ'
+                    },
+                    {
+                        title: 'Compound Angle Formulas',
+                        explanation: 'Express the trigonometric ratio of a sum or difference of two angles in terms of the ratios of the individual angles.',
+                        formula: 'sin(A ± B) = sinA cosB ± cosA sinB\ncos(A ± B) = cosA cosB ∓ sinA sinB'
+                    },
+                    {
+                        title: 'General Solution of Trigonometric Equations',
+                        explanation: 'Because trigonometric functions are periodic, an equation like sinθ = sinα has infinitely many solutions, all captured by a single general formula.',
+                        formula: 'sinθ = sinα ⇒ θ = nπ + (−1)ⁿα\ncosθ = cosα ⇒ θ = 2nπ ± α\ntanθ = tanα ⇒ θ = nπ + α'
+                    }
+                ]
+            },
+            {
+                name: 'Calculus',
+                concepts: [
+                    {
+                        title: 'Rules of Differentiation',
+                        explanation: 'Standard rules for differentiating combinations of functions, which let complex derivatives be built up from the derivatives of simpler pieces.',
+                        formula: 'Product rule: (uv)\' = u\'v + uv\'\nQuotient rule: (u/v)\' = (u\'v − uv\')/v²\nChain rule: dy/dx = (dy/du)(du/dx)'
+                    },
+                    {
+                        title: 'Maxima and Minima',
+                        explanation: 'The derivative test for locating the local maximum or minimum values of a function: at a turning point the slope of the tangent is zero, and the second derivative tells whether it is a peak or a trough.',
+                        formula: 'f\'(x) = 0 at a turning point; f\'\'(x) < 0 ⇒ local max, f\'\'(x) > 0 ⇒ local min'
+                    },
+                    {
+                        title: 'Definite Integral as Area',
+                        explanation: 'The definite integral of a function over an interval equals the net signed area between its graph and the x-axis, and can be evaluated using any antiderivative of the function.',
+                        formula: '∫[a to b] f(x) dx = F(b) − F(a),  where F\'(x) = f(x)',
+                        derivation: 'This is the Fundamental Theorem of Calculus: it connects the two central ideas of calculus, differentiation and the area under a curve.'
+                    }
+                ]
+            },
+            {
+                name: 'Sets, Relations and Functions',
+                concepts: [
+                    {
+                        title: 'Types of Relations',
+                        explanation: 'A relation on a set can have special properties. It is reflexive if every element is related to itself, symmetric if aRb implies bRa, and transitive if aRb and bRc together imply aRc. A relation with all three properties is an equivalence relation.',
+                    },
+                    {
+                        title: 'Types of Functions',
+                        explanation: 'A function is one-one (injective) if distinct inputs always give distinct outputs, onto (surjective) if every element of the codomain is the image of some input, and bijective if it is both — in which case it has a well-defined inverse.',
+                    },
+                    {
+                        title: 'Composition of Functions',
+                        explanation: 'The composite function (f∘g) applies g first, then f, to the result. Composition of functions is associative but not commutative in general.',
+                        formula: '(f∘g)(x) = f(g(x))'
+                    }
+                ]
+            },
+            {
+                name: 'Probability',
+                concepts: [
+                    {
+                        title: 'Conditional Probability',
+                        explanation: 'The probability that an event A occurs, given that another event B is already known to have occurred.',
+                        formula: 'P(A|B) = P(A ∩ B) / P(B),  P(B) ≠ 0'
+                    },
+                    {
+                        title: 'Bayes\' Theorem',
+                        explanation: 'Lets you reverse a conditional probability: it finds the probability of a cause, given an observed effect, in terms of the probability of the effect given each possible cause.',
+                        formula: 'P(A_i|B) = P(B|A_i)P(A_i) / Σ P(B|A_j)P(A_j)',
+                        derivation: 'Follows from applying the definition of conditional probability twice, once to P(A_i∩B) and once to expand P(B) using the law of total probability.'
+                    },
+                    {
+                        title: 'Binomial Distribution',
+                        explanation: 'Describes the number of successes in n independent trials, each with the same probability p of success — for example, the number of heads in n coin tosses.',
+                        formula: 'P(X=r) = ⁿCᵣ pʳ qⁿ⁻ʳ,   mean = np,   variance = npq'
+                    }
+                ]
+            },
+        
         ]
     },
     {
@@ -640,7 +968,64 @@ export const theory: TheorySubject[] = [
                         derivation: 'These differences arise from their distinct evolutionary paths and growth patterns.'
                     }
                 ]
-            }
+            },
+            {
+                name: 'Cell: The Unit of Life',
+                concepts: [
+                    {
+                        title: 'Cell Theory',
+                        explanation: 'All living organisms are composed of cells, the cell is the basic structural and functional unit of life, and all cells arise from pre-existing cells. Proposed by Schleiden and Schwann, and extended by Virchow.',
+                    },
+                    {
+                        title: 'Fluid Mosaic Model of the Plasma Membrane',
+                        explanation: 'Proposed by Singer and Nicolson, this describes the plasma membrane as a phospholipid bilayer in which proteins are embedded (integral) or attached to the surface (peripheral). The lipids and many proteins can move laterally, making the membrane fluid, and it is selectively permeable.',
+                    },
+                    {
+                        title: 'Mitochondria',
+                        explanation: 'A double membrane-bound organelle, with the inner membrane folded into finger-like cristae that increase surface area. It is the principal site of aerobic respiration and ATP synthesis, earning it the name "powerhouse of the cell", and it carries its own DNA.',
+                    }
+                ]
+            },
+            {
+                name: 'Cell Cycle and Cell Division',
+                concepts: [
+                    {
+                        title: 'Phases of the Cell Cycle',
+                        explanation: 'The cell cycle consists of interphase (G1 phase: cell growth; S phase: DNA replication; G2 phase: preparation for division) followed by the M phase, in which the cell actually divides.',
+                    },
+                    {
+                        title: 'Mitosis vs. Meiosis',
+                        explanation: 'Mitosis produces two diploid daughter cells genetically identical to the parent, and occurs during growth and repair. Meiosis produces four haploid daughter cells with genetic variation (via crossing over in Prophase I), and occurs during gamete formation.',
+                    }
+                ]
+            },
+            {
+                name: 'Excretory Products and their Elimination',
+                concepts: [
+                    {
+                        title: 'Structure of a Nephron',
+                        explanation: 'The nephron is the structural and functional unit of the kidney. It consists of the Malpighian corpuscle (glomerulus enclosed in Bowman\'s capsule), the proximal convoluted tubule (PCT), the loop of Henle, and the distal convoluted tubule (DCT).',
+                    },
+                    {
+                        title: 'Formation of Urine',
+                        explanation: 'Urine forms in three steps: glomerular filtration (blood plasma is filtered into Bowman\'s capsule), reabsorption (useful substances like glucose, amino acids and most water are reclaimed, mainly in the PCT), and tubular secretion (ions such as H⁺, K⁺ and ammonia are added, mainly in the DCT, to maintain ionic and acid-base balance).',
+                    }
+                ]
+            },
+            {
+                name: 'Locomotion and Movement',
+                concepts: [
+                    {
+                        title: 'Types of Muscle Tissue',
+                        explanation: 'The body has three types of muscle: skeletal muscle (striated, voluntary, attached to bones), smooth muscle (unstriated, involuntary, found in internal organs), and cardiac muscle (striated, involuntary, found only in the heart).',
+                    },
+                    {
+                        title: 'Sliding Filament Theory of Muscle Contraction',
+                        explanation: 'Muscle contraction occurs when the thin actin filaments slide over the thick myosin filaments, shortening the sarcomere, while the lengths of the individual filaments themselves stay the same. The process is triggered by Ca²⁺ ions binding to troponin, which exposes the myosin-binding sites on actin.',
+                    }
+                ]
+            },
+        
         ]
     }
 ];

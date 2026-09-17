@@ -1,38 +1,54 @@
+import Link from 'next/link';
+import { BookCopy, ArrowUpRight } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { BookCopy } from 'lucide-react';
-import React from 'react';
 
 interface ChapterCardProps {
   title: string;
   questionCount: number;
-  icon: React.ReactNode;
-  color: string;
+  href: string;
+  /** Position in the row, used to pick a tint from the fixed sequence below. */
+  index?: number;
 }
 
-export const ChapterCard = ({
-  title,
-  questionCount,
-  icon,
-  color,
-}: ChapterCardProps) => {
+/**
+ * Tints are decorative, not an encoding - they only help the eye separate
+ * neighbouring cards. They are drawn in a fixed order so a chapter keeps the
+ * same tint between renders, and the text sits on a token colour either way.
+ */
+const tints = [
+  'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20',
+  'bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/20',
+  'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+  'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+  'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20',
+];
+
+export const ChapterCard = ({ title, questionCount, href, index = 0 }: ChapterCardProps) => {
+  const tint = tints[index % tints.length];
+
   return (
-    <div
+    <Link
+      href={href}
       className={cn(
-        'p-4 rounded-lg flex flex-col justify-between h-36 relative overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg',
-        color
+        'group flex h-32 flex-col justify-between rounded-lg border p-4 transition-colors',
+        'hover:border-current focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        tint
       )}
     >
-      <div className="text-white font-bold">{title}</div>
-      <div className="flex justify-between items-center text-white/80">
-        <div className="flex items-center gap-2 text-sm">
-          <BookCopy className="w-4 h-4" />
-          <span>{questionCount}</span>
-        </div>
-        <div className="w-8 h-8 flex items-center justify-center bg-white/20 rounded-full group-hover:bg-white/30 transition-colors">
-          {icon}
-        </div>
-      </div>
-    </div>
+      <span className="line-clamp-3 text-sm font-semibold leading-snug text-foreground">
+        {title}
+      </span>
+      <span className="flex items-center justify-between">
+        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <BookCopy className="h-3.5 w-3.5" aria-hidden="true" />
+          {questionCount.toLocaleString('en-IN')} questions
+        </span>
+        <ArrowUpRight
+          className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          aria-hidden="true"
+        />
+      </span>
+    </Link>
   );
 };

@@ -1,0 +1,498 @@
+import type { StudyChapter } from '../types';
+
+export const thermalPropertiesOfMatter: StudyChapter = {
+  name: 'Thermal Properties of Matter',
+  subject: 'Physics',
+  classLevel: 11,
+  summary:
+    'Temperature scales, thermal expansion, calorimetry with latent heat, and the three modes of heat transfer including Stefan\'s law, Wien\'s law and Newton\'s law of cooling. Numerical and very scoring; JEE Main typically asks one to two questions from here.',
+  mostRepeated: [
+    'Scale conversion: ==(C − 0)/100 = (F − 32)/180 = (K − 273)/100==; C = F at −40.',
+    'For isotropic solids ==α : β : γ = 1 : 2 : 3==.',
+    'Pendulum clock with temperature rise ==loses ½αΔT × 86400 s per day==.',
+    'In ice-water mixing problems, ==first check whether all the ice can melt==.',
+    'Rods in series: add thermal resistances ==R = L/(KA)==; in parallel add conductances.',
+    'Stefan\'s law ==P = σeAT⁴==; Wien\'s law ==λ_m T = b ≈ 2.9 × 10⁻³ m K==.',
+    'Newton\'s law of cooling: rate of cooling ∝ ==(T − T₀)== for small differences.',
+  ],
+  topics: [
+    {
+      name: 'Temperature and Temperature Scales',
+      theory:
+        'Temperature measures the degree of hotness of a body and decides the direction of heat flow. A thermometer uses some property that varies with temperature (length of a mercury column, pressure of a gas at constant volume, resistance of a wire). Two fixed points are used: ice point and steam point.\n\nFor any two linear scales, ==(T − lower fixed point)/(upper − lower fixed point) is the same==. Hence (C − 0)/100 = (F − 32)/180 = (K − 273.15)/100. A change of 1 °C equals a change of 1 K and 1.8 °F. The Celsius and Fahrenheit readings coincide at ==−40==.\n\nThe ==ideal-gas (constant-volume) thermometer== defines the absolute scale using the triple point of water (273.16 K) as the single fixed point: T = 273.16 × (P/P_tr) K. Its readings do not depend on the gas used at low pressure, and absolute zero is where the gas pressure would become zero.',
+      keyPoints: [
+        '==(X − L)/(U − L)== is the same on every linear scale.',
+        'ΔC = ΔK = ΔF/1.8.',
+        'C = F at −40; F = K at about 574.25.',
+        'Gas thermometer: ==T = 273.16 (P/P_tr) K==.',
+      ],
+      formulas: ['C/100 = (F − 32)/180 = (K − 273)/100', 'T = 273.16 × P/P_tr', 'ΔF = 1.8 ΔC'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - new linear temperature scales',
+        question:
+          'A thermometer on a linear scale W reads 39 °W at the ice point and 239 °W at the steam point. What does it read when a Celsius thermometer reads 39 °C?',
+        approach: [
+          'Use (W − 39)/(239 − 39) = (C − 0)/100.',
+          'W − 39 = 2C = 78.',
+          'W = 117 °W.',
+        ],
+        answer: '117 °W',
+      },
+      questions: [
+        {
+          question: 'At what temperature do the Celsius and Fahrenheit scales show the same reading?',
+          options: ['−40', '40', '−32', '0'],
+          answer: '−40',
+          difficulty: 'Easy',
+          hint: 'Put C = F = x in C/100 = (F − 32)/180.',
+          solution: 'x/100 = (x − 32)/180 ⇒ 180x = 100x − 3200 ⇒ x = −40.',
+          similar: {
+            question: 'At what reading do the Fahrenheit and Kelvin scales agree (take 0 °C = 273 K)?',
+            options: ['574.25', '−40', '313', '255'],
+            answer: '574.25',
+            solution: '(x − 32)/180 = (x − 273)/100 ⇒ 100x − 3200 = 180x − 49140 ⇒ 80x = 45940 ⇒ x = 574.25.',
+          },
+        },
+        {
+          question: 'A faulty thermometer reads 5 °C at the ice point and 95 °C at the steam point. When it reads 59 °C, the correct temperature is:',
+          options: ['60 °C', '59 °C', '54 °C', '65 °C'],
+          answer: '60 °C',
+          difficulty: 'Medium',
+          hint: 'The faulty scale has 90 divisions between the fixed points.',
+          solution: '(59 − 5)/(95 − 5) = C/100 ⇒ C = 54/90 × 100 = 60 °C.',
+          similar: {
+            question: 'A faulty thermometer reads 10 °C at the ice point and 130 °C at the steam point. When it reads 70 °C the true temperature is:',
+            options: ['50 °C', '60 °C', '70 °C', '58.3 °C'],
+            answer: '50 °C',
+            solution: '(70 − 10)/(130 − 10) = C/100 ⇒ C = 60/120 × 100 = 50 °C.',
+          },
+        },
+        {
+          question: 'A constant-volume gas thermometer shows a pressure 1.5 times its pressure at the triple point of water. The temperature is:',
+          options: ['409.7 K', '273.2 K', '182.1 K', '546.3 K'],
+          answer: '409.7 K',
+          difficulty: 'Hard',
+          hint: 'T = 273.16 × (P/P_tr).',
+          solution: 'T = 273.16 × 1.5 = 409.74 K ≈ 409.7 K.',
+          similar: {
+            question: 'A constant-volume gas thermometer shows a pressure 1.25 times its triple-point pressure. The temperature is:',
+            options: ['341.5 K', '218.5 K', '273.2 K', '409.7 K'],
+            answer: '341.5 K',
+            solution: 'T = 273.16 × 1.25 = 341.45 K ≈ 341.5 K.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Thermal Expansion',
+      theory:
+        'Most substances expand on heating. Linear expansion ΔL = LαΔT, area expansion ΔA = AβΔT and volume expansion ΔV = VγΔT. For isotropic solids ==β = 2α and γ = 3α==. A hole in a plate expands exactly as if it were filled with the plate material.\n\nA liquid is always held in a vessel, so the observed (apparent) expansion is γ_app = γ_liquid − γ_vessel. Since mass is constant, density falls with temperature: ρ′ = ρ/(1 + γΔT) ≈ ρ(1 − γΔT). Water shows ==anomalous expansion==: it contracts when heated from 0 °C to 4 °C and has ==maximum density at 4 °C==, which is why lakes freeze from the top while the bottom stays at 4 °C.\n\nExpansion affects clocks and measurements. A pendulum clock\'s period T ∝ √L, so ΔT_period/T = ½αΔθ. If it keeps correct time at θ₁, at a higher temperature it ==loses ½αΔθ × 86400 s per day==. A metal scale calibrated at one temperature reads less than the true length when it is hotter.',
+      keyPoints: [
+        '==α : β : γ = 1 : 2 : 3== for isotropic solids.',
+        'Apparent expansion of liquid: γ_app = γ_L − γ_vessel.',
+        'Water has maximum density at ==4 °C==.',
+        'Clock loss per day = ½αΔθ × 86400 s (gains when cooled).',
+        'Difference L₁ − L₂ stays constant at all temperatures if L₁α₁ = L₂α₂.',
+      ],
+      formulas: ['ΔL = LαΔT', 'ΔA = AβΔT, β = 2α', 'ΔV = VγΔT, γ = 3α', 'ρ′ = ρ/(1 + γΔT)', 'Loss per day = ½αΔθ × 86400 s'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - constant length difference of two rods',
+        question:
+          'A steel rod (α = 1.2 × 10⁻⁵ /°C) and a brass rod (α = 1.8 × 10⁻⁵ /°C) differ in length by 10 cm at all temperatures. Find their lengths.',
+        approach: [
+          'For the difference to stay constant, both must expand equally: L_s α_s = L_b α_b.',
+          'L_s/L_b = 1.8/1.2 = 1.5, so steel is longer.',
+          'L_s − L_b = 0.5 L_b = 10 cm ⇒ L_b = 20 cm and L_s = 30 cm.',
+        ],
+        answer: 'Steel 30 cm, brass 20 cm',
+      },
+      questions: [
+        {
+          question: 'A 1 m rod with α = 1.2 × 10⁻⁵ /°C is heated by 100 °C. Its increase in length is:',
+          options: ['1.2 mm', '0.12 mm', '12 mm', '2.4 mm'],
+          answer: '1.2 mm',
+          difficulty: 'Easy',
+          hint: 'ΔL = LαΔT.',
+          solution: 'ΔL = 1 × 1.2 × 10⁻⁵ × 100 = 1.2 × 10⁻³ m = 1.2 mm.',
+          similar: {
+            question: 'A 2 m rod with α = 2 × 10⁻⁵ /°C is heated by 50 °C. Its increase in length is:',
+            options: ['2 mm', '1 mm', '4 mm', '0.2 mm'],
+            answer: '2 mm',
+            solution: 'ΔL = 2 × 2 × 10⁻⁵ × 50 = 2 × 10⁻³ m = 2 mm.',
+          },
+        },
+        {
+          question: 'A metal plate with α = 2 × 10⁻⁵ /°C is heated by 100 °C. The percentage increase in its area is:',
+          options: ['0.4%', '0.2%', '0.6%', '0.04%'],
+          answer: '0.4%',
+          difficulty: 'Medium',
+          hint: 'β = 2α.',
+          solution: 'ΔA/A = 2αΔT = 2 × 2 × 10⁻⁵ × 100 = 4 × 10⁻³ = 0.4%.',
+          similar: {
+            question: 'A metal cube with α = 1 × 10⁻⁵ /°C is heated by 100 °C. The percentage increase in its volume is:',
+            options: ['0.3%', '0.1%', '0.2%', '0.03%'],
+            answer: '0.3%',
+            solution: 'ΔV/V = 3αΔT = 3 × 10⁻⁵ × 100 = 3 × 10⁻³ = 0.3%.',
+          },
+        },
+        {
+          question: 'A pendulum clock with a brass rod (α = 2 × 10⁻⁵ /°C) keeps correct time at 20 °C. At 30 °C, in one day it:',
+          options: ['Loses 8.64 s', 'Gains 8.64 s', 'Loses 17.28 s', 'Loses 4.32 s'],
+          answer: 'Loses 8.64 s',
+          difficulty: 'Hard',
+          hint: 'ΔT_period/T = ½αΔθ, and a longer period means the clock runs slow.',
+          solution: 'Fractional change = ½ × 2 × 10⁻⁵ × 10 = 10⁻⁴. Time lost per day = 10⁻⁴ × 86400 = 8.64 s (period increases, so it loses).',
+          similar: {
+            question: 'A clock pendulum (α = 1.2 × 10⁻⁵ /°C) is correct at 15 °C. At 35 °C, in one day it:',
+            options: ['Loses ≈10.4 s', 'Gains ≈10.4 s', 'Loses ≈20.7 s', 'Loses ≈5.2 s'],
+            answer: 'Loses ≈10.4 s',
+            solution: 'Loss = ½ × 1.2 × 10⁻⁵ × 20 × 86400 = 1.2 × 10⁻⁴ × 86400 ≈ 10.37 s per day.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Specific Heat Capacity and Calorimetry',
+      theory:
+        'The heat needed to change the temperature of a body without change of state is ==Q = mcΔT==, where c is the specific heat capacity (J kg⁻¹ K⁻¹). Water has a high specific heat (4200 J kg⁻¹ K⁻¹ or 1 cal g⁻¹ °C⁻¹), which is why it is used as a coolant. The heat capacity of a body is C = mc, and its ==water equivalent== is the mass of water with the same heat capacity, W = mc/c_water.\n\nMolar specific heat C = c × M (per mole). For gases it depends on the process (C_p > C_v), which is studied in thermodynamics.\n\nThe ==principle of calorimetry==: in an isolated system, heat lost by hotter bodies = heat gained by colder bodies. When equal masses of the same liquid are mixed, the final temperature is simply the average. If a substance is heated at constant power P, the slope of its temperature-time graph is P/(mc), so ==a flatter slope means a larger specific heat==.',
+      keyPoints: [
+        '==Q = mcΔT==; c_water = 4200 J kg⁻¹ K⁻¹ = 1 cal g⁻¹ °C⁻¹.',
+        'Heat lost = heat gained (no losses to surroundings).',
+        'Mixing same liquid: T = (m₁T₁ + m₂T₂)/(m₁ + m₂).',
+        'Constant heating rate: dT/dt = P/(mc), so c ∝ 1/slope.',
+      ],
+      formulas: ['Q = mcΔT', 'C = mc', 'T_mix = (m₁c₁T₁ + m₂c₂T₂)/(m₁c₁ + m₂c₂)', 'dT/dt = P/(mc)'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently - temperature-time graphs',
+        question:
+          'A solid is heated at a constant rate. Its temperature rises at 10 °C/min while solid and at 20 °C/min after it has completely melted. Find c_solid : c_liquid.',
+        approach: [
+          'Same power and same mass: dT/dt = P/(mc) ⇒ c ∝ 1/(dT/dt).',
+          'c_s/c_l = 20/10.',
+        ],
+        answer: '2 : 1',
+      },
+      questions: [
+        {
+          question: 'Heat required to raise the temperature of 2 kg of water by 10 °C (c = 4200 J kg⁻¹ K⁻¹):',
+          options: ['84 kJ', '42 kJ', '8.4 kJ', '168 kJ'],
+          answer: '84 kJ',
+          difficulty: 'Easy',
+          hint: 'Q = mcΔT.',
+          solution: 'Q = 2 × 4200 × 10 = 84000 J = 84 kJ.',
+          similar: {
+            question: 'Heat required to raise 500 g of water by 20 °C (c = 4200 J kg⁻¹ K⁻¹):',
+            options: ['42 kJ', '21 kJ', '84 kJ', '4.2 kJ'],
+            answer: '42 kJ',
+            solution: 'Q = 0.5 × 4200 × 20 = 42000 J = 42 kJ.',
+          },
+        },
+        {
+          question: '200 g of water at 80 °C is mixed with 300 g of water at 30 °C. The final temperature (no heat loss) is:',
+          options: ['50 °C', '55 °C', '45 °C', '60 °C'],
+          answer: '50 °C',
+          difficulty: 'Medium',
+          hint: 'Same liquid: weighted average of temperatures by mass.',
+          solution: 'T = (200 × 80 + 300 × 30)/500 = (16000 + 9000)/500 = 50 °C.',
+          similar: {
+            question: '100 g of water at 90 °C is mixed with 400 g of water at 20 °C. Final temperature:',
+            options: ['34 °C', '55 °C', '40 °C', '30 °C'],
+            answer: '34 °C',
+            solution: 'T = (100 × 90 + 400 × 20)/500 = (9000 + 8000)/500 = 34 °C.',
+          },
+        },
+        {
+          question: 'A 100 g metal block at 100 °C is dropped into 200 g of water at 20 °C (container of negligible heat capacity). The final temperature is 25 °C. The specific heat of the metal is (c_w = 4200 J kg⁻¹ K⁻¹):',
+          options: ['560 J kg⁻¹ K⁻¹', '420 J kg⁻¹ K⁻¹', '840 J kg⁻¹ K⁻¹', '280 J kg⁻¹ K⁻¹'],
+          answer: '560 J kg⁻¹ K⁻¹',
+          difficulty: 'Hard',
+          hint: 'Heat lost by the metal (100 → 25) = heat gained by water (20 → 25).',
+          solution: '0.1 × c × 75 = 0.2 × 4200 × 5 ⇒ 7.5c = 4200 ⇒ c = 560 J kg⁻¹ K⁻¹.',
+          similar: {
+            question: 'A 200 g metal piece at 150 °C is put into 400 g of water at 25 °C; the final temperature is 30 °C. Specific heat of the metal (c_w = 4200 J kg⁻¹ K⁻¹):',
+            options: ['350 J kg⁻¹ K⁻¹', '700 J kg⁻¹ K⁻¹', '175 J kg⁻¹ K⁻¹', '420 J kg⁻¹ K⁻¹'],
+            answer: '350 J kg⁻¹ K⁻¹',
+            solution: '0.2 × c × 120 = 0.4 × 4200 × 5 = 8400 ⇒ 24c = 8400 ⇒ c = 350 J kg⁻¹ K⁻¹.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Latent Heat and Change of State',
+      theory:
+        'During a change of state (melting, boiling) heat is absorbed or released ==without any change in temperature==; the energy goes into changing the molecular arrangement. The heat required is ==Q = mL==, where L is the latent heat. For water, L_f = 336 kJ/kg (80 cal/g) and L_v = 2256 kJ/kg (540 cal/g). Steam at 100 °C causes more severe burns than water at 100 °C because it also gives out its latent heat.\n\nIn mixing problems involving ice, first compare the heat needed to melt all the ice (and warm it to 0 °C) with the heat available from the hot body cooling to 0 °C. ==If the available heat is less, the final temperature is 0 °C== and only part of the ice melts. Similarly, when steam meets ice, check whether all the steam must condense; often the final temperature is 100 °C with some steam left.\n\nA ==phase diagram== (P-T graph) shows the regions of solid, liquid and vapour separated by the fusion, vaporisation and sublimation curves meeting at the ==triple point== (water: 273.16 K, 0.006 atm). The melting point of ice falls with increasing pressure (regelation), while the boiling point rises with pressure (pressure cooker).',
+      keyPoints: [
+        '==Temperature stays constant during change of state==; Q = mL.',
+        'Water: L_f = 80 cal/g = 336 kJ/kg; L_v = 540 cal/g = 2256 kJ/kg.',
+        'Ice + water: check if all ice melts before writing the heat balance.',
+        'Triple point of water: 273.16 K and about 0.006 atm.',
+        'Boiling point rises with pressure; melting point of ice falls with pressure.',
+      ],
+      formulas: ['Q = mL', 'Q = mcΔT (no phase change)', 'Ice at −θ to steam: m(c_iθ + L_f + 100c_w + L_v)'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - heat for full conversion',
+        question:
+          'How much heat is needed to convert 1 g of ice at −10 °C into steam at 100 °C? (c_ice = 0.5 cal/g °C, L_f = 80 cal/g, c_w = 1 cal/g °C, L_v = 540 cal/g)',
+        approach: [
+          'Warm ice −10 → 0 °C: 1 × 0.5 × 10 = 5 cal.',
+          'Melt: 1 × 80 = 80 cal. Warm water 0 → 100 °C: 100 cal.',
+          'Vaporise: 540 cal. Total = 5 + 80 + 100 + 540.',
+        ],
+        answer: '725 cal',
+      },
+      questions: [
+        {
+          question: 'Heat required to melt 2 kg of ice at 0 °C (L_f = 336 kJ/kg):',
+          options: ['672 kJ', '336 kJ', '168 kJ', '4520 kJ'],
+          answer: '672 kJ',
+          difficulty: 'Easy',
+          hint: 'Q = mL.',
+          solution: 'Q = 2 × 336 = 672 kJ.',
+          similar: {
+            question: 'Heat released when 500 g of steam at 100 °C condenses to water at 100 °C (L_v = 2256 kJ/kg):',
+            options: ['1128 kJ', '2256 kJ', '168 kJ', '564 kJ'],
+            answer: '1128 kJ',
+            solution: 'Q = 0.5 × 2256 = 1128 kJ.',
+          },
+        },
+        {
+          question: '100 g of ice at 0 °C is mixed with 100 g of water at 100 °C. The final temperature is (L_f = 80 cal/g, c = 1 cal/g °C):',
+          options: ['10 °C', '20 °C', '50 °C', '0 °C'],
+          answer: '10 °C',
+          difficulty: 'Medium',
+          hint: 'Compare 8000 cal needed to melt the ice with 10000 cal available.',
+          solution: 'Available (water to 0 °C) = 10000 cal > 8000 cal, so all ice melts. 8000 + 100 × T = 100 × (100 − T) ⇒ 200T = 2000 ⇒ T = 10 °C.',
+          similar: {
+            question: '100 g of ice at 0 °C is mixed with 100 g of water at 60 °C. How much ice remains unmelted? (L_f = 80 cal/g)',
+            options: ['25 g', '75 g', '0 g', '50 g'],
+            answer: '25 g',
+            solution: 'Heat available = 100 × 60 = 6000 cal < 8000 cal. Ice melted = 6000/80 = 75 g; 25 g remains and the final temperature is 0 °C.',
+          },
+        },
+        {
+          question: '1 g of steam at 100 °C is mixed with 1 g of ice at 0 °C. The final temperature of the mixture is (L_f = 80 cal/g, L_v = 540 cal/g):',
+          options: ['100 °C', '50 °C', '0 °C', '80 °C'],
+          answer: '100 °C',
+          difficulty: 'Hard',
+          hint: 'Find the heat needed to take the ice all the way to water at 100 °C and compare with the latent heat of steam.',
+          solution: 'Ice → water at 100 °C needs 80 + 100 = 180 cal. Condensing all the steam would give 540 cal, more than needed. So only 180/540 = 1/3 g of steam condenses and the mixture stays at 100 °C.',
+          similar: {
+            question: '2 g of ice at 0 °C is mixed with 1 g of steam at 100 °C. Mass of steam that condenses (L_f = 80 cal/g, L_v = 540 cal/g):',
+            options: ['2/3 g', '1/3 g', '1 g', '1/2 g'],
+            answer: '2/3 g',
+            solution: 'Ice to water at 100 °C needs 2 × (80 + 100) = 360 cal < 540 cal. Steam condensed = 360/540 = 2/3 g; final temperature 100 °C.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Conduction and Thermal Conductivity',
+      theory:
+        'In conduction heat flows through a material from molecule to molecule without bulk movement. In the steady state the rate of heat flow through a rod of length L and area A with end temperatures T₁ and T₂ is ==H = KA(T₁ − T₂)/L==, where K is the thermal conductivity (W m⁻¹ K⁻¹). Metals are good conductors; air and wool are poor ones.\n\nThis is exactly like Ohm\'s law: temperature difference ↔ potential difference, heat current ↔ electric current, and ==thermal resistance R = L/(KA)==. Rods in series carry the same heat current and their resistances add; rods in parallel share the same temperature difference and their conductances add. For two rods of equal length in series, K_eq = 2K₁K₂/(K₁ + K₂); for equal areas in parallel, K_eq = (K₁ + K₂)/2.\n\nThe junction temperature of two rods in series is found from equality of heat current. When ice forms on a lake, heat conducts upward through the ice layer, and the ==time to grow a thickness x is proportional to x²== (t = ρLx²/(2Kθ)).',
+      keyPoints: [
+        '==H = KAΔT/L==; thermal resistance R = L/(KA).',
+        'Series: same H, R_eq = R₁ + R₂; parallel: same ΔT, 1/R_eq = 1/R₁ + 1/R₂.',
+        'Equal lengths in series: ==K_eq = 2K₁K₂/(K₁ + K₂)==.',
+        'Ice formation: t ∝ x², so growth slows as the layer thickens.',
+      ],
+      formulas: ['H = KA(T₁ − T₂)/L', 'R = L/(KA)', 'K_series = (L₁ + L₂)/(L₁/K₁ + L₂/K₂)', 'K_parallel = (K₁A₁ + K₂A₂)/(A₁ + A₂)', 't = ρLx²/(2Kθ)'],
+      diagram: 'heat-transfer',
+      diagramCaption: 'Heat flows by conduction through solids, by convection in fluids and by radiation through empty space.',
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - ice formation on lakes',
+        question:
+          'On a lake the ice layer grows from 1 cm to 2 cm thick in time t. How much more time will it take to grow from 2 cm to 3 cm (air temperature constant)?',
+        approach: [
+          'Time to form thickness x from zero is t ∝ x².',
+          'Time from 1 to 2 cm ∝ 4 − 1 = 3; time from 2 to 3 cm ∝ 9 − 4 = 5.',
+          'Required time = (5/3)t.',
+        ],
+        answer: '5t/3',
+      },
+      questions: [
+        {
+          question: 'A rod of length 1 m and area 10⁻⁴ m² (K = 400 W m⁻¹ K⁻¹) has its ends at 100 °C and 0 °C. The rate of heat flow is:',
+          options: ['4 W', '40 W', '0.4 W', '400 W'],
+          answer: '4 W',
+          difficulty: 'Easy',
+          hint: 'H = KAΔT/L.',
+          solution: 'H = 400 × 10⁻⁴ × 100/1 = 4 W.',
+          similar: {
+            question: 'A rod of length 0.5 m and area 2 × 10⁻⁴ m² (K = 200 W m⁻¹ K⁻¹) has a temperature difference of 100 °C. Heat current:',
+            options: ['8 W', '4 W', '16 W', '2 W'],
+            answer: '8 W',
+            solution: 'H = 200 × 2 × 10⁻⁴ × 100/0.5 = 8 W.',
+          },
+        },
+        {
+          question: 'Two rods of equal length and area with conductivities K and 2K are joined in series. The free end of the K rod is at 100 °C and that of the 2K rod at 0 °C. The junction temperature is:',
+          options: ['33.3 °C', '66.7 °C', '50 °C', '25 °C'],
+          answer: '33.3 °C',
+          difficulty: 'Medium',
+          hint: 'In the steady state the same heat current flows through both rods.',
+          solution: 'K(100 − T) = 2K(T − 0) ⇒ 100 = 3T ⇒ T = 33.3 °C. Most of the temperature drop occurs across the poorer conductor.',
+          similar: {
+            question: 'Rods of conductivity 3K and K (equal length and area) are in series; the 3K rod\'s free end is at 100 °C and the K rod\'s at 0 °C. Junction temperature:',
+            options: ['75 °C', '25 °C', '50 °C', '66.7 °C'],
+            answer: '75 °C',
+            solution: '3K(100 − T) = K × T ⇒ 300 = 4T ⇒ T = 75 °C.',
+          },
+        },
+        {
+          question: 'Two rods of the same length and area with conductivities K and 2K are joined in series. The equivalent conductivity is:',
+          options: ['4K/3', '3K/2', '2K/3', '3K'],
+          answer: '4K/3',
+          difficulty: 'Hard',
+          hint: 'Add thermal resistances L/(KA); the combination has length 2L.',
+          solution: 'R = L/(KA) + L/(2KA) = 3L/(2KA). For length 2L: 2L/(K_eq A) = 3L/(2KA) ⇒ K_eq = 4K/3.',
+          similar: {
+            question: 'Two rods of the same length and area with conductivities K and 3K are joined in parallel. The equivalent conductivity is:',
+            options: ['2K', '3K/2', '4K', '3K/4'],
+            answer: '2K',
+            solution: 'Parallel, equal areas: K_eq = (K₁A + K₂A)/(2A) = (K + 3K)/2 = 2K.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Convection and Radiation (Stefan and Wien Laws)',
+      theory:
+        'In ==convection== heat is carried by the actual movement of fluid: warm, less dense fluid rises and cooler fluid sinks (natural convection), as in sea breezes and land breezes, or is pushed by a fan or pump (forced convection). Convection needs a medium and gravity.\n\n==Radiation== is transfer by electromagnetic waves and needs no medium. A ==perfect black body== absorbs all radiation falling on it and is also the best emitter (Kirchhoff\'s law: good absorbers are good emitters). The power radiated by a body of area A, emissivity e at absolute temperature T is ==P = σeAT⁴== (Stefan-Boltzmann law, σ = 5.67 × 10⁻⁸ W m⁻² K⁻⁴). Net loss to surroundings at T₀ is σeA(T⁴ − T₀⁴).\n\nThe spectrum of a black body peaks at a wavelength that shifts to shorter values as temperature rises: ==λ_m T = b== (Wien\'s displacement law, b ≈ 2.9 × 10⁻³ m K). That is why a heated iron glows red, then yellow, then white, and why stars of higher temperature look bluish.',
+      keyPoints: [
+        '==P = σeAT⁴== with T in kelvin.',
+        '==λ_m T = constant==; hotter body ⇒ shorter peak wavelength.',
+        'Good absorbers are good emitters (Kirchhoff); black body: e = 1.',
+        'Radiated power of spheres: P ∝ r²T⁴.',
+      ],
+      formulas: ['P = σeAT⁴', 'P_net = σeA(T⁴ − T₀⁴)', 'λ_m T = b = 2.9 × 10⁻³ m K'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - Wien + Stefan combined',
+        question:
+          'When a black body is heated, the wavelength of maximum emission shifts from 2 μm to 1 μm. By what factor does its radiated power increase?',
+        approach: [
+          'Wien: λ_m ∝ 1/T, so halving λ_m doubles T.',
+          'Stefan: P ∝ T⁴ ⇒ factor = 2⁴.',
+        ],
+        answer: '16 times',
+      },
+      questions: [
+        {
+          question: 'The absolute temperature of a black body is doubled. Its radiated power becomes:',
+          options: ['16 times', '4 times', '2 times', '8 times'],
+          answer: '16 times',
+          difficulty: 'Easy',
+          hint: 'P ∝ T⁴.',
+          solution: 'P ∝ T⁴ ⇒ 2⁴ = 16 times.',
+          similar: {
+            question: 'A black body is heated from 27 °C to 327 °C. Its radiated power becomes:',
+            options: ['16 times', '4 times', '2 times', '8 times'],
+            answer: '16 times',
+            solution: 'T goes from 300 K to 600 K (doubles), so P becomes 2⁴ = 16 times. Always use kelvin.',
+          },
+        },
+        {
+          question: 'The solar spectrum peaks at about 500 nm. Taking b = 2.9 × 10⁻³ m K, the surface temperature of the Sun is about:',
+          options: ['5800 K', '2900 K', '1450 K', '11600 K'],
+          answer: '5800 K',
+          difficulty: 'Medium',
+          hint: 'T = b/λ_m.',
+          solution: 'T = 2.9 × 10⁻³/(500 × 10⁻⁹) = 5800 K.',
+          similar: {
+            question: 'A black body is at 2000 K. Its wavelength of maximum emission is (b = 2.9 × 10⁻³ m K):',
+            options: ['1.45 μm', '2.9 μm', '0.725 μm', '14.5 μm'],
+            answer: '1.45 μm',
+            solution: 'λ_m = 2.9 × 10⁻³/2000 = 1.45 × 10⁻⁶ m = 1.45 μm.',
+          },
+        },
+        {
+          question: 'Two black spheres have radii r and 2r and temperatures 2T and T. Ratio of their radiated powers P₁ : P₂ is:',
+          options: ['4 : 1', '1 : 4', '2 : 1', '8 : 1'],
+          answer: '4 : 1',
+          difficulty: 'Hard',
+          hint: 'P ∝ AT⁴ ∝ r²T⁴.',
+          solution: 'P₁/P₂ = (r²(2T)⁴)/((2r)²T⁴) = 16/4 = 4.',
+          similar: {
+            question: 'Two black spheres have radii 2r and r and temperatures T and 2T. Ratio P₁ : P₂ is:',
+            options: ['1 : 4', '4 : 1', '1 : 2', '2 : 1'],
+            answer: '1 : 4',
+            solution: 'P₁/P₂ = (4r² × T⁴)/(r² × 16T⁴) = 4/16 = 1/4.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Newton\'s Law of Cooling',
+      theory:
+        'For a small temperature difference between a body and its surroundings, the ==rate of loss of heat is proportional to the excess temperature==: dT/dt = −k(T − T₀). The constant k depends on the surface area, nature of the surface and the heat capacity of the body. It is a special case of Stefan\'s law when T − T₀ is small.\n\nIntegrating gives the exact form ==T − T₀ = (T_i − T₀) e^(−kt)==: the excess temperature decays exponentially, so it halves in equal time intervals, and a graph of ln(T − T₀) against t is a straight line with negative slope.\n\nIn objective questions the ==average form== is commonly used: (T₁ − T₂)/t = k[(T₁ + T₂)/2 − T₀]. Write it for two intervals, divide to eliminate k, and solve. Because the excess temperature falls, the body takes ==longer to fall through the same temperature range== as it gets cooler.',
+      keyPoints: [
+        'Rate of cooling ∝ (T − T₀) for small differences.',
+        'Exact: ==T − T₀ = (T_i − T₀)e^(−kt)==; ln(T − T₀) vs t is linear.',
+        'Average form: (T₁ − T₂)/t = k[(T₁ + T₂)/2 − T₀].',
+        'Equal temperature drops take ==longer== at lower temperatures.',
+      ],
+      formulas: ['dT/dt = −k(T − T₀)', 'T − T₀ = (T_i − T₀)e^(−kt)', '(T₁ − T₂)/t = k[(T₁ + T₂)/2 − T₀]'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - two-interval cooling numericals',
+        question:
+          'A body cools from 70 °C to 60 °C in 5 minutes in surroundings at 30 °C. How long will it take to cool from 60 °C to 50 °C?',
+        approach: [
+          'First interval: 10/5 = k(65 − 30) ⇒ k = 2/35 per min.',
+          'Second interval: 10/t = k(55 − 30) = (2/35) × 25.',
+          't = 10 × 35/50 = 7 min.',
+        ],
+        answer: '7 minutes',
+      },
+      questions: [
+        {
+          question: 'A body at 80 °C in surroundings at 20 °C cools at 3 °C/min. When its temperature is 50 °C, its rate of cooling is:',
+          options: ['1.5 °C/min', '3 °C/min', '0.75 °C/min', '2 °C/min'],
+          answer: '1.5 °C/min',
+          difficulty: 'Easy',
+          hint: 'Rate ∝ excess temperature over surroundings.',
+          solution: 'Excess temperature changes from 60 to 30, i.e. halves, so the rate halves: 1.5 °C/min.',
+          similar: {
+            question: 'A body at 60 °C in a room at 20 °C cools at 4 °C/min. At 40 °C its rate of cooling is:',
+            options: ['2 °C/min', '4 °C/min', '1 °C/min', '3 °C/min'],
+            answer: '2 °C/min',
+            solution: 'Excess falls from 40 to 20 (halves) ⇒ rate = 2 °C/min.',
+          },
+        },
+        {
+          question: 'A liquid cools from 60 °C to 50 °C in 10 min in a room at 25 °C. The time to cool from 50 °C to 40 °C is:',
+          options: ['15 min', '10 min', '12 min', '20 min'],
+          answer: '15 min',
+          difficulty: 'Medium',
+          hint: 'Use the average form for both intervals and divide.',
+          solution: '10/10 = k(55 − 25) ⇒ k = 1/30. 10/t = (1/30)(45 − 25) = 2/3 ⇒ t = 15 min.',
+          similar: {
+            question: 'A body cools from 70 °C to 60 °C in 6 min in a room at 25 °C. Time to cool from 60 °C to 50 °C:',
+            options: ['8 min', '6 min', '7 min', '10 min'],
+            answer: '8 min',
+            solution: '10/6 = k(65 − 25) ⇒ k = 1/24. 10/t = (1/24)(55 − 25) = 1.25 ⇒ t = 8 min.',
+          },
+        },
+        {
+          question: 'Using the exact exponential law, a body cools from 80 °C to 50 °C in 10 min in surroundings at 20 °C. The total time to cool from 80 °C to 35 °C is:',
+          options: ['20 min', '15 min', '30 min', '25 min'],
+          answer: '20 min',
+          difficulty: 'Hard',
+          hint: 'Track the excess temperature: 60 → 30 → 15.',
+          solution: 'Excess falls 60 → 30 in 10 min, so it halves every 10 min. Reaching 35 °C means excess 15 = 60/4, i.e. two halvings: 20 min.',
+          similar: {
+            question: 'Using the exponential law, a body cools from 90 °C to 50 °C in 6 min in surroundings at 10 °C. Further time to cool from 50 °C to 20 °C:',
+            options: ['12 min', '6 min', '18 min', '9 min'],
+            answer: '12 min',
+            solution: 'Excess 80 → 40 in 6 min (halving time 6 min). From 40 to 10 requires two halvings: 12 more minutes.',
+          },
+        },
+      ],
+    },
+  ],
+};

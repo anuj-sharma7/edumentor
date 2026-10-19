@@ -1,0 +1,430 @@
+import type { StudyChapter } from '../types';
+
+export const thermodynamics: StudyChapter = {
+  name: 'Thermodynamics',
+  subject: 'Physics',
+  classLevel: 11,
+  summary:
+    'Heat, work and internal energy linked by the first law, the standard processes on a P-V diagram, and heat engines, refrigerators and the Carnot cycle from the second law. One of the most important Class 11 chapters: JEE Main and Advanced ask from it every year, often with graphs.',
+  mostRepeated: [
+    'First law ==ΔQ = ΔU + W== with W = work done BY the gas = area under the P-V curve.',
+    'Internal energy of an ideal gas ==depends only on temperature==: ΔU = nC_vΔT for any process.',
+    'Isothermal W = nRT ln(V₂/V₁); adiabatic ==W = nR(T₁ − T₂)/(γ − 1)==.',
+    'Adiabatic slope on P-V diagram is ==γ times== the isothermal slope.',
+    'In a cyclic process ΔU = 0 and net work = ==area enclosed== (clockwise ⇒ positive).',
+    'Carnot efficiency ==η = 1 − T₂/T₁== (kelvin), the maximum for any engine between those temperatures.',
+    'COP of refrigerator β = Q₂/W; for a reversible pair ==β = (1 − η)/η==.',
+  ],
+  topics: [
+    {
+      name: 'Zeroth Law, Internal Energy and Work',
+      theory:
+        'The ==zeroth law of thermodynamics== states that if two systems are each in thermal equilibrium with a third, they are in thermal equilibrium with each other. It gives meaning to temperature: systems in equilibrium have the same temperature.\n\n==Internal energy U== is the total kinetic and potential energy of the molecules. It is a ==state function==, so ΔU depends only on the initial and final states, not on the path. For an ideal gas there are no intermolecular forces, so U depends only on temperature: ΔU = nC_vΔT for every process.\n\nHeat and work are path functions. When a gas expands against a piston, the work done by the gas is ==W = ∫P dV = area under the P-V curve==. Work is positive for expansion and negative for compression. At constant pressure W = PΔV. In a ==free expansion== into vacuum the gas does no work, and if the container is insulated Q = 0, so ΔU = 0 and the temperature of an ideal gas does not change.',
+      keyPoints: [
+        'Zeroth law ⇒ temperature is a valid property for equilibrium.',
+        '==U is a state function==; Q and W depend on the path.',
+        'W by gas = area under P-V graph; positive on expansion.',
+        'Free expansion of ideal gas: Q = W = ΔU = 0, T unchanged.',
+      ],
+      formulas: ['W = ∫P dV', 'W = PΔV (isobaric)', 'ΔU = nC_vΔT (ideal gas)'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - work from a straight-line P-V path',
+        question:
+          'An ideal gas goes from state (P₀, V₀) to state (2P₀, 2V₀) along a straight line on the P-V diagram. The work done by the gas is:',
+        approach: [
+          'Work = area under the line = trapezium with parallel sides P₀ and 2P₀ and width V₀.',
+          'W = ½(P₀ + 2P₀) × (2V₀ − V₀).',
+        ],
+        answer: '3P₀V₀/2',
+      },
+      questions: [
+        {
+          question: 'A gas expands from 2 L to 5 L at a constant pressure of 10⁵ Pa. The work done by the gas is:',
+          options: ['300 J', '3000 J', '30 J', '500 J'],
+          answer: '300 J',
+          difficulty: 'Easy',
+          hint: 'W = PΔV; convert litres to m³.',
+          solution: 'W = 10⁵ × (5 − 2) × 10⁻³ = 300 J.',
+          similar: {
+            question: 'A gas is compressed from 6 L to 2 L at a constant pressure of 2 × 10⁵ Pa. The work done by the gas is:',
+            options: ['−800 J', '800 J', '−400 J', '−1600 J'],
+            answer: '−800 J',
+            solution: 'W = PΔV = 2 × 10⁵ × (2 − 6) × 10⁻³ = −800 J (work is done on the gas).',
+          },
+        },
+        {
+          question: 'The pressure of a gas rises linearly from 1 × 10⁵ Pa to 3 × 10⁵ Pa as its volume increases from 1 L to 3 L. The work done by the gas is:',
+          options: ['400 J', '600 J', '200 J', '800 J'],
+          answer: '400 J',
+          difficulty: 'Medium',
+          hint: 'Area of the trapezium under the line.',
+          solution: 'W = average pressure × ΔV = 2 × 10⁵ × 2 × 10⁻³ = 400 J.',
+          similar: {
+            question: 'A gas goes along a straight line from (2 L, 4 × 10⁵ Pa) to (4 L, 2 × 10⁵ Pa). Work done by the gas:',
+            options: ['600 J', '400 J', '800 J', '1200 J'],
+            answer: '600 J',
+            solution: 'W = ½(4 + 2) × 10⁵ × 2 × 10⁻³ = 3 × 10⁵ × 2 × 10⁻³ = 600 J.',
+          },
+        },
+        {
+          question: 'An ideal gas in an insulated container suddenly expands into an evacuated chamber (free expansion). Which is correct?',
+          options: ['ΔU = 0, W = 0, Q = 0', 'ΔU < 0, W > 0, Q = 0', 'ΔU = 0, W > 0, Q > 0', 'ΔU > 0, W = 0, Q > 0'],
+          answer: 'ΔU = 0, W = 0, Q = 0',
+          difficulty: 'Hard',
+          hint: 'Against what pressure does the gas push in a vacuum?',
+          solution: 'The gas expands against zero external pressure, so W = 0. The container is insulated, so Q = 0. By the first law ΔU = 0, and for an ideal gas the temperature stays the same.',
+          similar: {
+            question: 'After free expansion of an ideal gas in an insulated vessel, its temperature:',
+            options: ['Remains the same', 'Decreases', 'Increases', 'Becomes zero'],
+            answer: 'Remains the same',
+            solution: 'Q = 0 and W = 0 ⇒ ΔU = 0. U of an ideal gas depends only on T, so T is unchanged.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'First Law of Thermodynamics and Molar Specific Heats',
+      theory:
+        'The ==first law== is energy conservation: heat supplied to a system goes partly into raising its internal energy and partly into work done by it, ==ΔQ = ΔU + W==. Sign convention: Q positive when heat is absorbed, W positive when the gas does work.\n\nAt constant volume W = 0, so Q = ΔU = nC_vΔT. At constant pressure Q = nC_pΔT and W = PΔV = nRΔT. Since ΔU is the same in both cases for the same ΔT, ==C_p − C_v = R== (Mayer\'s relation), and γ = C_p/C_v > 1.\n\nIn an isobaric process the heat divides in fixed fractions: ==ΔU/Q = 1/γ and W/Q = 1 − 1/γ==. For a monatomic gas 3/5 of the heat raises internal energy and 2/5 does work; for a diatomic gas these are 5/7 and 2/7. Because ΔU is path-independent, if a system goes between the same two states by different paths, Q − W is the same for all of them.',
+      keyPoints: [
+        '==ΔQ = ΔU + W==; W by the gas is positive.',
+        'Mayer\'s relation: ==C_p − C_v = R==.',
+        'Isobaric: W = nRΔT, Q = nC_pΔT, W/Q = 1 − 1/γ.',
+        'Q − W is path-independent (equals ΔU).',
+      ],
+      formulas: ['ΔQ = ΔU + W', 'Q_v = nC_vΔT', 'Q_p = nC_pΔT', 'C_p − C_v = R', 'γ = C_p/C_v'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently - isobaric heating',
+        question:
+          '2 moles of a monatomic ideal gas are heated at constant pressure through 50 K. Find the heat supplied, work done and change in internal energy (R = 8.3 J mol⁻¹ K⁻¹).',
+        approach: [
+          'C_p = 5R/2 ⇒ Q = 2 × 2.5 × 8.3 × 50 = 2075 J.',
+          'W = nRΔT = 2 × 8.3 × 50 = 830 J.',
+          'ΔU = Q − W = 1245 J (check: nC_vΔT = 2 × 1.5 × 8.3 × 50 = 1245 J).',
+        ],
+        answer: 'Q = 2075 J, W = 830 J, ΔU = 1245 J',
+      },
+      questions: [
+        {
+          question: 'A gas absorbs 100 J of heat and does 40 J of work. The change in its internal energy is:',
+          options: ['60 J', '140 J', '40 J', '−60 J'],
+          answer: '60 J',
+          difficulty: 'Easy',
+          hint: 'ΔU = Q − W.',
+          solution: 'ΔU = 100 − 40 = 60 J.',
+          similar: {
+            question: 'A gas absorbs 200 J of heat while 50 J of work is done on it. Change in internal energy:',
+            options: ['250 J', '150 J', '200 J', '50 J'],
+            answer: '250 J',
+            solution: 'W by gas = −50 J. ΔU = Q − W = 200 − (−50) = 250 J.',
+          },
+        },
+        {
+          question: 'A rigid diatomic ideal gas is heated at constant pressure. The fraction of the heat supplied that is used to do external work is:',
+          options: ['2/7', '5/7', '2/5', '3/5'],
+          answer: '2/7',
+          difficulty: 'Medium',
+          hint: 'W/Q = nRΔT/(nC_pΔT) = R/C_p.',
+          solution: 'C_p = 7R/2 ⇒ W/Q = R/(7R/2) = 2/7.',
+          similar: {
+            question: 'A monatomic ideal gas is heated at constant pressure. The fraction of heat used to do work is:',
+            options: ['2/5', '3/5', '2/3', '1/3'],
+            answer: '2/5',
+            solution: 'C_p = 5R/2 ⇒ W/Q = R/C_p = 2/5.',
+          },
+        },
+        {
+          question: 'A system goes from A to B along path ACB, absorbing 80 J of heat and doing 30 J of work. It returns from B to A along a curved path during which 20 J of work is done on it. In the return path the system:',
+          options: ['Releases 70 J of heat', 'Releases 30 J of heat', 'Absorbs 70 J of heat', 'Releases 50 J of heat'],
+          answer: 'Releases 70 J of heat',
+          difficulty: 'Hard',
+          hint: 'Find ΔU_AB first; ΔU_BA = −ΔU_AB.',
+          solution: 'ΔU_AB = 80 − 30 = 50 J, so ΔU_BA = −50 J. On return W = −20 J. Q = ΔU + W = −50 − 20 = −70 J, i.e. 70 J released.',
+          similar: {
+            question: 'A gas goes from state 1 to state 2 by path I absorbing 100 J and doing 40 J of work. Along path II between the same states it does 25 J of work. Heat absorbed along path II:',
+            options: ['85 J', '75 J', '115 J', '60 J'],
+            answer: '85 J',
+            solution: 'ΔU = 100 − 40 = 60 J (same for both paths). Q_II = 60 + 25 = 85 J.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Isothermal and Adiabatic Processes',
+      theory:
+        'In an ==isothermal process== the temperature is constant, so for an ideal gas ΔU = 0 and Q = W. PV = constant, and the work done is ==W = nRT ln(V₂/V₁) = nRT ln(P₁/P₂)==. It requires slow changes with good thermal contact.\n\nIn an ==adiabatic process== no heat is exchanged (Q = 0), so W = −ΔU: a gas cools when it expands adiabatically and heats up when compressed (as in a diesel engine). The relations are ==PV^γ = constant, TV^(γ−1) = constant and T^γ P^(1−γ) = constant==, and the work done by the gas is W = (P₁V₁ − P₂V₂)/(γ − 1) = nR(T₁ − T₂)/(γ − 1).\n\nOn a P-V diagram the adiabatic curve is ==steeper than the isothermal== through the same point: slope = −γP/V versus −P/V. Correspondingly the isothermal bulk modulus is P and the adiabatic bulk modulus is γP. For the same expansion, the work done is larger in the isothermal process.',
+      keyPoints: [
+        'Isothermal: ΔU = 0, ==W = nRT ln(V₂/V₁)==.',
+        'Adiabatic: Q = 0, ==PV^γ = const==, TV^(γ−1) = const.',
+        'Adiabatic slope = γ × isothermal slope.',
+        'B_isothermal = P; B_adiabatic = γP.',
+      ],
+      formulas: ['W_iso = nRT ln(V₂/V₁)', 'PV^γ = const', 'TV^(γ−1) = const', 'W_adia = nR(T₁ − T₂)/(γ − 1)'],
+      diagram: 'pv-processes',
+      diagramCaption: 'Isobaric, isochoric, isothermal and adiabatic curves on a P-V diagram; the adiabatic is steeper than the isothermal.',
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - adiabatic work / temperature',
+        question:
+          'Two moles of a diatomic ideal gas expand adiabatically and its temperature falls from 400 K to 300 K. Work done by the gas (R = 8.314 J mol⁻¹ K⁻¹):',
+        approach: [
+          'For a diatomic gas γ = 7/5, so γ − 1 = 0.4.',
+          'W = nR(T₁ − T₂)/(γ − 1) = 2 × 8.314 × 100/0.4.',
+          'Equivalently W = −ΔU = nC_v(T₁ − T₂) = 2 × (5/2)R × 100.',
+        ],
+        answer: '≈ 4157 J',
+      },
+      questions: [
+        {
+          question: 'At a given point on a P-V diagram, the ratio of the slope of the adiabatic curve to that of the isothermal curve is:',
+          options: ['γ', '1/γ', 'γ − 1', '1'],
+          answer: 'γ',
+          difficulty: 'Easy',
+          hint: 'Differentiate PV = const and PV^γ = const.',
+          solution: 'Isothermal: dP/dV = −P/V. Adiabatic: dP/dV = −γP/V. Ratio = γ.',
+          similar: {
+            question: 'The adiabatic bulk modulus of a diatomic gas (γ = 1.4) at pressure 10⁵ Pa is:',
+            options: ['1.4 × 10⁵ Pa', '10⁵ Pa', '0.71 × 10⁵ Pa', '2.4 × 10⁵ Pa'],
+            answer: '1.4 × 10⁵ Pa',
+            solution: 'B_adiabatic = γP = 1.4 × 10⁵ Pa.',
+          },
+        },
+        {
+          question: 'One mole of an ideal gas at 300 K expands isothermally to double its volume. Work done by the gas (R = 8.314 J mol⁻¹ K⁻¹):',
+          options: ['≈ 1729 J', '≈ 2494 J', '≈ 864 J', '0 J'],
+          answer: '≈ 1729 J',
+          difficulty: 'Medium',
+          hint: 'W = nRT ln(V₂/V₁), ln 2 ≈ 0.693.',
+          solution: 'W = 1 × 8.314 × 300 × 0.693 ≈ 1729 J.',
+          similar: {
+            question: 'Two moles of an ideal gas at 300 K are compressed isothermally to half the volume. Work done by the gas:',
+            options: ['≈ −3458 J', '≈ 3458 J', '≈ −1729 J', '≈ −4988 J'],
+            answer: '≈ −3458 J',
+            solution: 'W = nRT ln(V₂/V₁) = 2 × 8.314 × 300 × ln(1/2) ≈ −3458 J (work is done on the gas).',
+          },
+        },
+        {
+          question: 'A monatomic ideal gas at 300 K is compressed adiabatically to 1/8 of its volume. Its final temperature is:',
+          options: ['1200 K', '2400 K', '600 K', '4800 K'],
+          answer: '1200 K',
+          difficulty: 'Hard',
+          hint: 'TV^(γ−1) = constant with γ = 5/3.',
+          solution: 'T₂ = T₁(V₁/V₂)^(γ−1) = 300 × 8^(2/3) = 300 × 4 = 1200 K.',
+          similar: {
+            question: 'A diatomic gas (γ = 7/5) at 300 K is compressed adiabatically to 1/32 of its volume. Final temperature:',
+            options: ['1200 K', '9600 K', '600 K', '2400 K'],
+            answer: '1200 K',
+            solution: 'T₂ = 300 × 32^(2/5) = 300 × 4 = 1200 K.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Isobaric, Isochoric, Cyclic and Polytropic Processes',
+      theory:
+        'In an ==isochoric== process V is constant, W = 0 and all heat changes U (Q = nC_vΔT). In an ==isobaric== process P is constant and W = PΔV = nRΔT. These, together with isothermal and adiabatic processes, can be represented on P-V, P-T and V-T graphs; learn to convert one graph into another (e.g. an isobaric line is horizontal on P-V and passes through the origin on V-T).\n\nIn a ==cyclic process== the system returns to its initial state, so ΔU = 0 and net Q = net W = ==area enclosed by the loop== on the P-V diagram. The work is positive for a clockwise cycle (engine) and negative for an anticlockwise one (refrigerator).\n\nA general ==polytropic process== obeys PVˣ = constant. Its work is W = nR(T₁ − T₂)/(x − 1) and its molar heat capacity is ==C = C_v + R/(1 − x)==. Special cases: x = 0 isobaric (C = C_p), x = 1 isothermal (C infinite), x = γ adiabatic (C = 0), x → ∞ isochoric (C = C_v).',
+      keyPoints: [
+        'Isochoric: W = 0; isobaric: W = nRΔT.',
+        '==Cycle: ΔU = 0, W = area enclosed==; clockwise on P-V ⇒ positive.',
+        'Polytropic PVˣ = const: ==C = C_v + R/(1 − x)==.',
+        'For P ∝ V (x = −1): W = nRΔT/2.',
+      ],
+      formulas: ['W_cycle = area of loop', 'PVˣ = const', 'W = nR(T₁ − T₂)/(x − 1)', 'C = C_v + R/(1 − x)'],
+      pyq: {
+        exam: 'JEE Main & Advanced',
+        frequency: 'Recurring - process P ∝ V',
+        question:
+          'One mole of an ideal gas is heated from T to 2T in a process in which P ∝ V. The work done by the gas is:',
+        approach: [
+          'P = kV, so W = ∫kV dV = k(V₂² − V₁²)/2 = (P₂V₂ − P₁V₁)/2.',
+          'PV = RT ⇒ W = R(2T − T)/2.',
+          'Equivalently, x = −1 in W = nRΔT/(1 − x).',
+        ],
+        answer: 'RT/2',
+      },
+      questions: [
+        {
+          question: 'A gas goes round a rectangular cycle on the P-V diagram with P between 1 × 10⁵ Pa and 3 × 10⁵ Pa and V between 1 L and 4 L. The magnitude of net work per cycle is:',
+          options: ['600 J', '300 J', '1200 J', '0 J'],
+          answer: '600 J',
+          difficulty: 'Easy',
+          hint: 'Net work = area of the rectangle.',
+          solution: 'W = ΔP × ΔV = 2 × 10⁵ × 3 × 10⁻³ = 600 J.',
+          similar: {
+            question: 'A rectangular P-V cycle has P between 2 × 10⁵ Pa and 5 × 10⁵ Pa and V between 2 L and 6 L. Net work per cycle:',
+            options: ['1200 J', '600 J', '2400 J', '800 J'],
+            answer: '1200 J',
+            solution: 'W = 3 × 10⁵ × 4 × 10⁻³ = 1200 J.',
+          },
+        },
+        {
+          question: 'A cyclic process appears as a circle on a P-V diagram whose extent along P is 2 × 10⁵ Pa (diameter) and along V is 2 L (diameter). The work done per cycle is:',
+          options: ['100π J', '200π J', '400π J', '50π J'],
+          answer: '100π J',
+          difficulty: 'Medium',
+          hint: 'Area of an ellipse = π × (semi-axis 1) × (semi-axis 2), using the scales of the axes.',
+          solution: 'Area = π × (1 × 10⁵ Pa) × (1 × 10⁻³ m³) = 100π J.',
+          similar: {
+            question: 'A cycle forms an ellipse on the P-V diagram with total spreads ΔP = 4 × 10⁵ Pa and ΔV = 2 L. Work per cycle:',
+            options: ['200π J', '100π J', '800π J', '400π J'],
+            answer: '200π J',
+            solution: 'Area = π × (2 × 10⁵) × (1 × 10⁻³) = 200π J.',
+          },
+        },
+        {
+          question: 'The molar heat capacity of a monatomic ideal gas in the process PV² = constant is:',
+          options: ['R/2', '3R/2', '5R/2', '−R/2'],
+          answer: 'R/2',
+          difficulty: 'Hard',
+          hint: 'C = C_v + R/(1 − x) with x = 2.',
+          solution: 'C = 3R/2 + R/(1 − 2) = 3R/2 − R = R/2.',
+          similar: {
+            question: 'The molar heat capacity of a monatomic ideal gas in a process where P ∝ V is:',
+            options: ['2R', '3R/2', 'R/2', '5R/2'],
+            answer: '2R',
+            solution: 'P ∝ V ⇒ PV⁻¹ = const, x = −1. C = 3R/2 + R/2 = 2R.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Second Law, Heat Engines and Refrigerators',
+      theory:
+        'A ==heat engine== takes heat Q₁ from a hot source, converts part into work W and rejects Q₂ to a cold sink, so ==η = W/Q₁ = 1 − Q₂/Q₁==. A ==refrigerator== runs the cycle backwards: work W is used to extract Q₂ from the cold body and dump Q₁ = Q₂ + W into the surroundings. Its ==coefficient of performance β = Q₂/W==, which can exceed 1. A heat pump delivers Q₁ and has COP = Q₁/W = β + 1.\n\nThe ==second law== limits these devices. Kelvin-Planck statement: no engine working in a cycle can convert all the heat taken from a single reservoir into work (η = 100% is impossible). Clausius statement: heat cannot flow by itself from a colder to a hotter body without external work. The two statements are equivalent.\n\nIf the same reversible machine is run as an engine and as a refrigerator between the same reservoirs, its efficiency and COP are related by ==β = (1 − η)/η==.',
+      keyPoints: [
+        '==η = W/Q₁ = 1 − Q₂/Q₁==; always less than 1.',
+        'Refrigerator ==β = Q₂/W==; heat pump COP = Q₁/W = β + 1.',
+        'Kelvin-Planck: no 100% efficient cyclic engine; Clausius: no workless refrigerator.',
+        'Reversible engine-refrigerator pair: β = (1 − η)/η.',
+      ],
+      formulas: ['η = W/Q₁ = 1 − Q₂/Q₁', 'β = Q₂/W = Q₂/(Q₁ − Q₂)', 'COP_heat pump = Q₁/W', 'β = (1 − η)/η'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - engine used as refrigerator',
+        question:
+          'A heat engine of efficiency 1/10 is used in reverse as a refrigerator. If 10 J of work is done on it, how much heat is absorbed from the cold reservoir?',
+        approach: [
+          'β = (1 − η)/η = (9/10)/(1/10) = 9.',
+          'Q₂ = βW = 9 × 10 J.',
+        ],
+        answer: '90 J',
+      },
+      questions: [
+        {
+          question: 'An engine absorbs 1000 J from the source and rejects 600 J to the sink per cycle. Its efficiency is:',
+          options: ['40%', '60%', '25%', '67%'],
+          answer: '40%',
+          difficulty: 'Easy',
+          hint: 'η = 1 − Q₂/Q₁.',
+          solution: 'η = 1 − 600/1000 = 0.4 = 40%.',
+          similar: {
+            question: 'An engine absorbs 800 J and does 200 J of work per cycle. Its efficiency is:',
+            options: ['25%', '75%', '20%', '33%'],
+            answer: '25%',
+            solution: 'η = W/Q₁ = 200/800 = 25%.',
+          },
+        },
+        {
+          question: 'A refrigerator extracts 600 J from the freezer per cycle using 200 J of work. The heat delivered to the room per cycle is:',
+          options: ['800 J', '400 J', '600 J', '200 J'],
+          answer: '800 J',
+          difficulty: 'Medium',
+          hint: 'Energy conservation: Q₁ = Q₂ + W.',
+          solution: 'Q₁ = 600 + 200 = 800 J (COP = 600/200 = 3).',
+          similar: {
+            question: 'A refrigerator of COP 4 uses 150 J of work per cycle. Heat rejected to the room per cycle:',
+            options: ['750 J', '600 J', '450 J', '150 J'],
+            answer: '750 J',
+            solution: 'Q₂ = βW = 600 J. Q₁ = Q₂ + W = 750 J.',
+          },
+        },
+        {
+          question: 'An engine of efficiency 30% drives a refrigerator of COP 4. For every 100 J the engine takes from its source, the refrigerator extracts from its cold space:',
+          options: ['120 J', '400 J', '30 J', '70 J'],
+          answer: '120 J',
+          difficulty: 'Hard',
+          hint: 'The work output of the engine is the work input of the refrigerator.',
+          solution: 'W = 0.3 × 100 = 30 J. Q₂ = βW = 4 × 30 = 120 J.',
+          similar: {
+            question: 'An engine of efficiency 25% drives a refrigerator of COP 5. If the engine takes 200 J from its source, the heat extracted by the refrigerator is:',
+            options: ['250 J', '200 J', '50 J', '1000 J'],
+            answer: '250 J',
+            solution: 'W = 0.25 × 200 = 50 J. Q₂ = 5 × 50 = 250 J.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Carnot Engine and Reversible Processes',
+      theory:
+        'A ==reversible process== can be retraced exactly through the same equilibrium states with no net change in the surroundings; it must be quasi-static and free of friction and other dissipation. Real processes are irreversible.\n\nThe ==Carnot cycle== uses an ideal gas in four reversible steps: isothermal expansion at T₁ (absorbs Q₁), adiabatic expansion (cools to T₂), isothermal compression at T₂ (rejects Q₂) and adiabatic compression back to T₁. For it, Q₂/Q₁ = T₂/T₁, so ==η = 1 − T₂/T₁== with temperatures in kelvin.\n\n==Carnot\'s theorem==: no engine operating between two given temperatures can be more efficient than a Carnot engine, and all reversible engines between them have the same efficiency, independent of the working substance. A Carnot refrigerator has β = T₂/(T₁ − T₂), so it becomes harder to cool as the cold space gets colder.',
+      keyPoints: [
+        '==η_Carnot = 1 − T₂/T₁== (kelvin); 100% only if T₂ = 0 K.',
+        'Carnot refrigerator: ==β = T₂/(T₁ − T₂)==.',
+        'Two adiabatics and two isothermals; Q₂/Q₁ = T₂/T₁.',
+        'Engines in series with equal efficiency: intermediate T = √(T₁T₃); equal work: T = (T₁ + T₃)/2.',
+      ],
+      formulas: ['η = 1 − T₂/T₁', 'Q₂/Q₁ = T₂/T₁', 'β = T₂/(T₁ − T₂)'],
+      diagram: 'carnot-cycle',
+      diagramCaption: 'Carnot cycle: two isothermals (at T₁ and T₂) joined by two adiabatics; the enclosed area is the work per cycle.',
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - Carnot engines in series',
+        question:
+          'Two Carnot engines A and B work in series: A takes heat from a source at 900 K and rejects it at temperature T, and B takes this heat and rejects to a sink at 400 K. Find T if both have the same efficiency.',
+        approach: [
+          'Equal efficiency: 1 − T/900 = 1 − 400/T.',
+          'T/900 = 400/T ⇒ T² = 900 × 400.',
+          'T = √360000 = 600 K.',
+        ],
+        answer: '600 K',
+      },
+      questions: [
+        {
+          question: 'A Carnot engine works between 500 K and 300 K. Its efficiency is:',
+          options: ['40%', '60%', '25%', '67%'],
+          answer: '40%',
+          difficulty: 'Easy',
+          hint: 'η = 1 − T₂/T₁.',
+          solution: 'η = 1 − 300/500 = 0.4 = 40%.',
+          similar: {
+            question: 'A Carnot engine works between 127 °C and 27 °C. Its efficiency is:',
+            options: ['25%', '78.7%', '21%', '75%'],
+            answer: '25%',
+            solution: 'Convert to kelvin: η = 1 − 300/400 = 25%. (Using °C directly gives the wrong 78.7%.)',
+          },
+        },
+        {
+          question: 'A Carnot engine with sink at 300 K has efficiency 40%. By how much must the source temperature be raised to make the efficiency 50%?',
+          options: ['100 K', '50 K', '150 K', '250 K'],
+          answer: '100 K',
+          difficulty: 'Medium',
+          hint: 'Find T₁ from each efficiency using T₁ = T₂/(1 − η).',
+          solution: 'Initially T₁ = 300/0.6 = 500 K. For 50%: T₁ = 300/0.5 = 600 K. Increase = 100 K.',
+          similar: {
+            question: 'A Carnot engine has efficiency 30% with sink at 280 K. Keeping the source fixed, the sink temperature needed for 60% efficiency is:',
+            options: ['160 K', '240 K', '120 K', '200 K'],
+            answer: '160 K',
+            solution: 'T₁ = 280/0.7 = 400 K. For 60%: T₂ = 400 × 0.4 = 160 K.',
+          },
+        },
+        {
+          question: 'A Carnot refrigerator keeps a space at −23 °C in a room at 27 °C. The minimum power needed to remove 1000 J of heat per second from the space is:',
+          options: ['200 W', '1000 W', '5000 W', '167 W'],
+          answer: '200 W',
+          difficulty: 'Hard',
+          hint: 'β = T₂/(T₁ − T₂) with temperatures in kelvin; W = Q₂/β.',
+          solution: 'T₂ = 250 K, T₁ = 300 K. β = 250/50 = 5. Power = 1000/5 = 200 W.',
+          similar: {
+            question: 'A Carnot freezer at −13 °C operates in a room at 39 °C. Minimum power to extract 500 W of heat:',
+            options: ['100 W', '500 W', '2500 W', '120 W'],
+            answer: '100 W',
+            solution: 'T₂ = 260 K, T₁ = 312 K. β = 260/52 = 5. Power = 500/5 = 100 W.',
+          },
+        },
+      ],
+    },
+  ],
+};

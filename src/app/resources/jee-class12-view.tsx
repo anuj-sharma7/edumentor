@@ -147,8 +147,17 @@ function ChapterDetail({ chapter }: { chapter: JeeChapter }) {
         <TabsContent value="formulas" className="mt-4">
           <div className="grid gap-2 sm:grid-cols-2">
             {chapter.formulas.map(f => (
-              <div key={f.label} className="rounded-md border bg-muted/50 p-3">
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+              <div
+                key={f.label}
+                className={cn(
+                  'rounded-md border bg-muted/50 p-3',
+                  f.important && 'border-yellow-500/60 bg-yellow-400/10'
+                )}
+              >
+                <p className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  {f.important && (
+                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-500" aria-label="Important" />
+                  )}
                   {f.label}
                 </p>
                 <p className="mt-1 font-code text-sm text-foreground">{f.expr}</p>

@@ -26,6 +26,8 @@ export type JeeTheorySection = {
 
 export type JeeFormula = {
   label: string;
+  /** Must-know formula - highlighted in the JEE guide and the formula sheet. */
+  important?: boolean;
   expr: string;
   note?: string;
 };

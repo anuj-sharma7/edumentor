@@ -1,0 +1,511 @@
+import type { StudyChapter } from '../types';
+
+export const determinants: StudyChapter = {
+  name: 'Determinants',
+  subject: 'Mathematics',
+  classLevel: 12,
+  summary:
+    'Evaluation and properties of determinants, area of a triangle, minors and cofactors, adjoint and inverse, and solving linear systems. One of the highest-scoring chapters: JEE Main asks on adj A properties and consistency of systems almost every year.',
+  mostRepeated: [
+    'For an n × n matrix, ==|kA| = kⁿ|A|==, |AB| = |A||B|, |Aᵀ| = |A|.',
+    '==A(adj A) = (adj A)A = |A| I== and A⁻¹ = adj A / |A|.',
+    '==|adj A| = |A|ⁿ⁻¹== and adj(adj A) = |A|ⁿ⁻² A.',
+    'Homogeneous system AX = O has a ==non-trivial solution iff |A| = 0==.',
+    'If Δ = 0 and at least one of Δₓ, Δᵧ, Δ_z ≠ 0, the system is ==inconsistent==.',
+    'Determinant of a ==skew-symmetric matrix of odd order is 0==.',
+    'Sum of products of elements of a row with the cofactors of a ==different== row is 0.',
+  ],
+  topics: [
+    {
+      name: 'Evaluating Determinants and Their Properties',
+      theory:
+        'For a 2 × 2 matrix, |[[a, b], [c, d]]| = ad − bc. A 3 × 3 determinant is expanded along any row or column with signs + − + / − + − / + − +. Expanding along the row or column with the most zeros saves time.\n\nProperties that make evaluation fast: |Aᵀ| = |A|; ==swapping two rows changes the sign==; ==two identical (or proportional) rows give 0==; a common factor of a row can be taken out; ==Rᵢ → Rᵢ + kRⱼ leaves the determinant unchanged==; if a row is a sum of two terms, the determinant splits into two. The determinant of a triangular matrix is the product of its diagonal entries.\n\nThe standard strategy is to create zeros with row/column operations, take out common factors such as (a + b + c) or (a − b), and then expand. Remember the Vandermonde result ==|[[1, 1, 1], [a, b, c], [a², b², c²]]| = (a − b)(b − c)(c − a)==.',
+      keyPoints: [
+        'Rows in AP (like 1, 2, 3 / 4, 5, 6 / 7, 8, 9) give determinant 0.',
+        '==Row operations Rᵢ → Rᵢ + kRⱼ do not change the value==.',
+        'If putting a = b makes Δ = 0, then (a − b) is a factor.',
+        '|[[1, 1, 1], [a, b, c], [a³, b³, c³]]| = (a − b)(b − c)(c − a)(a + b + c).',
+      ],
+      formulas: [
+        '|[[a, b], [c, d]]| = ad − bc',
+        'Δ = a₁₁C₁₁ + a₁₂C₁₂ + a₁₃C₁₃',
+        'Vandermonde: (a − b)(b − c)(c − a)',
+      ],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - factorising determinants',
+        question:
+          'The value of |[[a − b − c, 2a, 2a], [2b, b − c − a, 2b], [2c, 2c, c − a − b]]| is:',
+        approach: [
+          'R₁ → R₁ + R₂ + R₃: every entry of R₁ becomes a + b + c; take it out.',
+          'R₁ is now (1, 1, 1). Apply C₂ → C₂ − C₁ and C₃ → C₃ − C₁.',
+          'The matrix becomes lower triangular with diagonal 1, −(a + b + c), −(a + b + c).',
+          'Value = (a + b + c) · (a + b + c)².',
+        ],
+        answer: '(a + b + c)³',
+      },
+      questions: [
+        {
+          question: 'The value of |[[3, −2], [5, 4]]| is:',
+          options: ['22', '2', '−22', '7'],
+          answer: '22',
+          difficulty: 'Easy',
+          hint: 'ad − bc.',
+          solution: '3 × 4 − (−2) × 5 = 12 + 10 = 22.',
+          similar: {
+            question: 'The value of |[[6, −3], [2, 5]]| is:',
+            options: ['36', '24', '−36', '27'],
+            answer: '36',
+            solution: '6 × 5 − (−3) × 2 = 30 + 6 = 36.',
+          },
+        },
+        {
+          question: 'The value of |[[1, 2, 3], [4, 5, 6], [7, 8, 9]]| is:',
+          options: ['0', '−3', '3', '45'],
+          answer: '0',
+          difficulty: 'Medium',
+          hint: 'Try R₃ → R₃ − R₂ and R₂ → R₂ − R₁.',
+          solution: 'After R₃ → R₃ − R₂ and R₂ → R₂ − R₁, both new rows are (3, 3, 3), which are identical ⇒ Δ = 0.',
+          similar: {
+            question: 'The value of |[[1, 2, 3], [2, 3, 1], [3, 1, 2]]| is:',
+            options: ['−18', '18', '0', '6'],
+            answer: '−18',
+            solution: 'Expand along R₁: 1(6 − 1) − 2(4 − 3) + 3(2 − 9) = 5 − 2 − 21 = −18.',
+          },
+        },
+        {
+          question: 'The value of |[[1, 1, 1], [a, b, c], [a³, b³, c³]]| is:',
+          options: [
+            '(a − b)(b − c)(c − a)(a + b + c)',
+            '(a − b)(b − c)(c − a)',
+            '(a − b)(b − c)(c − a)(ab + bc + ca)',
+            'abc(a − b)(b − c)(c − a)',
+          ],
+          answer: '(a − b)(b − c)(c − a)(a + b + c)',
+          difficulty: 'Hard',
+          hint: 'Use C₂ → C₂ − C₁, C₃ → C₃ − C₁, take out (b − a) and (c − a), then expand.',
+          solution:
+            'After the column operations, take out (b − a)(c − a): remaining 2 × 2 is |[[1, 1], [a² + ab + b², a² + ac + c²]]| = (c − b)(a + b + c). Collecting signs gives (a − b)(b − c)(c − a)(a + b + c). Check a = 0, b = 1, c = 2: both sides equal 6.',
+          similar: {
+            question: 'The value of |[[1, 1, 1], [a, b, c], [bc, ca, ab]]| is:',
+            options: ['(a − b)(b − c)(c − a)', '(a + b + c)(ab + bc + ca)', '0', 'abc'],
+            answer: '(a − b)(b − c)(c − a)',
+            solution:
+              'C₂ → C₂ − C₁, C₃ → C₃ − C₁ and take out (b − a)(c − a); the remaining 2 × 2 is |[[1, 1], [−c, −b]]| = c − b. Result (b − a)(c − a)(c − b) = (a − b)(b − c)(c − a). Check a = 0, b = 1, c = 2: both give 2.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Determinants of Products, Transposes and Scalar Multiples',
+      theory:
+        'For square matrices of order n: ==|AB| = |A||B|==, |Aᵀ| = |A|, |Aᵐ| = |A|ᵐ and ==|A⁻¹| = 1/|A|==. Most importantly, multiplying a matrix by a scalar multiplies every one of the n rows, so ==|kA| = kⁿ|A|==, not k|A|.\n\nConsequences: if AAᵀ = I (orthogonal) then |A|² = 1, so |A| = ±1; if AAᵀ = kI for an n × n matrix then |A|² = kⁿ. A skew-symmetric matrix of odd order has |A| = |Aᵀ| = |−A| = (−1)ⁿ|A| = −|A|, so ==its determinant is 0==.\n\nIn long expressions such as |2A⁻¹BᵀA²|, break the matrix into factors, replace each by its determinant, and remember the scalar is raised to the power n.',
+      keyPoints: [
+        '==|kA| = kⁿ|A|== for an n × n matrix.',
+        '|A⁻¹| = 1/|A|; |adj A| is covered in the adjoint topic.',
+        'Orthogonal matrix: |A| = ±1.',
+        'Odd-order skew-symmetric matrix: |A| = 0.',
+      ],
+      formulas: ['|AB| = |A||B|', '|kA| = kⁿ|A|', '|A⁻¹| = 1/|A|', '|Aᵀ| = |A|'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently in JEE Main',
+        question: 'Let A be a 3 × 3 matrix with |A| = −2. The value of |−2A⁻¹AᵀA²| is:',
+        approach: [
+          'Treat −2A⁻¹, Aᵀ and A² as factors: |−2A⁻¹| = (−2)³/|A| = −8/(−2) = 4.',
+          '|Aᵀ| = −2 and |A²| = 4.',
+          'Product = 4 × (−2) × 4.',
+        ],
+        answer: '−32',
+      },
+      questions: [
+        {
+          question: 'A is a 3 × 3 matrix with |A| = 5. Then |2A| is:',
+          options: ['10', '40', '30', '80'],
+          answer: '40',
+          difficulty: 'Easy',
+          hint: 'The scalar multiplies all 3 rows.',
+          solution: '|2A| = 2³|A| = 8 × 5 = 40.',
+          similar: {
+            question: 'A is a 2 × 2 matrix with |A| = 3. Then |4A| is:',
+            options: ['12', '48', '24', '64'],
+            answer: '48',
+            solution: '|4A| = 4²|A| = 16 × 3 = 48.',
+          },
+        },
+        {
+          question: 'A and B are 3 × 3 matrices with |A| = 2 and |B| = 3. Then |2AB⁻¹| is:',
+          options: ['16/3', '4/3', '12', '16'],
+          answer: '16/3',
+          difficulty: 'Medium',
+          hint: '|2AB⁻¹| = 2³ |A| |B⁻¹|.',
+          solution: '|2AB⁻¹| = 8 × 2 × (1/3) = 16/3.',
+          similar: {
+            question: 'A is a 3 × 3 matrix with |A| = 4. Then |A²Aᵀ| is:',
+            options: ['64', '16', '32', '256'],
+            answer: '64',
+            solution: '|A²Aᵀ| = |A|² × |A| = 16 × 4 = 64.',
+          },
+        },
+        {
+          question: 'A is a 3 × 3 real matrix with AAᵀ = 4I. Then |A| is:',
+          options: ['±8', '±4', '±2', '64'],
+          answer: '±8',
+          difficulty: 'Hard',
+          hint: 'Take determinants of both sides; |4I| for a 3 × 3 identity is 4³.',
+          solution: '|A||Aᵀ| = |A|² = |4I| = 4³ = 64 ⇒ |A| = ±8.',
+          similar: {
+            question: 'A is a 2 × 2 real matrix with AAᵀ = 9I. Then |A| is:',
+            options: ['±9', '±3', '±81', '9 only'],
+            answer: '±9',
+            solution: '|A|² = |9I| = 9² = 81 ⇒ |A| = ±9.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Area of a Triangle and Collinearity',
+      theory:
+        'The area of a triangle with vertices (x₁, y₁), (x₂, y₂), (x₃, y₃) is ==Area = ½ |det [[x₁, y₁, 1], [x₂, y₂, 1], [x₃, y₃, 1]]|==. The determinant may be negative (its sign depends on the order of the vertices), so always take the absolute value.\n\nThree points are ==collinear iff this determinant is 0==. This also gives the equation of the line through two points (x₁, y₁) and (x₂, y₂): det [[x, y, 1], [x₁, y₁, 1], [x₂, y₂, 1]] = 0.\n\nWhen the area is given and a coordinate is unknown, the equation ½|Δ| = A produces ==two values== (Δ = ±2A); both are usually valid answers.',
+      keyPoints: [
+        '==Take the modulus== - area is never negative.',
+        'Area given ⇒ two possible values of the unknown.',
+        'Zero area ⇔ collinear points.',
+      ],
+      formulas: [
+        'Area = ½ |x₁(y₂ − y₃) + x₂(y₃ − y₁) + x₃(y₁ − y₂)|',
+        'Collinear ⇔ det [[x₁, y₁, 1], [x₂, y₂, 1], [x₃, y₃, 1]] = 0',
+      ],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - often combined with coordinate geometry',
+        question: 'If the area of the triangle with vertices (k, 0), (4, 0), (0, 2) is 4 square units, then k is:',
+        approach: [
+          'Δ = det [[k, 0, 1], [4, 0, 1], [0, 2, 1]] = k(0 − 2) − 0 + 1(8 − 0) = 8 − 2k.',
+          '½|8 − 2k| = 4 ⇒ 8 − 2k = ±8.',
+          'k = 0 or k = 8.',
+        ],
+        answer: 'k = 0 or k = 8',
+      },
+      questions: [
+        {
+          question: 'The area of the triangle with vertices (1, 0), (6, 0), (4, 3) is:',
+          options: ['7.5', '15', '12', '6'],
+          answer: '7.5',
+          difficulty: 'Easy',
+          hint: 'Use the determinant formula, or base × height / 2.',
+          solution: 'Δ = 1(0 − 3) + 6(3 − 0) + 4(0 − 0) = 15. Area = ½ × 15 = 7.5.',
+          similar: {
+            question: 'The area of the triangle with vertices (0, 0), (4, 0), (0, 6) is:',
+            options: ['12', '24', '10', '6'],
+            answer: '12',
+            solution: 'Right triangle with legs 4 and 6: area = ½ × 4 × 6 = 12.',
+          },
+        },
+        {
+          question: 'The points (2, −3), (k, −1) and (0, 4) are collinear. Then k is:',
+          options: ['10/7', '7/10', '−10/7', '2'],
+          answer: '10/7',
+          difficulty: 'Medium',
+          hint: 'Set the area determinant to zero.',
+          solution: 'det [[2, −3, 1], [k, −1, 1], [0, 4, 1]] = 2(−1 − 4) + 3(k − 0) + 1(4k − 0) = 7k − 10 = 0 ⇒ k = 10/7.',
+          similar: {
+            question: 'The points (1, −1), (2, k) and (4, 5) are collinear. Then k is:',
+            options: ['1', '2', '−1', '3'],
+            answer: '1',
+            solution: 'det [[1, −1, 1], [2, k, 1], [4, 5, 1]] = (k − 5) + (2 − 4) + (10 − 4k) = 3 − 3k = 0 ⇒ k = 1.',
+          },
+        },
+        {
+          question: 'The area of the triangle with vertices (2, −6), (5, 4), (k, 4) is 35 square units. Then k is:',
+          options: ['k = 12 or −2', 'k = −12 or 2', 'k = 12 only', 'k = 7 or −2'],
+          answer: 'k = 12 or −2',
+          difficulty: 'Hard',
+          hint: 'Compute Δ in terms of k and solve |Δ| = 70.',
+          solution: 'Δ = 2(4 − 4) + 6(5 − k) + 1(20 − 4k) = 50 − 10k. |50 − 10k| = 70 ⇒ k = −2 or k = 12.',
+          similar: {
+            question: 'The area of the triangle with vertices (−3, 0), (3, 0), (0, k) is 9 square units. Then k is:',
+            options: ['±3', '3 only', '±9', '±6'],
+            answer: '±3',
+            solution: 'Δ = −3(0 − k) + 3(k − 0) + 0 = 6k. ½|6k| = 9 ⇒ |k| = 3.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Minors and Cofactors',
+      theory:
+        'The ==minor Mᵢⱼ== of the entry aᵢⱼ is the determinant left after deleting row i and column j. The ==cofactor Cᵢⱼ = (−1)ⁱ⁺ʲ Mᵢⱼ==, so the sign follows the checkerboard + − + / − + − / + − +.\n\nThe determinant equals the sum of the products of the entries of any one row (or column) with their own cofactors: Δ = aᵢ₁Cᵢ₁ + aᵢ₂Cᵢ₂ + aᵢ₃Cᵢ₃. But if you multiply the entries of one row by the cofactors of a ==different== row, the sum is ==0== (it is the determinant of a matrix with two equal rows).\n\nThese two facts are exactly what A(adj A) = |A|I says: diagonal entries give |A|, off-diagonal entries give 0.',
+      keyPoints: [
+        'Cofactor sign = (−1)ⁱ⁺ʲ.',
+        '==Own row × own cofactors = Δ; other row × cofactors = 0==.',
+        'For a 3 × 3 matrix, each cofactor is a 2 × 2 determinant.',
+      ],
+      formulas: ['Cᵢⱼ = (−1)ⁱ⁺ʲ Mᵢⱼ', 'Σⱼ aᵢⱼCᵢⱼ = Δ', 'Σⱼ aᵢⱼCₖⱼ = 0 (i ≠ k)'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - conceptual statement',
+        question: 'For a 3 × 3 matrix A = [aᵢⱼ] with cofactors Cᵢⱼ, the value of a₁₁C₂₁ + a₁₂C₂₂ + a₁₃C₂₃ is:',
+        approach: [
+          'This multiplies row 1 entries with row 2 cofactors.',
+          'It equals the determinant of A with row 2 replaced by row 1.',
+          'That matrix has two identical rows, so its determinant is 0.',
+        ],
+        answer: '0',
+      },
+      questions: [
+        {
+          question: 'The cofactor C₁₂ of the matrix [[2, −3], [6, 4]] is:',
+          options: ['−6', '6', '4', '−3'],
+          answer: '−6',
+          difficulty: 'Easy',
+          hint: 'Delete row 1 and column 2, then apply the sign (−1)¹⁺².',
+          solution: 'M₁₂ = 6, C₁₂ = (−1)³ × 6 = −6.',
+          similar: {
+            question: 'The cofactor C₂₁ of the matrix [[1, 5], [−2, 7]] is:',
+            options: ['−5', '5', '−2', '7'],
+            answer: '−5',
+            solution: 'M₂₁ = 5, C₂₁ = (−1)³ × 5 = −5.',
+          },
+        },
+        {
+          question: 'For A = [[1, 2, 3], [0, 4, 5], [1, 0, 6]], the cofactor C₁₃ is:',
+          options: ['−4', '4', '−5', '5'],
+          answer: '−4',
+          difficulty: 'Medium',
+          hint: 'Delete row 1 and column 3; the sign for (1, 3) is +.',
+          solution: 'M₁₃ = |[[0, 4], [1, 0]]| = 0 − 4 = −4, and C₁₃ = (+1)(−4) = −4.',
+          similar: {
+            question: 'For A = [[1, 2, 3], [0, 4, 5], [1, 0, 6]], the cofactor C₂₂ is:',
+            options: ['3', '−3', '9', '6'],
+            answer: '3',
+            solution: 'M₂₂ = |[[1, 3], [1, 6]]| = 6 − 3 = 3, sign (+) ⇒ C₂₂ = 3.',
+          },
+        },
+        {
+          question: 'A is 3 × 3 with |A| = 5 and cofactors Cᵢⱼ. Then a₁₁C₃₁ + a₁₂C₃₂ + a₁₃C₃₃ is:',
+          options: ['0', '5', '25', '−5'],
+          answer: '0',
+          difficulty: 'Hard',
+          hint: 'Are the entries and the cofactors from the same row?',
+          solution: 'Entries of row 1 times cofactors of row 3 give the determinant of a matrix with two equal rows, which is 0.',
+          similar: {
+            question: 'A is 3 × 3 with |A| = 5 and cofactors Cᵢⱼ. Then a₂₁C₂₁ + a₂₂C₂₂ + a₂₃C₂₃ is:',
+            options: ['5', '0', '25', '1/5'],
+            answer: '5',
+            solution: 'Entries of row 2 times their own cofactors give the expansion of |A| along row 2, i.e. 5.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Adjoint and Inverse of a Matrix',
+      theory:
+        'The ==adjoint adj A is the transpose of the cofactor matrix==. For a 2 × 2 matrix [[a, b], [c, d]], adj A = [[d, −b], [−c, a]]. The fundamental identity is ==A(adj A) = (adj A)A = |A| I==, so if |A| ≠ 0, ==A⁻¹ = adj A / |A|==.\n\nTaking determinants of A(adj A) = |A|I gives |A||adj A| = |A|ⁿ, hence ==|adj A| = |A|ⁿ⁻¹==. Applying the result twice: adj(adj A) = |A|ⁿ⁻² A and |adj(adj A)| = |A|^((n − 1)²).\n\nOther rules: adj(AB) = (adj B)(adj A), adj(Aᵀ) = (adj A)ᵀ, ==adj(kA) = kⁿ⁻¹ adj A==, and |A⁻¹| = 1/|A|. These chain into JEE questions like |3 adj(2A)|; simplify inside-out.',
+      keyPoints: [
+        '==|adj A| = |A|ⁿ⁻¹==; for 3 × 3 this is |A|².',
+        'adj(adj A) = |A|ⁿ⁻² A; for 3 × 3 this is |A|A.',
+        'adj(kA) = kⁿ⁻¹ adj A.',
+        'A singular ⇒ A(adj A) = O.',
+      ],
+      formulas: [
+        'A(adj A) = (adj A)A = |A| I',
+        'A⁻¹ = adj A / |A|',
+        '|adj A| = |A|ⁿ⁻¹',
+        'adj(adj A) = |A|ⁿ⁻² A',
+        '|adj(adj A)| = |A|^((n − 1)²)',
+      ],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - almost every year',
+        question: 'Let A be a 3 × 3 matrix with det A = 4. If det(3 adj(2A)) = 2^α · 3^β, then α + β is:',
+        approach: [
+          'adj(2A) = 2² adj A (since n − 1 = 2), so 3 adj(2A) = 12 adj A.',
+          'det(12 adj A) = 12³ |adj A| = 12³ × |A|² = 1728 × 16.',
+          '1728 = 2⁶ · 3³, so the product = 2¹⁰ · 3³ ⇒ α = 10, β = 3.',
+        ],
+        answer: '13',
+      },
+      questions: [
+        {
+          question: 'The adjoint of [[2, 3], [1, 4]] is:',
+          options: ['[[4, −3], [−1, 2]]', '[[4, −1], [−3, 2]]', '[[−4, 3], [1, −2]]', '[[2, −3], [−1, 4]]'],
+          answer: '[[4, −3], [−1, 2]]',
+          difficulty: 'Easy',
+          hint: 'Swap the diagonal entries and change the sign of the off-diagonal ones.',
+          solution: 'adj [[a, b], [c, d]] = [[d, −b], [−c, a]] = [[4, −3], [−1, 2]].',
+          similar: {
+            question: 'The adjoint of [[1, −2], [3, 5]] is:',
+            options: ['[[5, 2], [−3, 1]]', '[[5, −3], [2, 1]]', '[[−5, 2], [3, −1]]', '[[1, 2], [−3, 5]]'],
+            answer: '[[5, 2], [−3, 1]]',
+            solution: 'Swap 1 and 5, negate −2 and 3: [[5, 2], [−3, 1]].',
+          },
+        },
+        {
+          question: 'A is a 3 × 3 matrix with |A| = 3. Then |adj A| is:',
+          options: ['3', '9', '27', '1/3'],
+          answer: '9',
+          difficulty: 'Medium',
+          hint: '|adj A| = |A|ⁿ⁻¹.',
+          solution: '|adj A| = 3³⁻¹ = 9.',
+          similar: {
+            question: 'A is a 4 × 4 matrix with |A| = 2. Then |adj A| is:',
+            options: ['2', '4', '8', '16'],
+            answer: '8',
+            solution: '|adj A| = 2⁴⁻¹ = 8.',
+          },
+        },
+        {
+          question: 'A is a 3 × 3 matrix with |A| = 2. Then |adj(adj A)| is:',
+          options: ['16', '4', '8', '64'],
+          answer: '16',
+          difficulty: 'Hard',
+          hint: 'Apply |adj B| = |B|ⁿ⁻¹ twice, or use |A|^((n − 1)²).',
+          solution: '|adj A| = 2² = 4, then |adj(adj A)| = 4² = 16 (= 2^((3 − 1)²) = 2⁴).',
+          similar: {
+            question: 'A is a 3 × 3 matrix with |A| = 3. Then |adj(adj A)| is:',
+            options: ['81', '9', '27', '729'],
+            answer: '81',
+            solution: '|adj(adj A)| = |A|^((n − 1)²) = 3⁴ = 81.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Solving Linear Systems: Matrix Method and Cramer\'s Rule',
+      theory:
+        'A system of n linear equations in n unknowns can be written as ==AX = B==, where A is the coefficient matrix. If |A| ≠ 0, the system has a ==unique solution X = A⁻¹B==.\n\n==Cramer\'s rule== gives the same solution with determinants: x = Δₓ/Δ, y = Δᵧ/Δ, z = Δ_z/Δ, where Δ = |A| and Δₓ is obtained by replacing the x-column of A by the constants column B (similarly for the others).\n\nFor 2 × 2 systems Cramer\'s rule is fastest; for 3 × 3 systems, either compute A⁻¹ = adj A/|A| and multiply by B, or use Cramer. Always ==substitute the answer back== into one equation to check.',
+      keyPoints: [
+        '==Δ ≠ 0 ⇒ unique solution==.',
+        'Δₓ: replace the column of x-coefficients by the constants.',
+        'X = A⁻¹B, not BA⁻¹.',
+      ],
+      formulas: ['AX = B ⇒ X = A⁻¹B', 'x = Δₓ/Δ, y = Δᵧ/Δ, z = Δ_z/Δ'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently - as part of larger problems',
+        question: 'Solve x + y + z = 6, x − y + z = 2, 2x + y − z = 1.',
+        approach: [
+          'Subtract the second from the first: 2y = 4 ⇒ y = 2.',
+          'Then x + z = 4 and 2x − z = −1; adding gives 3x = 3 ⇒ x = 1, z = 3.',
+          'Δ = |[[1, 1, 1], [1, −1, 1], [2, 1, −1]]| = 6 ≠ 0, confirming uniqueness.',
+        ],
+        answer: 'x = 1, y = 2, z = 3',
+      },
+      questions: [
+        {
+          question: 'The solution of 2x + 3y = 8 and x − y = −1 is:',
+          options: ['x = 1, y = 2', 'x = 2, y = 1', 'x = −1, y = 2', 'x = 1, y = −2'],
+          answer: 'x = 1, y = 2',
+          difficulty: 'Easy',
+          hint: 'Δ = 2(−1) − 3(1).',
+          solution: 'Δ = −5, Δₓ = |[[8, 3], [−1, −1]]| = −8 + 3 = −5, Δᵧ = |[[2, 8], [1, −1]]| = −2 − 8 = −10. x = 1, y = 2.',
+          similar: {
+            question: 'The solution of 3x − 2y = 4 and x + y = 3 is:',
+            options: ['x = 2, y = 1', 'x = 1, y = 2', 'x = 2, y = −1', 'x = 3, y = 0'],
+            answer: 'x = 2, y = 1',
+            solution: 'Δ = 3 + 2 = 5, Δₓ = |[[4, −2], [3, 1]]| = 10, Δᵧ = |[[3, 4], [1, 3]]| = 5. x = 2, y = 1.',
+          },
+        },
+        {
+          question: 'For the system x + y = 3, 2x − y = 0, the value of Δᵧ in Cramer\'s rule is:',
+          options: ['−6', '6', '−3', '3'],
+          answer: '−6',
+          difficulty: 'Medium',
+          hint: 'Replace the y-column [1, −1] by the constants [3, 0].',
+          solution: 'Δᵧ = |[[1, 3], [2, 0]]| = 0 − 6 = −6. (Δ = −3, so y = 2.)',
+          similar: {
+            question: 'For the system x + 2y = 5, 3x − y = 1, the value of Δₓ is:',
+            options: ['−7', '7', '−14', '14'],
+            answer: '−7',
+            solution: 'Δₓ = |[[5, 2], [1, −1]]| = −5 − 2 = −7. (Δ = −7, so x = 1.)',
+          },
+        },
+        {
+          question: 'The solution of x − y + z = 4, 2x + y − 3z = 0, x + y + z = 2 is:',
+          options: ['x = 2, y = −1, z = 1', 'x = 1, y = −1, z = 2', 'x = 2, y = 1, z = −1', 'x = −1, y = 2, z = 1'],
+          answer: 'x = 2, y = −1, z = 1',
+          difficulty: 'Hard',
+          hint: 'Subtract the first equation from the third to get y quickly.',
+          solution:
+            'Third − first: 2y = −2 ⇒ y = −1. Then x + z = 3 and 2x − 3z = 1 ⇒ 2(3 − z) − 3z = 1 ⇒ z = 1, x = 2. Check: 2 + 1 + 1 = 4 ✓.',
+          similar: {
+            question: 'The solution of x + y + z = 3, 2x − y + z = 2, x + 2y − z = 2 is:',
+            options: ['x = 1, y = 1, z = 1', 'x = 0, y = 1, z = 2', 'x = 2, y = 0, z = 1', 'x = 1, y = 2, z = 0'],
+            answer: 'x = 1, y = 1, z = 1',
+            solution: 'First + third: 2x + 3y = 5; first − second: −x + 2y = 1 ⇒ x = 2y − 1 ⇒ 7y = 7 ⇒ y = 1, x = 1, z = 1.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Consistency and Homogeneous Systems',
+      theory:
+        'A system is ==consistent== if it has at least one solution. For AX = B with n equations in n unknowns: if ==Δ ≠ 0==, there is a unique solution. If ==Δ = 0 and at least one of Δₓ, Δᵧ, Δ_z is non-zero==, the system is inconsistent (no solution). If Δ = Δₓ = Δᵧ = Δ_z = 0, there are usually infinitely many solutions (check by elimination, as the system can still be inconsistent in rare 3-variable cases).\n\nThe matrix form of the test: if |A| = 0 and (adj A)B ≠ O, no solution; if |A| = 0 and (adj A)B = O, infinitely many or no solution.\n\nA ==homogeneous system AX = O== is always consistent (x = y = z = 0). It has ==non-trivial solutions iff |A| = 0==. Parameter questions ask for the value of k making Δ = 0; then check the numerators or eliminate to decide between "no solution" and "infinitely many".',
+      keyPoints: [
+        '==Δ ≠ 0: unique; Δ = 0 with some Δᵢ ≠ 0: none==.',
+        'Homogeneous: trivial solution always; non-trivial ⇔ Δ = 0.',
+        'For parameters, first set Δ = 0, then test the constants.',
+        'Elimination is the safest way to settle the Δ = Δᵢ = 0 case.',
+      ],
+      formulas: ['Unique ⇔ Δ ≠ 0', 'Non-trivial (homogeneous) ⇔ Δ = 0', 'Δ = 0 and (adj A)B ≠ O ⇒ inconsistent'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - almost every year',
+        question:
+          'The system x + y + z = 6, x + 2y + 3z = 10, x + 2y + λz = μ has infinitely many solutions when:',
+        approach: [
+          'Δ = |[[1, 1, 1], [1, 2, 3], [1, 2, λ]]| = λ − 3, so Δ = 0 ⇔ λ = 3.',
+          'With λ = 3 the last two equations have identical left sides x + 2y + 3z.',
+          'They agree (infinitely many solutions) only if μ = 10; otherwise no solution.',
+        ],
+        answer: 'λ = 3, μ = 10',
+      },
+      questions: [
+        {
+          question: 'A homogeneous system AX = O (A square) has a non-trivial solution if and only if:',
+          options: ['|A| = 0', '|A| ≠ 0', 'A is symmetric', 'A = I'],
+          answer: '|A| = 0',
+          difficulty: 'Easy',
+          hint: 'If |A| ≠ 0, the only solution is X = A⁻¹O.',
+          solution: 'If |A| ≠ 0, X = A⁻¹O = O is the only solution. Non-trivial solutions need |A| = 0.',
+          similar: {
+            question: 'A homogeneous system AX = O with |A| ≠ 0 has:',
+            options: ['Only the trivial solution', 'Infinitely many solutions', 'No solution', 'Exactly two solutions'],
+            answer: 'Only the trivial solution',
+            solution: 'X = A⁻¹O = O is the unique solution.',
+          },
+        },
+        {
+          question: 'kx + y + z = 0, x + ky + z = 0, x + y + kz = 0 has a non-trivial solution for:',
+          options: ['k = 1 or k = −2', 'k = −1 or k = 2', 'k = 0 only', 'k = 3 only'],
+          answer: 'k = 1 or k = −2',
+          difficulty: 'Medium',
+          hint: 'Set the coefficient determinant to zero; try R₁ → R₁ + R₂ + R₃.',
+          solution: 'Δ = (k + 2)·|[[1, 1, 1], [1, k, 1], [1, 1, k]]| = (k + 2)(k − 1)². Δ = 0 ⇒ k = 1 or k = −2.',
+          similar: {
+            question: 'x + ky + 3z = 0, 3x + ky − 2z = 0, 2x + 3y − 4z = 0 has a non-trivial solution for k =',
+            options: ['33/2', '31/2', '33', '11/2'],
+            answer: '33/2',
+            solution: 'Δ = 1(−4k + 6) − k(−12 + 4) + 3(9 − 2k) = −2k + 33. Δ = 0 ⇒ k = 33/2.',
+          },
+        },
+        {
+          question: 'The system x + y + z = 1, x + 2y + 4z = λ, x + 4y + 10z = λ² is consistent when:',
+          options: ['λ = 1 or 2', 'λ = −1 or −2', 'λ = 0 or 1', 'λ = 3 only'],
+          answer: 'λ = 1 or 2',
+          difficulty: 'Hard',
+          hint: 'Δ = 0 here, so eliminate x and compare the two reduced equations.',
+          solution:
+            'Δ = 1(20 − 16) − 1(10 − 4) + 1(4 − 2) = 0. Subtracting the first: y + 3z = λ − 1 and 3y + 9z = λ² − 1. Consistency needs 3(λ − 1) = λ² − 1 ⇒ λ² − 3λ + 2 = 0 ⇒ λ = 1 or 2.',
+          similar: {
+            question: 'The system x + y + z = 6, x + 2y + 3z = 10, x + 2y + λz = 12 has no solution when:',
+            options: ['λ = 3', 'λ = 2', 'λ ≠ 3', 'λ = 10'],
+            answer: 'λ = 3',
+            solution: 'Δ = λ − 3. For λ = 3 the last two equations read x + 2y + 3z = 10 and = 12, a contradiction. For λ ≠ 3 the solution is unique.',
+          },
+        },
+      ],
+    },
+  ],
+};

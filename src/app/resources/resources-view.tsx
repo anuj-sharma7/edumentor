@@ -10,6 +10,7 @@ import {
   Search,
   ChevronDown,
   X,
+  Target,
 } from 'lucide-react';
 
 import {
@@ -35,6 +36,8 @@ import { conceptDiagrams } from '@/components/ui/concept-diagrams';
 import { LeafIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
 import type { TheorySubject } from '@/lib/data/theory';
+import type { JeeSubject } from '@/lib/data/jee-class12';
+import JeeClass12View from './jee-class12-view';
 
 const subjectIcons: Record<string, React.ElementType> = {
   Physics: Atom,
@@ -106,9 +109,10 @@ function ConceptCard({ concept, showPath = false }: { concept: FlatConcept; show
 
 export type ResourcesViewProps = {
   theory: TheorySubject[];
+  jeeClass12: JeeSubject[];
 };
 
-export default function ResourcesView({ theory }: ResourcesViewProps) {
+export default function ResourcesView({ theory, jeeClass12 }: ResourcesViewProps) {
   const subjectNames = theory.map(s => s.subject);
 
   const totalChapters = theory.reduce((n, s) => n + s.chapters.length, 0);
@@ -168,19 +172,28 @@ export default function ResourcesView({ theory }: ResourcesViewProps) {
         <p className="text-muted-foreground">
           Visualise how concepts connect, or search {totalConcepts} concepts and their formulas
           across {totalChapters} chapters in Physics, Chemistry, Mathematics and Biology &mdash;
-          built for both JEE and NEET.
+          built for both JEE and NEET. The JEE Class 12 tab ranks every chapter by priority with
+          highlighted theory and formulas.
         </p>
       </header>
 
       <Tabs defaultValue="concept-maps" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid h-auto w-full grid-cols-3">
           <TabsTrigger value="concept-maps" className="gap-2">
             <GitMerge className="h-4 w-4" aria-hidden="true" /> Concept Maps
           </TabsTrigger>
           <TabsTrigger value="theory" className="gap-2">
             <BookOpen className="h-4 w-4" aria-hidden="true" /> Theory &amp; Formulas
           </TabsTrigger>
+          <TabsTrigger value="jee-class12" className="gap-2">
+            <Target className="h-4 w-4" aria-hidden="true" /> JEE Class 12
+          </TabsTrigger>
         </TabsList>
+
+        {/* ================= JEE CLASS 12 ================= */}
+        <TabsContent value="jee-class12" className="mt-6">
+          <JeeClass12View subjects={jeeClass12} />
+        </TabsContent>
 
         {/* ================= CONCEPT MAPS ================= */}
         <TabsContent value="concept-maps" className="mt-6">

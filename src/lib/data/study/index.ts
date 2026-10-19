@@ -33,12 +33,8 @@ export const studyChapters: StudyChapter[] = [
   ...mathematics12PartB,
 ];
 
-export function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
+export { slugify } from './slug';
+import { slugify } from './slug';
 
 export function chapterSlug(chapter: Pick<StudyChapter, 'name'>) {
   return slugify(chapter.name);

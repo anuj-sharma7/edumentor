@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Atom,
   FlaskConical,
@@ -29,6 +29,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { Highlighted } from '@/components/study/highlighted';
 import type { JeeChapter, JeePriority, JeeSubject } from '@/lib/data/jee-class12';
 
 const subjectIcons: Record<string, React.ElementType> = {
@@ -45,27 +46,6 @@ const priorityStyles: Record<JeePriority, string> = {
   Medium: 'border-sky-500/40 bg-sky-500/10 text-sky-600 dark:text-sky-400',
   Low: 'border-border bg-muted text-muted-foreground',
 };
-
-/** Renders `==phrase==` spans in the data as highlighted text. */
-function Highlighted({ text }: { text: string }) {
-  const parts = text.split(/==(.+?)==/g);
-  return (
-    <>
-      {parts.map((part, i) =>
-        i % 2 === 1 ? (
-          <mark
-            key={i}
-            className="rounded bg-yellow-300/40 px-0.5 font-semibold text-foreground dark:bg-yellow-400/25"
-          >
-            {part}
-          </mark>
-        ) : (
-          <Fragment key={i}>{part}</Fragment>
-        )
-      )}
-    </>
-  );
-}
 
 function PriorityBadge({ priority }: { priority: JeePriority }) {
   return (

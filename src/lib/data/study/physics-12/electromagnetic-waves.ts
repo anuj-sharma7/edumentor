@@ -1,0 +1,368 @@
+import type { StudyChapter } from '../types';
+
+export const electromagneticWaves: StudyChapter = {
+  name: 'Electromagnetic Waves',
+  subject: 'Physics',
+  classLevel: 12,
+  summary:
+    'Maxwell\'s displacement current completes Ampere\'s law and predicts self-sustaining waves of E and B that travel at c. A short, high-yield chapter: JEE Main asks one question from it almost every shift, mostly on wave equations, E₀ = cB₀, intensity and the EM spectrum.',
+  mostRepeated: [
+    'In an EM wave ==E₀ = cB₀== and E, B are in phase.',
+    'Direction of propagation is along ==E × B==; E, B and the direction of travel are mutually perpendicular.',
+    'Average energy density is shared ==equally between electric and magnetic fields==.',
+    'Intensity ==I = ½cε₀E₀² = cε₀E_rms²==.',
+    'Displacement current ==i_d = ε₀ dΦ_E/dt== equals the conduction current in the wires of a charging capacitor.',
+    'Order of the spectrum by increasing frequency: ==radio < microwave < IR < visible < UV < X-ray < γ-ray==.',
+    'Radiation pressure on a perfect reflector is ==2I/c==, on a perfect absorber I/c.',
+  ],
+  topics: [
+    {
+      name: 'Displacement Current and Maxwell\'s Equations',
+      theory:
+        'Ampere\'s law ∮B·dl = μ₀i fails for a charging capacitor: a surface passing between the plates carries no conduction current, yet a magnetic field exists there. Maxwell fixed this by adding the ==displacement current i_d = ε₀ dΦ_E/dt==, produced by a changing electric flux.\n\nThe modified Ampere-Maxwell law is ==∮B·dl = μ₀(i_c + ε₀ dΦ_E/dt)==. Between the plates of a capacitor, i_d is exactly equal to the conduction current i_c in the connecting wires, so ==current is continuous== through the circuit. For a parallel plate capacitor, i_d = ε₀A dE/dt = C dV/dt.\n\nTogether with Gauss\'s laws for E and B and Faraday\'s law, this gives the four Maxwell equations. A ==changing B produces E, and a changing E produces B==, which is why the fields can sustain each other and travel as a wave even in vacuum.',
+      keyPoints: [
+        'Displacement current exists only when the electric field (flux) is changing; in steady state (DC fully charged) i_d = 0.',
+        '==i_d between plates = i_c in the wires== at every instant.',
+        'B inside a circular capacitor at radius r < R: B = μ₀i_d r/(2πR²); outside (r ≥ R): B = μ₀i_d/(2πr).',
+        'Displacement current produces a magnetic field exactly like a conduction current.',
+      ],
+      formulas: ['i_d = ε₀ dΦ_E/dt', 'i_d = ε₀A dE/dt = C dV/dt', '∮B·dl = μ₀(i_c + ε₀ dΦ_E/dt)', 'B (r < R) = μ₀i_d r/(2πR²)'],
+      diagram: 'parallel-plate-capacitor',
+      diagramCaption: 'While the capacitor charges, the changing electric field between the plates acts as a displacement current.',
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently in JEE Main',
+        question:
+          'A parallel plate capacitor of capacitance 2 μF is being charged so that the potential difference across it changes at 5 × 10⁵ V/s. The displacement current between the plates is:',
+        approach: [
+          'Charge on the capacitor q = CV, so the conduction current is i = C dV/dt.',
+          'The displacement current between the plates equals the conduction current.',
+          'i_d = 2 × 10⁻⁶ × 5 × 10⁵ = 1 A.',
+        ],
+        answer: '1 A',
+      },
+      questions: [
+        {
+          question: 'A capacitor of capacitance 4 μF is charged so that dV/dt = 2.5 × 10⁵ V/s. The displacement current between its plates is:',
+          options: ['0.1 A', '1 A', '10 A', '0.25 A'],
+          answer: '1 A',
+          difficulty: 'Easy',
+          hint: 'For a capacitor, i_d = C dV/dt.',
+          solution: 'i_d = C dV/dt = 4 × 10⁻⁶ × 2.5 × 10⁵ = 1 A.',
+          similar: {
+            question: 'A 10 μF capacitor is charged so that dV/dt = 3 × 10⁴ V/s. The displacement current is:',
+            options: ['0.3 A', '3 A', '0.03 A', '30 A'],
+            answer: '0.3 A',
+            solution: 'i_d = C dV/dt = 10 × 10⁻⁶ × 3 × 10⁴ = 0.3 A.',
+          },
+        },
+        {
+          question: 'The electric field between the plates (area 0.1 m²) of a capacitor changes at 10¹⁰ V m⁻¹ s⁻¹. The displacement current is (ε₀ = 8.85 × 10⁻¹² F/m):',
+          options: ['8.85 mA', '88.5 mA', '0.885 mA', '8.85 A'],
+          answer: '8.85 mA',
+          difficulty: 'Medium',
+          hint: 'Φ_E = EA, so i_d = ε₀A dE/dt.',
+          solution: 'i_d = ε₀A dE/dt = 8.85 × 10⁻¹² × 0.1 × 10¹⁰ = 8.85 × 10⁻³ A = 8.85 mA.',
+          similar: {
+            question: 'The electric flux through a surface changes at 2 × 10¹⁰ V m s⁻¹. The displacement current through it is (ε₀ = 8.85 × 10⁻¹² F/m):',
+            options: ['0.177 A', '1.77 A', '0.0177 A', '17.7 A'],
+            answer: '0.177 A',
+            solution: 'i_d = ε₀ dΦ_E/dt = 8.85 × 10⁻¹² × 2 × 10¹⁰ = 0.177 A.',
+          },
+        },
+        {
+          question: 'A circular parallel plate capacitor of plate radius 4 cm is being charged by a current of 2 A. The magnetic field between the plates at a distance 2 cm from the axis is:',
+          options: ['5 × 10⁻⁶ T', '1 × 10⁻⁵ T', '2.5 × 10⁻⁶ T', 'Zero'],
+          answer: '5 × 10⁻⁶ T',
+          difficulty: 'Hard',
+          hint: 'Only the fraction r²/R² of the displacement current is enclosed by an Amperian loop of radius r.',
+          solution: 'Enclosed i_d = i(r²/R²). B(2πr) = μ₀ i r²/R² ⇒ B = μ₀ i r/(2πR²) = (2 × 10⁻⁷ × 2 × 0.02)/(0.04)² = 8 × 10⁻⁹/1.6 × 10⁻³ = 5 × 10⁻⁶ T.',
+          similar: {
+            question: 'For the same capacitor (R = 4 cm, i = 2 A), the magnetic field at a distance 8 cm from the axis (outside the plates) is:',
+            options: ['5 × 10⁻⁶ T', '2.5 × 10⁻⁶ T', '1 × 10⁻⁵ T', 'Zero'],
+            answer: '5 × 10⁻⁶ T',
+            solution: 'Outside, the full i_d = 2 A is enclosed: B = μ₀i/(2πr) = 2 × 10⁻⁷ × 2/0.08 = 5 × 10⁻⁶ T.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Properties of Electromagnetic Waves',
+      theory:
+        'An electromagnetic wave consists of oscillating electric and magnetic fields that are ==perpendicular to each other and to the direction of propagation==, so EM waves are transverse. The two fields oscillate ==in phase== (both reach maximum and zero together) and their magnitudes are related by ==E = cB== at every instant.\n\nIn vacuum all EM waves travel at c = 1/√(μ₀ε₀) ≈ 3 × 10⁸ m/s, independent of frequency. In a material medium the speed is ==v = 1/√(με) = c/√(μ_rε_r)==, and the refractive index is n = √(μ_rε_r).\n\nEM waves need no medium. They are produced by ==accelerated charges== (an oscillating charge radiates at its own frequency); a charge moving with constant velocity does not radiate. They carry energy and momentum, and they can be polarised because they are transverse.',
+      keyPoints: [
+        '==E₀/B₀ = c== in vacuum; E₀/B₀ = v in a medium.',
+        'Speed in vacuum is the same for all frequencies; frequency does not change when the wave enters a medium, wavelength does.',
+        'Source of EM waves: accelerated (oscillating) charges.',
+        'E and B are in phase, not 90° out of phase.',
+      ],
+      formulas: ['c = 1/√(μ₀ε₀)', 'v = 1/√(με) = c/√(μ_rε_r)', 'E₀ = cB₀', 'n = √(μ_rε_r)'],
+      diagram: 'em-wave',
+      diagramCaption: 'E and B oscillate in phase, perpendicular to each other and to the direction of travel.',
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - most years',
+        question:
+          'An EM wave travels in a medium of relative permittivity 4 and relative permeability 1. If the amplitude of the magnetic field is 2 × 10⁻⁸ T, the amplitude of the electric field is:',
+        approach: [
+          'Speed in the medium v = c/√(μ_rε_r) = 3 × 10⁸/√4 = 1.5 × 10⁸ m/s.',
+          'In a medium E₀ = vB₀.',
+          'E₀ = 1.5 × 10⁸ × 2 × 10⁻⁸ = 3 V/m.',
+        ],
+        answer: '3 V/m',
+      },
+      questions: [
+        {
+          question: 'The magnetic field amplitude of an EM wave in vacuum is 2 × 10⁻⁸ T. The amplitude of its electric field is:',
+          options: ['6 V/m', '0.6 V/m', '60 V/m', '1.5 V/m'],
+          answer: '6 V/m',
+          difficulty: 'Easy',
+          hint: 'E₀ = cB₀.',
+          solution: 'E₀ = cB₀ = 3 × 10⁸ × 2 × 10⁻⁸ = 6 V/m.',
+          similar: {
+            question: 'The electric field amplitude of an EM wave in vacuum is 120 V/m. Its magnetic field amplitude is:',
+            options: ['4 × 10⁻⁷ T', '4 × 10⁻⁶ T', '3.6 × 10¹⁰ T', '4 × 10⁻⁸ T'],
+            answer: '4 × 10⁻⁷ T',
+            solution: 'B₀ = E₀/c = 120/3 × 10⁸ = 4 × 10⁻⁷ T.',
+          },
+        },
+        {
+          question: 'The speed of an EM wave in a non-magnetic medium of dielectric constant 9 is:',
+          options: ['1 × 10⁸ m/s', '3 × 10⁸ m/s', '0.33 × 10⁸ m/s', '2.7 × 10⁹ m/s'],
+          answer: '1 × 10⁸ m/s',
+          difficulty: 'Easy',
+          hint: 'v = c/√(μ_rε_r) with μ_r = 1.',
+          solution: 'v = 3 × 10⁸/√9 = 1 × 10⁸ m/s.',
+          similar: {
+            question: 'An EM wave travels at 2 × 10⁸ m/s in a non-magnetic medium. The dielectric constant of the medium is:',
+            options: ['2.25', '1.5', '0.67', '4'],
+            answer: '2.25',
+            solution: 'ε_r = (c/v)² = (3/2)² = 2.25.',
+          },
+        },
+        {
+          question: 'Which of the following does NOT produce electromagnetic waves?',
+          options: ['A charge moving with constant velocity', 'A charge oscillating about a point', 'A charge moving in a circle at constant speed', 'Electrons decelerating on hitting a metal target'],
+          answer: 'A charge moving with constant velocity',
+          difficulty: 'Medium',
+          hint: 'Only accelerated charges radiate.',
+          solution: 'Oscillating, circular (centripetal acceleration) and decelerating charges are all accelerated and radiate. A charge with constant velocity has zero acceleration and produces no EM wave.',
+          similar: {
+            question: 'In an EM wave, the phase difference between the oscillating electric and magnetic fields is:',
+            options: ['0', 'π/2', 'π', 'π/4'],
+            answer: '0',
+            solution: 'E and B oscillate in phase (E = cB at every instant), so the phase difference is zero.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Wave Equation and Direction of Propagation',
+      theory:
+        'A plane EM wave travelling along +x can be written as ==E_y = E₀ sin(kx − ωt)== and ==B_z = B₀ sin(kx − ωt)==. Here k = 2π/λ, ω = 2πf, and the wave speed is ==c = ω/k==. A term (kx − ωt) means travel along +x; (kx + ωt) means travel along −x.\n\nThe direction of propagation is always along ==E × B==. So if E is along ŷ and the wave moves along x̂, B must be along ẑ (since ŷ × ẑ = x̂). Given any two of the three directions, the third follows from the cyclic order x̂ → ŷ → ẑ → x̂.\n\nIn JEE questions you are usually given E (or B) as an equation and asked for the other field. Read off k and ω, check that ω/k = c, find B₀ = E₀/c, and fix its direction using E × B along the travel direction.',
+      keyPoints: [
+        'Speed = ω/k = fλ; read ω and k directly from the argument of the sine.',
+        '==Direction of travel = direction of E × B==.',
+        'E and B have the same argument (kx − ωt), i.e. they are in phase.',
+        'Unit vectors: x̂ × ŷ = ẑ, ŷ × ẑ = x̂, ẑ × x̂ = ŷ.',
+      ],
+      formulas: ['E = E₀ sin(kx − ωt) ĵ', 'B = B₀ sin(kx − ωt) k̂', 'c = ω/k = fλ', 'k = 2π/λ, ω = 2πf'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - almost every year',
+        question:
+          'The electric field of a plane EM wave in vacuum is E = 30 sin(2 × 10⁷ z − 6 × 10¹⁵ t) î V/m. The corresponding magnetic field is:',
+        approach: [
+          'The argument is (kz − ωt), so the wave travels along +z. Check: ω/k = 6 × 10¹⁵/2 × 10⁷ = 3 × 10⁸ m/s.',
+          'B₀ = E₀/c = 30/3 × 10⁸ = 10⁻⁷ T.',
+          'E along x̂ and travel along ẑ: need x̂ × B̂ = ẑ ⇒ B̂ = ŷ.',
+        ],
+        answer: 'B = 10⁻⁷ sin(2 × 10⁷ z − 6 × 10¹⁵ t) ĵ T',
+      },
+      questions: [
+        {
+          question: 'An EM wave travels along +x with its electric field along +y. The magnetic field is along:',
+          options: ['+z', '−z', '+x', '−y'],
+          answer: '+z',
+          difficulty: 'Easy',
+          hint: 'Propagation direction = E × B.',
+          solution: 'We need ŷ × B̂ = x̂. Since ŷ × ẑ = x̂, B is along +z.',
+          similar: {
+            question: 'An EM wave travels along +z with its electric field along +x. The magnetic field is along:',
+            options: ['+y', '−y', '+z', '−x'],
+            answer: '+y',
+            solution: 'Need x̂ × B̂ = ẑ. Since x̂ × ŷ = ẑ, B is along +y.',
+          },
+        },
+        {
+          question: 'For the wave E = 50 sin(2π × 10⁸ t − kx) ĵ V/m in vacuum, the wavelength is:',
+          options: ['3 m', '1.5 m', '6 m', '0.33 m'],
+          answer: '3 m',
+          difficulty: 'Medium',
+          hint: 'Find f from ω, then λ = c/f.',
+          solution: 'ω = 2π × 10⁸ ⇒ f = 10⁸ Hz. λ = c/f = 3 × 10⁸/10⁸ = 3 m.',
+          similar: {
+            question: 'For the wave B = 2 × 10⁻⁸ sin(πx × 10² − ωt) k̂ T in vacuum, the frequency is:',
+            options: ['1.5 × 10¹⁰ Hz', '3 × 10¹⁰ Hz', '1.5 × 10⁸ Hz', '3 × 10⁸ Hz'],
+            answer: '1.5 × 10¹⁰ Hz',
+            solution: 'k = π × 10² ⇒ λ = 2π/k = 0.02 m. f = c/λ = 3 × 10⁸/0.02 = 1.5 × 10¹⁰ Hz.',
+          },
+        },
+        {
+          question: 'The magnetic field of a plane EM wave is B = 3 × 10⁻⁸ sin(1.6 × 10³ x + 4.8 × 10¹¹ t) ĵ T. The electric field is:',
+          options: ['9 sin(1.6 × 10³ x + 4.8 × 10¹¹ t) k̂ V/m', '9 sin(1.6 × 10³ x + 4.8 × 10¹¹ t) (−k̂) V/m', '9 sin(1.6 × 10³ x − 4.8 × 10¹¹ t) k̂ V/m', '10⁻¹⁶ sin(1.6 × 10³ x + 4.8 × 10¹¹ t) k̂ V/m'],
+          answer: '9 sin(1.6 × 10³ x + 4.8 × 10¹¹ t) k̂ V/m',
+          difficulty: 'Hard',
+          hint: 'The + sign between kx and ωt means the wave moves along −x. Then use E × B along −x.',
+          solution: 'ω/k = 4.8 × 10¹¹/1.6 × 10³ = 3 × 10⁸ m/s and the wave travels along −x. E₀ = cB₀ = 3 × 10⁸ × 3 × 10⁻⁸ = 9 V/m. Need Ê × ŷ = −x̂. Since ẑ × ŷ = −x̂, E is along +k̂.',
+          similar: {
+            question: 'The electric field of a plane EM wave is E = 6 sin(kz + ωt) î V/m. The magnetic field points along:',
+            options: ['−ĵ', '+ĵ', '+k̂', '−î'],
+            answer: '−ĵ',
+            solution: 'The wave travels along −z. Need x̂ × B̂ = −ẑ. Since x̂ × (−ŷ) = −ẑ, B is along −ĵ (amplitude 2 × 10⁻⁸ T).',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Energy, Intensity and Momentum of EM Waves',
+      theory:
+        'The energy density of an EM wave has an electric part ½ε₀E² and a magnetic part B²/2μ₀. Because B = E/c, these two parts are ==exactly equal==. The average total energy density is ==u_av = ½ε₀E₀² = ε₀E_rms²==, half of it in the electric field and half in the magnetic field.\n\nIntensity is the energy crossing unit area per unit time: ==I = u_av c = ½cε₀E₀²==. For a point source of power P, I = P/(4πr²), so the field amplitude falls as 1/r.\n\nAn EM wave also carries momentum p = U/c. When it falls normally on a surface, it exerts ==radiation pressure I/c (perfect absorber)== or ==2I/c (perfect reflector)==. The force on an area A is the pressure times A.',
+      keyPoints: [
+        'u_E = u_B on average: each equals ¼ε₀E₀².',
+        '==I = ½cε₀E₀² = cE₀B₀/(2μ₀)==.',
+        'Point source: I ∝ 1/r², E₀ ∝ 1/r.',
+        'Momentum delivered to an absorbing surface = U/c; to a reflecting surface = 2U/c.',
+      ],
+      formulas: ['u_av = ½ε₀E₀² = B₀²/(2μ₀)', 'I = ½cε₀E₀² = cε₀E_rms²', 'I = P/(4πr²)', 'p = U/c', 'Pressure = I/c (absorb), 2I/c (reflect)'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently in JEE Main',
+        question:
+          'The amplitude of the electric field of an EM wave in vacuum is 100 V/m. Its intensity is (ε₀ = 8.85 × 10⁻¹² F/m):',
+        approach: [
+          'Use I = ½cε₀E₀².',
+          'I = 0.5 × 3 × 10⁸ × 8.85 × 10⁻¹² × 10⁴.',
+          'I ≈ 13.3 W/m².',
+        ],
+        answer: '≈ 13.3 W/m²',
+      },
+      questions: [
+        {
+          question: 'In an EM wave, the ratio of the average electric energy density to the average magnetic energy density is:',
+          options: ['1', 'c', '1/c', 'c²'],
+          answer: '1',
+          difficulty: 'Easy',
+          hint: 'Substitute B = E/c into B²/2μ₀ and use c² = 1/μ₀ε₀.',
+          solution: 'u_B = B²/2μ₀ = E²/(2μ₀c²) = ½ε₀E² = u_E. So the ratio is 1.',
+          similar: {
+            question: 'In an EM wave of average energy density u, the average energy density stored in the magnetic field is:',
+            options: ['u/2', 'u', '2u', 'u/4'],
+            answer: 'u/2',
+            solution: 'The energy is shared equally between E and B, so the magnetic part is u/2.',
+          },
+        },
+        {
+          question: 'Sunlight of intensity 1.2 kW/m² falls normally on a perfectly reflecting surface. The radiation pressure is:',
+          options: ['8 × 10⁻⁶ Pa', '4 × 10⁻⁶ Pa', '3.6 × 10¹¹ Pa', '2 × 10⁻⁶ Pa'],
+          answer: '8 × 10⁻⁶ Pa',
+          difficulty: 'Medium',
+          hint: 'A reflector receives twice the momentum of an absorber.',
+          solution: 'P = 2I/c = 2 × 1200/3 × 10⁸ = 8 × 10⁻⁶ Pa.',
+          similar: {
+            question: 'Light of intensity 900 W/m² falls normally on a perfectly absorbing surface of area 2 m². The force on it is:',
+            options: ['6 × 10⁻⁶ N', '3 × 10⁻⁶ N', '1.2 × 10⁻⁵ N', '6 × 10⁻⁸ N'],
+            answer: '6 × 10⁻⁶ N',
+            solution: 'F = IA/c = 900 × 2/3 × 10⁸ = 6 × 10⁻⁶ N.',
+          },
+        },
+        {
+          question: 'A 100 W point source radiates uniformly. The rms electric field at 3 m from it is about (ε₀ = 8.85 × 10⁻¹² F/m):',
+          options: ['18.2 V/m', '25.8 V/m', '9.1 V/m', '333 V/m'],
+          answer: '18.2 V/m',
+          difficulty: 'Hard',
+          hint: 'First find I = P/4πr², then use I = cε₀E_rms².',
+          solution: 'I = 100/(4π × 9) ≈ 0.884 W/m². E_rms = √(I/cε₀) = √(0.884/(3 × 10⁸ × 8.85 × 10⁻¹²)) = √333 ≈ 18.2 V/m. (25.8 V/m is the peak value E₀ = √2 E_rms.)',
+          similar: {
+            question: 'An EM wave has intensity 10 W/m². Its peak electric field is about (ε₀ = 8.85 × 10⁻¹² F/m):',
+            options: ['86.8 V/m', '61.4 V/m', '43.4 V/m', '7530 V/m'],
+            answer: '86.8 V/m',
+            solution: 'E₀ = √(2I/cε₀) = √(20/(2.655 × 10⁻³)) = √7533 ≈ 86.8 V/m.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Electromagnetic Spectrum',
+      theory:
+        'All EM waves differ only in frequency (or wavelength). In order of ==increasing frequency (decreasing wavelength)==: radio waves, microwaves, infrared, visible, ultraviolet, X-rays and γ-rays. Visible light occupies only the narrow band ==400 nm (violet) to 700 nm (red)==.\n\nEach band has a characteristic source. Radio waves come from ==accelerated charges in antennas== (oscillating circuits); microwaves from klystrons, magnetrons and Gunn diodes; infrared from hot bodies and molecular vibrations; UV from very hot bodies like the Sun and from discharge lamps; ==X-rays from high-energy electrons striking a metal target==; and ==γ-rays from radioactive nuclei== and nuclear reactions.\n\nUses are a favourite of JEE: radio for broadcasting, microwaves for radar and microwave ovens, IR for remote controls, night vision and physiotherapy (and it causes the ==greenhouse effect==), UV for sterilisation and LASIK eye surgery (mostly absorbed by the ozone layer), X-rays for medical imaging and crystal structure, γ-rays for cancer treatment.',
+      keyPoints: [
+        '==Radio > microwave > IR > visible > UV > X-ray > γ== in wavelength.',
+        'Microwave ovens heat food because the microwave frequency matches the resonant frequency of water molecules.',
+        'IR is called heat waves; UV is absorbed by the ozone layer.',
+        'X-rays and γ-rays overlap in wavelength; they are distinguished by their source (electronic vs nuclear).',
+        'Approximate wavelengths: microwave 1 mm-0.1 m, IR 700 nm-1 mm, UV 1-400 nm, X-ray 10⁻³-1 nm.',
+      ],
+      formulas: ['c = fλ', 'E = hf (energy per photon increases with frequency)'],
+      diagram: 'em-spectrum',
+      diagramCaption: 'EM spectrum from long-wavelength radio waves to short-wavelength γ-rays.',
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - matching-type questions most years',
+        question:
+          'Match the radiation with its use: (A) Microwaves (B) UV (C) Infrared (D) X-rays with (P) LASIK eye surgery (Q) radar (R) bone fracture imaging (S) remote control of TV.',
+        approach: [
+          'Microwaves have wavelengths of cm, ideal for radar ⇒ A-Q.',
+          'UV is used for LASIK and sterilisation ⇒ B-P.',
+          'IR LEDs are used in TV remotes ⇒ C-S.',
+          'X-rays penetrate soft tissue but not bone ⇒ D-R.',
+        ],
+        answer: 'A-Q, B-P, C-S, D-R',
+      },
+      questions: [
+        {
+          question: 'Which of the following has the highest frequency?',
+          options: ['X-rays', 'Microwaves', 'Ultraviolet', 'Infrared'],
+          answer: 'X-rays',
+          difficulty: 'Easy',
+          hint: 'Recall the order radio, microwave, IR, visible, UV, X-ray, γ.',
+          solution: 'Among the options, X-rays come last in order of increasing frequency, so they have the highest frequency.',
+          similar: {
+            question: 'Which of the following has the longest wavelength?',
+            options: ['Microwaves', 'Infrared', 'Visible light', 'γ-rays'],
+            answer: 'Microwaves',
+            solution: 'Wavelength decreases from radio to γ. Among the options, microwaves have the longest wavelength.',
+          },
+        },
+        {
+          question: 'An EM wave has a wavelength of 10 nm. It belongs to the:',
+          options: ['Ultraviolet region', 'Visible region', 'Infrared region', 'Microwave region'],
+          answer: 'Ultraviolet region',
+          difficulty: 'Medium',
+          hint: 'Visible light is 400-700 nm; UV lies roughly between 1 nm and 400 nm.',
+          solution: '10 nm lies between 1 nm and 400 nm, so it is ultraviolet.',
+          similar: {
+            question: 'An EM wave has a frequency of 10¹⁰ Hz. It belongs to the:',
+            options: ['Microwave region', 'Infrared region', 'X-ray region', 'Visible region'],
+            answer: 'Microwave region',
+            solution: 'λ = c/f = 3 × 10⁸/10¹⁰ = 3 cm, which lies in the microwave band (1 mm-0.1 m).',
+          },
+        },
+        {
+          question: 'The greenhouse effect, which keeps the Earth\'s surface warm at night, is due to trapping of:',
+          options: ['Infrared radiation', 'Ultraviolet radiation', 'Microwaves', 'X-rays'],
+          answer: 'Infrared radiation',
+          difficulty: 'Easy',
+          hint: 'The Earth re-radiates absorbed sunlight as heat waves.',
+          solution: 'The Earth\'s surface emits infrared (heat) radiation, which is absorbed and re-emitted by greenhouse gases such as CO₂ and water vapour, keeping the surface warm.',
+          similar: {
+            question: 'γ-rays are produced by:',
+            options: ['Radioactive decay of nuclei', 'Electrons striking a metal target', 'Oscillating LC circuits', 'Vibrations of molecules'],
+            answer: 'Radioactive decay of nuclei',
+            solution: 'γ-rays originate in nuclear transitions (radioactive decay). X-rays come from electrons striking a target, radio waves from oscillating circuits and IR from molecular vibrations.',
+          },
+        },
+      ],
+    },
+  ],
+};

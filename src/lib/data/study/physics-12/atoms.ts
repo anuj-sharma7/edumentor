@@ -1,0 +1,362 @@
+import type { StudyChapter } from '../types';
+
+export const atoms: StudyChapter = {
+  name: 'Atoms',
+  subject: 'Physics',
+  classLevel: 12,
+  summary:
+    'From Rutherford\'s nuclear model to Bohr\'s quantised orbits and the hydrogen spectrum. A compact, formula-based chapter that gives 1-2 sure-shot questions in almost every JEE Main paper.',
+  mostRepeated: [
+    'Bohr scaling laws: ==r ∝ n²/Z, v ∝ Z/n, E ∝ −Z²/n²==.',
+    'In any Bohr orbit ==KE = −E and PE = 2E== (KE : PE : E = 1 : −2 : −1).',
+    'Number of spectral lines from level n in a sample = ==n(n − 1)/2==.',
+    'Wavelength formula ==1/λ = RZ²(1/n₁² − 1/n₂²)==; Lyman (UV), Balmer (visible), Paschen/Brackett/Pfund (IR).',
+    'Distance of closest approach ==r₀ = kq₁q₂/K== (∝ Z/K for α-particles).',
+    'Ionisation energy of hydrogen-like ion = ==13.6 Z² eV== (He⁺ 54.4 eV, Li²⁺ 122.4 eV).',
+    'Angular momentum is quantised: ==mvr = nh/2π==, equivalent to fitting n de Broglie waves on the orbit.',
+  ],
+  topics: [
+    {
+      name: 'Rutherford\'s α-Scattering and the Nuclear Model',
+      theory:
+        'In the Geiger-Marsden experiment, α-particles were fired at a thin gold foil. ==Most passed straight through==, a few were deflected through large angles and about 1 in 8000 bounced back. Rutherford concluded that the atom is mostly empty space with ==all positive charge and almost all mass concentrated in a tiny nucleus== (size ~10⁻¹⁵ m, atom ~10⁻¹⁰ m).\n\nFor a head-on approach the α-particle stops momentarily at the ==distance of closest approach==, where its kinetic energy has all turned into electrostatic potential energy: K = k(2e)(Ze)/r₀. This gives an upper limit on the nuclear size.\n\nThe ==impact parameter b== is the perpendicular distance of the initial velocity line from the nucleus. Small b means large deflection: b = 0 gives θ = 180°. The number of particles scattered at angle θ varies as ==1/sin⁴(θ/2)==.',
+      keyPoints: [
+        'r₀ = 2kZe²/K for an α-particle; ==r₀ ∝ Z/K== (doubling K halves r₀).',
+        'Use ke² = 1.44 MeV fm for quick calculations.',
+        'b = (r₀/2) cot(θ/2); ==head-on (b = 0) ⇒ θ = 180°==.',
+        'Rutherford\'s model failed to explain atomic stability and line spectra (an accelerating electron should radiate and spiral in).',
+      ],
+      formulas: ['r₀ = k(2e)(Ze)/K', 'b = (r₀/2) cot(θ/2)', 'N(θ) ∝ 1/sin⁴(θ/2)', 'ke² = 1.44 MeV fm'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently in JEE Main',
+        question:
+          'A proton and an α-particle with the same kinetic energy are fired head-on at the same nucleus. Ratio of their distances of closest approach r_p : r_α is:',
+        approach: [
+          'At closest approach K = kq(Ze)/r₀, so r₀ = kqZe/K.',
+          'Same nucleus and same K ⇒ r₀ ∝ q.',
+          'q_p = e and q_α = 2e ⇒ r_p : r_α = 1 : 2.',
+        ],
+        answer: '1 : 2',
+      },
+      questions: [
+        {
+          question: 'An α-particle of kinetic energy 5 MeV approaches a gold nucleus (Z = 79) head-on. Distance of closest approach (ke² = 1.44 MeV fm):',
+          options: ['45.5 fm', '22.7 fm', '91 fm', '4.55 fm'],
+          answer: '45.5 fm',
+          difficulty: 'Medium',
+          hint: 'Equate kinetic energy to k(2e)(Ze)/r₀.',
+          solution: 'r₀ = 2Z(ke²)/K = 2 × 79 × 1.44/5 = 227.52/5 ≈ 45.5 fm.',
+          similar: {
+            question: 'An α-particle of kinetic energy 7.7 MeV approaches a gold nucleus (Z = 79) head-on. Distance of closest approach (ke² = 1.44 MeV fm):',
+            options: ['29.5 fm', '14.8 fm', '59 fm', '45.5 fm'],
+            answer: '29.5 fm',
+            solution: 'r₀ = 2 × 79 × 1.44/7.7 = 227.52/7.7 ≈ 29.5 fm.',
+          },
+        },
+        {
+          question: 'If the kinetic energy of the α-particle is doubled, its distance of closest approach to a given nucleus becomes:',
+          options: ['Double', 'Half', 'Four times', 'One-fourth'],
+          answer: 'Half',
+          difficulty: 'Easy',
+          hint: 'r₀ = kq₁q₂/K.',
+          solution: 'r₀ ∝ 1/K, so doubling K halves r₀.',
+          similar: {
+            question: 'α-particles of the same kinetic energy are fired head-on at two nuclei with atomic numbers Z and 2Z. The ratio of distances of closest approach (Z : 2Z) is:',
+            options: ['1 : 2', '2 : 1', '1 : 4', '1 : 1'],
+            answer: '1 : 2',
+            solution: 'r₀ ∝ Z at fixed K, so r₀(Z) : r₀(2Z) = 1 : 2.',
+          },
+        },
+        {
+          question: 'An α-particle has distance of closest approach r₀ in a head-on collision. If its impact parameter is r₀/2, the scattering angle is:',
+          options: ['90°', '60°', '45°', '180°'],
+          answer: '90°',
+          difficulty: 'Hard',
+          hint: 'Use b = (r₀/2) cot(θ/2).',
+          solution: 'r₀/2 = (r₀/2) cot(θ/2) ⇒ cot(θ/2) = 1 ⇒ θ/2 = 45° ⇒ θ = 90°.',
+          similar: {
+            question: 'An α-particle has distance of closest approach r₀ in a head-on collision. If its impact parameter is (√3/2)r₀, the scattering angle is:',
+            options: ['60°', '30°', '90°', '120°'],
+            answer: '60°',
+            solution: '(√3/2)r₀ = (r₀/2) cot(θ/2) ⇒ cot(θ/2) = √3 ⇒ θ/2 = 30° ⇒ θ = 60°.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Bohr Model: Radius, Velocity and Energy',
+      theory:
+        'Bohr postulated that the electron moves only in certain ==stationary orbits== without radiating, in which its ==angular momentum is quantised: mvr = nh/2π==. Radiation is emitted or absorbed only when the electron jumps between orbits, with hν = E_i − E_f.\n\nCombining mv²/r = kZe²/r² with the quantisation condition gives ==r_n = 0.529 n²/Z Å==, ==v_n = 2.18 × 10⁶ Z/n m/s== (= αcZ/n with α ≈ 1/137) and ==E_n = −13.6 Z²/n² eV==.\n\nThe energy is negative because the electron is bound. Since PE = −kZe²/r and KE = kZe²/2r, we get ==KE = −E and PE = 2E==. Time period T = 2πr/v varies as n³/Z².',
+      keyPoints: [
+        'r ∝ n²/Z, v ∝ Z/n, E ∝ Z²/n², T ∝ n³/Z², frequency of revolution ∝ Z²/n³.',
+        '==KE : PE : E = 1 : −2 : −1== in every orbit.',
+        'Angular momentum L = nh/2π, so L ∝ n.',
+        'Speed in the first orbit of H ≈ c/137.',
+      ],
+      formulas: ['mvr = nh/2π', 'r_n = 0.529 n²/Z Å', 'v_n = 2.18 × 10⁶ (Z/n) m/s', 'E_n = −13.6 Z²/n² eV', 'KE = −E, PE = 2E'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - most years',
+        question: 'The total energy of an electron in a Bohr orbit of hydrogen is −3.4 eV. Its kinetic and potential energies are respectively:',
+        approach: [
+          'In a Bohr orbit KE = −E and PE = 2E.',
+          'KE = −(−3.4) = 3.4 eV.',
+          'PE = 2 × (−3.4) = −6.8 eV.',
+        ],
+        answer: '3.4 eV and −6.8 eV',
+      },
+      questions: [
+        {
+          question: 'Radius of the third Bohr orbit of hydrogen (r₁ = 0.529 Å) is:',
+          options: ['4.76 Å', '1.59 Å', '2.12 Å', '0.176 Å'],
+          answer: '4.76 Å',
+          difficulty: 'Easy',
+          hint: 'r ∝ n².',
+          solution: 'r₃ = 0.529 × 3² = 0.529 × 9 ≈ 4.76 Å.',
+          similar: {
+            question: 'Radius of the second Bohr orbit of He⁺ (r₁ for H = 0.529 Å) is:',
+            options: ['1.058 Å', '2.116 Å', '0.529 Å', '0.265 Å'],
+            answer: '1.058 Å',
+            solution: 'r = 0.529 n²/Z = 0.529 × 4/2 = 1.058 Å.',
+          },
+        },
+        {
+          question: 'Ratio of the speed of the electron in the first orbit to that in the third orbit of hydrogen is:',
+          options: ['3 : 1', '1 : 3', '9 : 1', '1 : 9'],
+          answer: '3 : 1',
+          difficulty: 'Easy',
+          hint: 'v ∝ Z/n.',
+          solution: 'v ∝ 1/n ⇒ v₁ : v₃ = 3 : 1.',
+          similar: {
+            question: 'Ratio of the time periods of revolution of the electron in the first and second orbits of hydrogen (T₁ : T₂) is:',
+            options: ['1 : 8', '8 : 1', '1 : 4', '1 : 2'],
+            answer: '1 : 8',
+            solution: 'T ∝ n³ ⇒ T₁ : T₂ = 1 : 8.',
+          },
+        },
+        {
+          question: 'The electron in a hydrogen atom has total energy −3.4 eV. Its angular momentum is:',
+          options: ['h/2π', 'h/π', '2h/π', '3h/2π'],
+          answer: 'h/π',
+          difficulty: 'Medium',
+          hint: 'First find n from E_n = −13.6/n².',
+          solution: '−13.6/n² = −3.4 ⇒ n² = 4 ⇒ n = 2. L = nh/2π = 2h/2π = h/π.',
+          similar: {
+            question: 'The electron in a hydrogen atom has total energy −1.51 eV. Its angular momentum is:',
+            options: ['h/π', '3h/2π', '2h/π', '3h/π'],
+            answer: '3h/2π',
+            solution: '−13.6/n² = −1.51 ⇒ n² ≈ 9 ⇒ n = 3. L = 3h/2π.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Energy Levels, Excitation and Ionisation',
+      theory:
+        'The allowed energies of hydrogen are E₁ = −13.6 eV, E₂ = −3.4 eV, E₃ = −1.51 eV, E₄ = −0.85 eV, ..., approaching 0 as n → ∞. The lowest level (n = 1) is the ==ground state==; higher levels are excited states.\n\n==Excitation energy== is the energy needed to lift the electron from the ground state to a higher level: 10.2 eV to n = 2 (first excitation potential 10.2 V) and 12.09 eV to n = 3. ==Ionisation energy== is the energy needed to take the electron from a level to n = ∞; from the ground state of H it is 13.6 eV (ionisation potential 13.6 V).\n\nAn atom absorbs a photon only if its energy ==exactly matches== the gap between two levels, but any photon with energy above the ionisation energy can ionise it; the extra energy becomes kinetic energy of the freed electron.',
+      keyPoints: [
+        'Ionisation energy from level n = 13.6 Z²/n² eV.',
+        '==First excitation energy of H = 10.2 eV==; for a hydrogen-like ion it is 10.2 Z² eV.',
+        'Ionisation energies: H 13.6 eV, He⁺ 54.4 eV, Li²⁺ 122.4 eV.',
+        'Photon above ionisation energy: KE of electron = hν − ionisation energy.',
+      ],
+      formulas: ['E_n = −13.6 Z²/n² eV', 'Excitation energy (1 → n) = 13.6 Z²(1 − 1/n²) eV', 'Ionisation energy (from n) = 13.6 Z²/n² eV'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Frequently in JEE Main',
+        question:
+          'A photon of energy 16 eV is absorbed by a hydrogen atom in its ground state. The de Broglie wavelength of the ejected electron is about:',
+        approach: [
+          'Ionisation energy of ground-state H = 13.6 eV.',
+          'KE of electron = 16 − 13.6 = 2.4 eV.',
+          'λ = 12.27/√V Å with V = 2.4 ⇒ λ = 12.27/1.549 ≈ 7.9 Å.',
+        ],
+        answer: '≈ 7.9 Å',
+      },
+      questions: [
+        {
+          question: 'Energy needed to remove the electron from the n = 3 level of hydrogen is:',
+          options: ['1.51 eV', '13.6 eV', '12.09 eV', '3.4 eV'],
+          answer: '1.51 eV',
+          difficulty: 'Easy',
+          hint: 'Ionisation from level n needs |E_n|.',
+          solution: '|E₃| = 13.6/9 ≈ 1.51 eV.',
+          similar: {
+            question: 'Ionisation energy of He⁺ from its ground state is:',
+            options: ['13.6 eV', '27.2 eV', '54.4 eV', '122.4 eV'],
+            answer: '54.4 eV',
+            solution: 'IE = 13.6 Z² = 13.6 × 4 = 54.4 eV.',
+          },
+        },
+        {
+          question: 'A ground-state hydrogen atom absorbs a photon of 12.09 eV. The electron is raised to:',
+          options: ['n = 2', 'n = 3', 'n = 4', 'n = ∞'],
+          answer: 'n = 3',
+          difficulty: 'Medium',
+          hint: 'Add the photon energy to −13.6 eV and match a level.',
+          solution: 'Final energy = −13.6 + 12.09 = −1.51 eV = −13.6/9 ⇒ n = 3.',
+          similar: {
+            question: 'A ground-state hydrogen atom absorbs a photon of 12.75 eV. The electron is raised to:',
+            options: ['n = 3', 'n = 4', 'n = 5', 'n = 2'],
+            answer: 'n = 4',
+            solution: 'Final energy = −13.6 + 12.75 = −0.85 eV = −13.6/16 ⇒ n = 4.',
+          },
+        },
+        {
+          question: 'The first excitation energy of a hydrogen-like ion is 40.8 eV. The energy needed to ionise it from the ground state is:',
+          options: ['54.4 eV', '13.6 eV', '122.4 eV', '27.2 eV'],
+          answer: '54.4 eV',
+          difficulty: 'Hard',
+          hint: 'First excitation energy = 10.2 Z² eV; find Z.',
+          solution: '10.2 Z² = 40.8 ⇒ Z² = 4 ⇒ Z = 2 (He⁺). Ionisation energy = 13.6 × 4 = 54.4 eV.',
+          similar: {
+            question: 'The first excitation energy of a hydrogen-like ion is 91.8 eV. The energy needed to ionise it from the ground state is:',
+            options: ['122.4 eV', '54.4 eV', '91.8 eV', '217.6 eV'],
+            answer: '122.4 eV',
+            solution: '10.2 Z² = 91.8 ⇒ Z² = 9 ⇒ Z = 3 (Li²⁺). Ionisation energy = 13.6 × 9 = 122.4 eV.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Hydrogen Spectrum and Spectral Series',
+      theory:
+        'When an electron drops from level n₂ to n₁, a photon of wavelength given by the ==Rydberg formula 1/λ = RZ²(1/n₁² − 1/n₂²)== is emitted, where R ≈ 1.097 × 10⁷ m⁻¹. Each final level n₁ defines a series: ==Lyman (n₁ = 1, ultraviolet), Balmer (n₁ = 2, visible)==, Paschen (n₁ = 3), Brackett (n₁ = 4) and Pfund (n₁ = 5), the last three in the infrared.\n\nIn a series, the ==longest wavelength== comes from the smallest jump (n₂ = n₁ + 1) and the ==shortest wavelength (series limit)== from n₂ = ∞. For H, the Lyman lines lie between 91.2 nm and 121.6 nm, and the Balmer lines between 364.6 nm and 656.3 nm (Hα).\n\nA sample of many atoms excited to level n can emit ==n(n − 1)/2 different lines==, while a single atom can emit at most n − 1 photons on its way down.',
+      keyPoints: [
+        'Series limit: 1/λ = RZ²/n₁² ⇒ λ_min ∝ n₁²/Z².',
+        '==Only Balmer lines are visible==; Lyman is UV.',
+        'Number of lines from level n: n(n − 1)/2 for a sample, n − 1 for a single atom.',
+        'Same transition in a hydrogen-like ion: λ ∝ 1/Z².',
+      ],
+      formulas: ['1/λ = RZ²(1/n₁² − 1/n₂²)', 'R = 1.097 × 10⁷ m⁻¹', 'N = n(n − 1)/2', 'λ_Lyman,max = 4/(3R), λ_Balmer,max = 36/(5R)'],
+      diagram: 'bohr-energy-levels',
+      diagramCaption: 'Energy levels of hydrogen with transitions ending on n = 1 (Lyman), n = 2 (Balmer) and n = 3 (Paschen).',
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - almost every year',
+        question:
+          'The shortest wavelength in the Lyman series of hydrogen is λ. The shortest wavelength in the Balmer series of He⁺ is:',
+        approach: [
+          'Series limit: 1/λ_min = RZ²/n₁².',
+          'H Lyman: Z = 1, n₁ = 1 ⇒ 1/λ = R.',
+          'He⁺ Balmer: Z = 2, n₁ = 2 ⇒ 1/λ\' = R × 4/4 = R.',
+          'Hence λ\' = λ.',
+        ],
+        answer: 'λ',
+      },
+      questions: [
+        {
+          question: 'Hydrogen atoms are excited to the n = 5 level. The number of different spectral lines emitted is:',
+          options: ['4', '5', '10', '15'],
+          answer: '10',
+          difficulty: 'Easy',
+          hint: 'N = n(n − 1)/2.',
+          solution: 'N = 5 × 4/2 = 10.',
+          similar: {
+            question: 'Hydrogen atoms are excited to the n = 4 level. The number of different spectral lines emitted is:',
+            options: ['3', '4', '6', '10'],
+            answer: '6',
+            solution: 'N = 4 × 3/2 = 6.',
+          },
+        },
+        {
+          question: 'Ratio of the longest wavelength of the Lyman series to the longest wavelength of the Balmer series of hydrogen is:',
+          options: ['5/27', '27/5', '4/9', '3/4'],
+          answer: '5/27',
+          difficulty: 'Medium',
+          hint: 'Longest wavelength: n₂ = n₁ + 1.',
+          solution: 'Lyman: 1/λ_L = R(1 − 1/4) = 3R/4. Balmer: 1/λ_B = R(1/4 − 1/9) = 5R/36. λ_L/λ_B = (5/36)/(3/4) = 5/27.',
+          similar: {
+            question: 'Ratio of the shortest wavelength of the Lyman series to the shortest wavelength of the Balmer series of hydrogen is:',
+            options: ['1 : 4', '4 : 1', '1 : 2', '5 : 27'],
+            answer: '1 : 4',
+            solution: 'Series limit λ_min = n₁²/R, so λ_L : λ_B = 1 : 4.',
+          },
+        },
+        {
+          question: 'Ground-state hydrogen atoms are bombarded with electrons accelerated through 12.5 V. The number of spectral lines emitted is:',
+          options: ['1', '2', '3', '6'],
+          answer: '3',
+          difficulty: 'Hard',
+          hint: 'Find the highest level that 12.5 eV can reach (E₃ − E₁ = 12.09 eV, E₄ − E₁ = 12.75 eV).',
+          solution: '12.5 eV can excite up to n = 3 (needs 12.09 eV) but not n = 4 (needs 12.75 eV). Lines from n = 3: 3 × 2/2 = 3 (3→1, 3→2, 2→1).',
+          similar: {
+            question: 'Ground-state hydrogen atoms are bombarded with electrons of energy 12.8 eV. The number of spectral lines emitted is:',
+            options: ['3', '4', '6', '10'],
+            answer: '6',
+            solution: '12.8 eV can excite up to n = 4 (needs 12.75 eV) but not n = 5 (needs 13.06 eV). Lines = 4 × 3/2 = 6.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Hydrogen-like Ions, de Broglie Picture and Atomic Recoil',
+      theory:
+        'Bohr\'s results apply to any ==one-electron (hydrogen-like) system== such as He⁺, Li²⁺ and Be³⁺ by inserting Z: radii shrink by Z, energies grow by Z², and wavelengths of corresponding transitions shrink by Z². If the electron is replaced by a heavier particle such as a muon (mass ≈ 207 mₑ), r ∝ 1/m and E ∝ m.\n\nde Broglie explained Bohr\'s quantisation: a stable orbit must fit a whole number of electron waves, ==2πr = nλ==. With λ = h/mv this gives mvr = nh/2π. So the nth orbit holds exactly n de Broglie wavelengths, and λ ∝ n/Z.\n\nWhen an atom emits a photon of energy E, it ==recoils with momentum E/c==, so its recoil speed is v = E/(Mc). This is tiny (a few m/s for hydrogen). Bohr\'s model cannot explain multi-electron atoms, relative line intensities or fine structure.',
+      keyPoints: [
+        'Same transition in ion vs H: ==λ_ion = λ_H/Z²==.',
+        'nth orbit circumference contains ==n de Broglie wavelengths==.',
+        'Recoil speed v = E/(Mc); recoil KE is negligible compared with E.',
+        'Bohr model is valid only for single-electron systems.',
+      ],
+      formulas: ['2πr = nλ', 'λ_ion = λ_H/Z²', 'v_recoil = E/(Mc)', 'r ∝ 1/m, E ∝ m (for orbiting particle of mass m)'],
+      pyq: {
+        exam: 'JEE Main',
+        frequency: 'Recurring - hydrogen-like ion comparisons',
+        question:
+          'The wavelength of the first Balmer line of hydrogen is 6561 Å. The wavelength of the same transition (3 → 2) in Li²⁺ is:',
+        approach: [
+          'For the same n₁ and n₂, 1/λ ∝ Z², so λ ∝ 1/Z².',
+          'Li²⁺ has Z = 3 ⇒ λ = 6561/9.',
+          'λ = 729 Å.',
+        ],
+        answer: '729 Å',
+      },
+      questions: [
+        {
+          question: 'Ratio of the de Broglie wavelength of the electron in the first orbit to that in the second orbit of hydrogen is:',
+          options: ['1 : 2', '2 : 1', '1 : 4', '4 : 1'],
+          answer: '1 : 2',
+          difficulty: 'Easy',
+          hint: '2πr = nλ with r ∝ n².',
+          solution: 'λ = 2πr/n ∝ n²/n = n ⇒ λ₁ : λ₂ = 1 : 2.',
+          similar: {
+            question: 'How many de Broglie wavelengths of the electron fit in the circumference of the third Bohr orbit?',
+            options: ['1', '3', '9', '6'],
+            answer: '3',
+            solution: '2πr = nλ, so the nth orbit holds n wavelengths; for n = 3 that is 3.',
+          },
+        },
+        {
+          question: 'A hydrogen atom (mass 1.67 × 10⁻²⁷ kg) emits a 10.2 eV photon. Its recoil speed is about:',
+          options: ['3.26 m/s', '32.6 m/s', '0.33 m/s', '6.5 m/s'],
+          answer: '3.26 m/s',
+          difficulty: 'Medium',
+          hint: 'Momentum conservation: Mv = E/c.',
+          solution: 'v = E/(Mc) = (10.2 × 1.6 × 10⁻¹⁹)/(1.67 × 10⁻²⁷ × 3 × 10⁸) = 1.632 × 10⁻¹⁸/5.01 × 10⁻¹⁹ ≈ 3.26 m/s.',
+          similar: {
+            question: 'A hydrogen atom (mass 1.67 × 10⁻²⁷ kg) emits a 12.09 eV photon. Its recoil speed is about:',
+            options: ['3.86 m/s', '38.6 m/s', '1.93 m/s', '0.39 m/s'],
+            answer: '3.86 m/s',
+            solution: 'v = (12.09 × 1.6 × 10⁻¹⁹)/(1.67 × 10⁻²⁷ × 3 × 10⁸) ≈ 1.934 × 10⁻¹⁸/5.01 × 10⁻¹⁹ ≈ 3.86 m/s.',
+          },
+        },
+        {
+          question: 'In muonic hydrogen a muon (mass ≈ 207 mₑ, charge −e) replaces the electron. Neglecting nuclear motion, its ground-state energy is about:',
+          options: ['−2.8 keV', '−13.6 eV', '−65.7 meV', '−1.4 keV'],
+          answer: '−2.8 keV',
+          difficulty: 'Hard',
+          hint: 'E_n = −me⁴/(8ε₀²h²n²) is proportional to the orbiting particle\'s mass.',
+          solution: 'E ∝ m ⇒ E = −13.6 × 207 ≈ −2815 eV ≈ −2.8 keV.',
+          similar: {
+            question: 'In muonic hydrogen (muon mass ≈ 207 mₑ), neglecting nuclear motion, the radius of the first orbit is about (Bohr radius 0.529 Å):',
+            options: ['2.56 × 10⁻¹³ m', '1.1 × 10⁻⁸ m', '5.29 × 10⁻¹¹ m', '2.56 × 10⁻¹¹ m'],
+            answer: '2.56 × 10⁻¹³ m',
+            solution: 'r ∝ 1/m ⇒ r = 0.529 × 10⁻¹⁰/207 ≈ 2.56 × 10⁻¹³ m.',
+          },
+        },
+      ],
+    },
+  ],
+};

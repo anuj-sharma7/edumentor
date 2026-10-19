@@ -20,7 +20,7 @@ export type ChapterStats = {
   total: number;
   byYear: Record<number, number>;
   byExam: Record<string, number>;
-  /** Average JEE Main questions per Main paper in each year - comparable across years with different paper counts. */
+  /** JEE Main questions per 75-question paper in each year - comparable across years with different paper sizes. */
   perPaper: Record<number, number>;
   trend: Trend;
   topics: CountRow[];
@@ -54,12 +54,13 @@ function countBy(items: PyqItem[], key: (q: PyqItem) => string): CountRow[] {
   return [...map.values()].sort((a, b) => b.total - a.total);
 }
 
-/** Compare the latest two years by questions per paper. */
+/** Compare the older half of the years with the newer half by questions per paper. */
 function trendOf(perPaper: Record<number, number>, years: number[]): Trend {
-  const [prev, last] = years.slice(-2);
-  if (prev === undefined || last === undefined) return 'steady';
-  const a = perPaper[prev] ?? 0;
-  const b = perPaper[last] ?? 0;
+  if (years.length < 2) return 'steady';
+  const mid = Math.floor(years.length / 2);
+  const avg = (ys: number[]) => ys.reduce((n, y) => n + (perPaper[y] ?? 0), 0) / ys.length;
+  const a = avg(years.slice(0, mid));
+  const b = avg(years.slice(mid));
   if (a === 0 && b > 0) return 'new';
   if (b >= a * 1.3 && b - a >= 0.3) return 'rising';
   if (b <= a * 0.7 && a - b >= 0.3) return 'falling';
@@ -72,6 +73,9 @@ export function analyse(papers: PyqPaper[]) {
   const papersPerYear: Record<number, number> = {};
   // Trends compare JEE Main only, so years with or without Advanced papers stay comparable.
   for (const p of papers) if (p.exam === 'JEE Main') papersPerYear[p.year] = (papersPerYear[p.year] ?? 0) + 1;
+
+  const mainTotal: Record<number, number> = {};
+  for (const q of items) if (q.exam === 'JEE Main') mainTotal[q.year] = (mainTotal[q.year] ?? 0) + 1;
 
   const byChapter = new Map<string, PyqItem[]>();
   for (const q of items) {
@@ -92,7 +96,8 @@ export function analyse(papers: PyqPaper[]) {
     const perPaper: Record<number, number> = {};
     const mainByYear: Record<number, number> = {};
     for (const q of qs) if (q.exam === 'JEE Main') mainByYear[q.year] = (mainByYear[q.year] ?? 0) + 1;
-    for (const y of years) perPaper[y] = +((mainByYear[y] ?? 0) / (papersPerYear[y] || 1)).toFixed(2);
+    // Scale to a 75-question paper: 2023-24 papers had 90 questions (only 75 attempted), 2025-26 have 75.
+    for (const y of years) perPaper[y] = +(((mainByYear[y] ?? 0) * 75) / (mainTotal[y] || 75)).toFixed(2);
     const patternPapers = new Map<string, Set<string>>();
     for (const q of qs) patternPapers.set(q.pattern, (patternPapers.get(q.pattern) ?? new Set()).add(q.paperId));
     return {

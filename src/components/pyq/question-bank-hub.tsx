@@ -60,7 +60,7 @@ export function QuestionBankHub({ data }: { data: HubData }) {
           ))}
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          JEE Main papers per year: {data.years.map(y => `${y}: ${data.papersPerYear[y] ?? 0}`).join(' · ')}. Bars and trends use average JEE Main questions per paper, so years compare fairly; JEE Advanced questions are included in counts and question lists.
+          JEE Main papers per year: {data.years.map(y => `${y}: ${data.papersPerYear[y] ?? 0}`).join(' · ')}. Bars and trends use average JEE Main questions per 75-question paper, so years compare fairly; JEE Advanced questions are included in counts and question lists.
         </p>
       </section>
 

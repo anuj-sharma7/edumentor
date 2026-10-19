@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import type { Trend } from '@/lib/data/pyq/analysis';
 
 /** Validated (light + dark) series colours, fixed per year so a filter never repaints them. */
-export const yearColor: Record<number, string> = { 2024: '#0d9488', 2025: '#0284c7', 2026: '#8b5cf6' };
+export const yearColor: Record<number, string> = { 2023: '#d97706', 2024: '#0d9488', 2025: '#0284c7', 2026: '#8b5cf6' };
 
 /**
  * Questions-per-paper bars, one per year, each directly labelled with its

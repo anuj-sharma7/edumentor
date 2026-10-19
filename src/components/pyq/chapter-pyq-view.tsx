@@ -72,7 +72,7 @@ export function ChapterPyqView({
             )}
           </div>
           <div className="w-full md:w-64">
-            <p className="mb-1 text-xs font-semibold text-muted-foreground">JEE Main questions per paper</p>
+            <p className="mb-1 text-xs font-semibold text-muted-foreground">JEE Main questions per 75-question paper</p>
             <YearBars perPaper={stats.perPaper} years={years} max={yearMax} />
           </div>
         </div>

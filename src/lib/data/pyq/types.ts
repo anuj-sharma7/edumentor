@@ -50,7 +50,7 @@ export type PyqPaper = {
   /** e.g. 'main-2024-01-27-s1', 'adv-2024-p1' */
   id: string;
   exam: PyqExam;
-  year: 2024 | 2025 | 2026;
+  year: 2023 | 2024 | 2025 | 2026;
   /** 'January' / 'April' for Main, 'Paper 1' / 'Paper 2' for Advanced. */
   session: string;
   /** ISO date of the exam (Main). */

@@ -1,3 +1,11 @@
+import { main20240127S1 } from './main-2024/2024-01-27-s1';
+import { main20240131S1 } from './main-2024/2024-01-31-s1';
+import { main20240404S1 } from './main-2024/2024-04-04-s1';
+import { main20240408S1 } from './main-2024/2024-04-08-s1';
+import { main20230124S1 } from './main-2023/2023-01-24-s1';
+import { main20230131S1 } from './main-2023/2023-01-31-s1';
+import { main20230406S1 } from './main-2023/2023-04-06-s1';
+import { main20230410S1 } from './main-2023/2023-04-10-s1';
 import { main20250122S1 } from './main-2025/2025-01-22-s1';
 import { main20250123S1 } from './main-2025/2025-01-23-s1';
 import { main20250124S1 } from './main-2025/2025-01-24-s1';
@@ -25,6 +33,14 @@ function mergeBySubject(...parts: PyqPaper[][]): PyqPaper[] {
 }
 
 export const pyqPapers: PyqPaper[] = [
+  main20240127S1,
+  main20240131S1,
+  main20240404S1,
+  main20240408S1,
+  main20230124S1,
+  main20230131S1,
+  main20230406S1,
+  main20230410S1,
   main20250122S1,
   main20250123S1,
   main20250124S1,
